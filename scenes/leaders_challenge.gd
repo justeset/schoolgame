@@ -1,122 +1,161 @@
-extends CanvasLayer
+extends Panel
 
-const CHAT_IMAGE_TEX: Texture2D = preload("res://пикчи3/pic2.png")
-const CHAT_FONT_SIZE := 26
-const CHAT_TEXT_COLOR := Color("e9eefc")
-
-const CHAT_MESSAGES: Array[Dictionary] = [
-	{ "text": "О НЕТ!!!" },
-	{ "text": "", "image": CHAT_IMAGE_TEX },
-	{ "text": "Таблица лидеров сломалась!!! Все места перемешались, нужно срочно починить сортировку." },
-	{ "text": "Поможешь?" },
-]
-
-@export var delay_per_message_sec: float = 1.2
-
-@onready var messages_container: VBoxContainer = $Panel/MainVBox/ChatMargin/ChatScroll/Messages
-@onready var solve_button: Button = $Panel/SolveButton
+@onready var answer_edit: TextEdit = $VBoxContainer/Content/TaskPanel/AnswerEdit
+@onready var http_request: HTTPRequest = HTTPRequest.new()
 
 func _ready() -> void:
-	solve_button.visible = false
-	solve_button.disabled = true
-	_play_chat()
+	if not http_request.is_inside_tree():
+		add_child(http_request)
+	
+	if http_request.request_completed.is_connected(_on_request_completed):
+		http_request.request_completed.disconnect(_on_request_completed)
+	
+	http_request.request_completed.connect(_on_request_completed)
+	
+	if answer_edit:
+		answer_edit.call_deferred("set", "tab_size", 4)
+		answer_edit.call_deferred("set", "insert_tab", true)
 
-func _play_chat() -> void:
-	_clear_container(messages_container)
 
-	for data in CHAT_MESSAGES:
-		var bubble := _make_bubble(data)
-		messages_container.add_child(bubble)
-		_scroll_to_bottom()
-
-		# плавное появление
-		var tween := create_tween()
-		tween.tween_property(bubble, "modulate:a", 1.0, 0.2)
-
-		await get_tree().create_timer(delay_per_message_sec).timeout
-
-	solve_button.visible = true
-	solve_button.disabled = false
-
-	solve_button.visible = true
-	solve_button.disabled = false
-
-func _make_bubble(data: Dictionary) -> Control:
-	var row := HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_BEGIN
-	row.size_flags_horizontal = Control.SIZE_FILL
-
-	var bubble := PanelContainer.new()
-	bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	row.add_child(bubble)
-
-	var inner := VBoxContainer.new()
-	inner.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	inner.alignment = BoxContainer.ALIGNMENT_BEGIN
-	bubble.add_child(inner)
-
-	# --- стиль пузыря ---
-	var style := StyleBoxFlat.new()
-	style.content_margin_left = 16
-	style.content_margin_right = 16
-	style.content_margin_top = 10
-	style.content_margin_bottom = 10
-	style.corner_radius_top_left = 14
-	style.corner_radius_top_right = 14
-	style.corner_radius_bottom_left = 14
-	style.corner_radius_bottom_right = 14
-	style.bg_color = Color("2732e5ff") if (data.has("image") and data["image"] != null) else Color("283361")
-	bubble.add_theme_stylebox_override("panel", style)
-
-	# --- текст ---
-	var text_value := str(data.get("text", ""))
-	if not text_value.is_empty():
-		var label := Label.new()
-		label.text = text_value
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-		label.add_theme_font_size_override("font_size", CHAT_FONT_SIZE)
-		label.add_theme_color_override("font_color", CHAT_TEXT_COLOR)
-		label.add_theme_color_override("font_color", Color("e9eefc"))
-		label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-
-		# Делаем пузырек "по тексту", но с ограничением max ширины
-		var max_bubble_text_width := 540.0
-		var font: Font = label.get_theme_default_font()
-		var font_size: int = label.get_theme_default_font_size()
-		var text_width := font.get_string_size(text_value, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
-
-		if text_width > max_bubble_text_width:
-			label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			label.custom_minimum_size = Vector2(max_bubble_text_width, 0)
-		else:
-			label.autowrap_mode = TextServer.AUTOWRAP_OFF
-
-		inner.add_child(label)
-
-	# --- картинка ---
-	if data.has("image") and data["image"] != null:
-		var img := TextureRect.new()
-		img.texture = data["image"]
-		img.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-		img.custom_minimum_size = Vector2(260, 150)
-		img.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		inner.add_child(img)
-
-	row.modulate.a = 0.0
-	return row
-
-func _clear_container(container: Node) -> void:
-	for child in container.get_children():
-		child.queue_free()
-
-func _scroll_to_bottom() -> void:
-	var parent_node := messages_container.get_parent()
-	if parent_node is ScrollContainer:
-		var scroll := parent_node as ScrollContainer
-		var bar: ScrollBar = scroll.get_v_scroll_bar()
-		if bar:
-			scroll.scroll_vertical = bar.max_value
-
-func _on_solve_button_pressed() -> void:
+func _on_close_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://levels/level_1.tscn")
+
+
+func _on_clear_button_pressed() -> void:
+	answer_edit.text = ""
+	answer_edit.grab_focus()
+
+
+func _on_check_button_pressed() -> void:
+	var code_text = answer_edit.text.strip_edges()
+	
+	if code_text == "":
+		_show_result_panel(
+			false,
+			"Пустой ответ",
+			"Введите код перед проверкой.",
+			"Напиши решение в поле ввода."
+		)
+		return
+	
+	var data = {
+		"code": code_text
+	}
+	
+	var json_data = JSON.stringify(data)
+	var headers = ["Content-Type: application/json"]
+	
+	print("Отправляем запрос...")
+	print("JSON:", json_data)
+	
+	var err = http_request.request(
+		"http://127.0.0.1:8000/check",
+		headers,
+		HTTPClient.METHOD_POST,
+		json_data
+	)
+	
+	print("Код ошибки request(): ", err)
+	
+	if err != OK:
+		_show_result_panel(
+			false,
+			"Ошибка отправки",
+			"Не удалось отправить запрос на сервер.",
+			"Проверь, запущен ли backend на http://127.0.0.1:8000"
+		)
+
+
+func _on_request_completed(result, response_code, headers, body) -> void:
+	print("request_completed вызван")
+	print("result:", result)
+	print("response_code:", response_code)
+	print("headers:", headers)
+	
+	var response_text = body.get_string_from_utf8()
+	print("body:", response_text)
+	
+	if response_code != 200:
+		_show_result_panel(
+			false,
+			"Ошибка сервера",
+			"Сервер вернул код " + str(response_code),
+			"Проверь backend и endpoint /check"
+		)
+		return
+	
+	var json_dict = JSON.parse_string(response_text)
+	
+	if json_dict == null or typeof(json_dict) != TYPE_DICTIONARY:
+		_show_result_panel(
+			false,
+			"Ошибка ответа",
+			"Сервер вернул некорректный JSON.",
+			"Проверь формат ответа backend."
+		)
+		return
+	
+	var fb = json_dict.get("feedback", {})
+	
+	if json_dict.get("success", false):
+		var passed = json_dict.get("passed_tests", 0)
+		var total = json_dict.get("total_tests", 0)
+		
+		var explanation = fb.get(
+			"explanation",
+			"Все тесты успешно пройдены (%d/%d)." % [passed, total]
+		)
+		
+		_show_result_panel(
+			true,
+			fb.get("title", "Поздравляем!"),
+			explanation,
+			fb.get("hint", "")
+		)
+	else:
+		var title = fb.get("title", "Задание не выполнено")
+		var explanation = fb.get("explanation", "Код не прошёл проверку.")
+		var hint = fb.get("hint", "Попробуй внимательно проверить решение.")
+		
+		if json_dict.has("test_number"):
+			explanation += "\n\nНе пройден тест №" + str(json_dict["test_number"])
+		
+		if json_dict.has("ваш_вывод") and str(json_dict["ваш_вывод"]) != "":
+			explanation += "\nВаш вывод: " + str(json_dict["ваш_вывод"])
+		
+		if json_dict.has("ожидаемый") and str(json_dict["ожидаемый"]) != "":
+			explanation += "\nОжидалось: " + str(json_dict["ожидаемый"])
+		
+		_show_result_panel(
+			false,
+			title,
+			explanation,
+			hint
+		)
+
+
+func _show_result_panel(success: bool, title: String, explanation: String, hint: String = "") -> void:
+	var result_panel_scene = preload("res://scenes/resultpanel.tscn")
+	
+	if result_panel_scene == null:
+		push_error("Не найдена сцена resultpanel.tscn")
+		return
+	
+	var result_panel = result_panel_scene.instantiate()
+	add_child(result_panel)
+	
+	result_panel.show_result(success, title, explanation, hint)
+	
+	if result_panel.has_signal("continue_pressed"):
+		result_panel.continue_pressed.connect(_on_result_continue)
+	
+	if result_panel.has_signal("retry_pressed"):
+		result_panel.retry_pressed.connect(_on_result_retry)
+
+
+func _on_result_continue() -> void:
+	get_tree().change_scene_to_file("res://levels/level_1.tscn")
+
+
+func _on_result_retry() -> void:
+	pass

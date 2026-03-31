@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://mainmenu123"]
+
+[ext_resource type="Script" uid="uid://dkqrgu0x03oun" path="res://mainmenu.gd" id="1_d2nv2"]
+[ext_resource type="Texture2D" uid="uid://beabd6swybpoj" path="res://пикчи3/building.png" id="2_wgsso"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.96, 0.69, 0.36, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 6
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.85, 0.55, 0.27, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(1, 0.77, 0.42, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[node name="MainMenu" type="Control" unique_id=919350557]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d2nv2")
+
+[node name="Background" type="TextureRect" parent="." unique_id=260642415]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wgsso")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="." unique_id=1978299940]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=582458152]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=699081637]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=533721859]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 42
+text = "КОД КАМПУСА"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=2140694832]
+custom_minimum_size = Vector2(320, 64)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("1")
+theme_override_styles/pressed = SubResource("3")
+theme_override_styles/hover = SubResource("2")
+text = "Начать игру"
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1407697395]
+custom_minimum_size = Vector2(320, 64)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("1")
+theme_override_styles/pressed = SubResource("3")
+theme_override_styles/hover = SubResource("2")
+text = "Продолжить"
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1892115882]
+custom_minimum_size = Vector2(320, 64)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("1")
+theme_override_styles/pressed = SubResource("3")
+theme_override_styles/hover = SubResource("2")
+text = "Настройки"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1831749677]
+custom_minimum_size = Vector2(320, 64)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("1")
+theme_override_styles/pressed = SubResource("3")
+theme_override_styles/hover = SubResource("2")
+text = "Выход"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
