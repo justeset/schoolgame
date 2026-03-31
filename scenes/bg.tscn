@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bqfbr84aig77f" path="res://пикчи2/Pixel_Glass_Room_KCaDzhMW.png" id="5_w68nc"]
 [ext_resource type="Texture2D" uid="uid://dcswvitrm6lr" path="res://пикчи/Pixel_Sofa_Art_XRvWYHgN.png" id="6_bf1jy"]
 [ext_resource type="Texture2D" uid="uid://6djbmn6jjalv" path="res://пикчи2/IMG_20260328_160141_421.png.png" id="6_r6ch1"]
-[ext_resource type="Texture2D" uid="uid://bsyggy1siydtk" path="res://separately_assets/Sprite-0013.png" id="7_r6ch1"]
-[ext_resource type="Texture2D" uid="uid://cve3w6db8g4on" path="res://separately_assets/Sprite-0004.png" id="8_4la4c"]
 
 [sub_resource type="Theme" id="Theme_5vsr6"]
 
@@ -159,12 +157,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4la4c")
 
 [node name="Sprite0013" type="Sprite2D" parent="ParallaxLayer4" unique_id=725105232]
 position = Vector2(2078, 580)
-texture = ExtResource("7_r6ch1")
 
 [node name="Sprite0004" type="Sprite2D" parent="ParallaxLayer4" unique_id=1693830182]
 position = Vector2(976.99994, 588)
 scale = Vector2(4.5156226, 1.1979164)
-texture = ExtResource("8_4la4c")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1328339349]
 

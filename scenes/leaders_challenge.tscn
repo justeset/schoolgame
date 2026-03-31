@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://b5bjdr74bfnsx"]
+
+[ext_resource type="Script" uid="uid://d3kc2tbm532ay" path="res://scenes/leaders_challenge.gd" id="1_hhyb5"]
+[ext_resource type="Texture2D" uid="uid://c717ftlxato0c" path="res://пикчи2/иконка2.png" id="2_icnuy"]
+
+[node name="LeadersChallenge" type="Node2D" unique_id=842811180]
+
+[node name="LeadersChallenge" type="CanvasLayer" parent="." unique_id=559217262]
+script = ExtResource("1_hhyb5")
+
+[node name="ColorRect" type="ColorRect" parent="LeadersChallenge" unique_id=681675388]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29975066, 0.50500685, 0.999914, 1)
+
+[node name="Panel" type="Panel" parent="LeadersChallenge" unique_id=1520979599]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MainVBox" type="VBoxContainer" parent="LeadersChallenge/Panel" unique_id=2073995538]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChatMargin" type="MarginContainer" parent="LeadersChallenge/Panel/MainVBox" unique_id=741294942]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 54
+theme_override_constants/margin_right = 180
+theme_override_constants/margin_bottom = -120
+
+[node name="ChatScroll" type="ScrollContainer" parent="LeadersChallenge/Panel/MainVBox/ChatMargin" unique_id=47510285]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="Messages" type="VBoxContainer" parent="LeadersChallenge/Panel/MainVBox/ChatMargin/ChatScroll" unique_id=1708377353]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="LeadersChallenge/Panel/MainVBox" unique_id=2008015531]
+layout_mode = 2
+
+[node name="Avatar" type="TextureRect" parent="LeadersChallenge/Panel/MainVBox/BottomBar" unique_id=424987095]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("2_icnuy")
+stretch_mode = 5
+
+[node name="Spaser" type="Control" parent="LeadersChallenge/Panel/MainVBox/BottomBar" unique_id=389913554]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SolveButton" type="Button" parent="LeadersChallenge/Panel" unique_id=714829546]
+layout_mode = 0
+offset_left = 900.0
+offset_top = 541.0
+offset_right = 1100.0
+offset_bottom = 617.0
+text = "Pешить задачу"
+icon_alignment = 1
+
+[connection signal="pressed" from="LeadersChallenge/Panel/SolveButton" to="LeadersChallenge" method="_on_solve_button_pressed"]
