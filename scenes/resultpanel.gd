@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-signal continue_pressed
+signal continue_pressed(success: bool)
 signal retry_pressed
 
 @onready var card: Panel = $Card
@@ -12,12 +12,16 @@ signal retry_pressed
 @onready var retry_button: Button = $Card/VBoxContainer/Buttons/RetryButton
 @onready var continue_button: Button = $Card/VBoxContainer/Buttons/ContinueButton
 
+var was_successful: bool = false
+
 func _ready() -> void:
 	overlay.modulate.a = 1.0
 	card.scale = Vector2.ONE
 	card.modulate.a = 1.0
 
 func show_result(success: bool, title: String, explanation: String, hint: String = "") -> void:
+	was_successful = success
+	
 	if success:
 		icon_label.text = "✓"
 		icon_label.modulate = Color(0, 0.9, 0.75)
@@ -48,4 +52,5 @@ func _on_retry_button_pressed() -> void:
 
 func _on_continue_button_pressed() -> void:
 	queue_free()
-	emit_signal("continue_pressed")
+	emit_signal("continue_pressed", was_successful)
+	get_tree().change_scene_to_file("res://levels/level_1.tscn")

@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://coy88jef6xnsv" path="res://items/claster.tscn" id="14_betor"]
 [ext_resource type="Texture2D" uid="uid://cpsa1ebwpa7hh" path="res://пикчи/file_00000000296c7243b6741c4b2839897c.png" id="16_bgw3c"]
 [ext_resource type="PackedScene" uid="uid://dhophliov512q" path="res://items/bookcase.tscn" id="18_oqlok"]
+[ext_resource type="FontFile" uid="uid://dikie42ma48xp" path="res://fonts/kom-post.ttf" id="19_jkxa6"]
+[ext_resource type="StyleBox" uid="uid://d2343pj1gb2i3" path="res://default_button.tres" id="20_w75he"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hph3"]
 texture = ExtResource("2_gwceb")
@@ -305,6 +307,9 @@ sources/0 = SubResource("TileSetAtlasSource_5hph3")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_betor"]
 bg_color = Color(0.30588236, 0.4627451, 0.6, 0.44705883)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udfhf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="level1" type="Node2D" unique_id=273332764]
 
 [node name="ParallaxBackground2" parent="." unique_id=307818867 instance=ExtResource("1_vjtdm")]
@@ -429,3 +434,21 @@ texture = ExtResource("16_bgw3c")
 
 [node name="Area2D8" parent="." unique_id=94041992 instance=ExtResource("18_oqlok")]
 position = Vector2(2131, 49)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=472829921]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1899523276]
+offset_left = 26.0
+offset_top = 20.0
+offset_right = 115.0
+offset_bottom = 73.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("19_jkxa6")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("20_w75he")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/hover = ExtResource("20_w75he")
+text = "Меню"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="Area2D2" method="_on_button_pressed"]
