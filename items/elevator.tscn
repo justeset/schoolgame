@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dcnaopv1djc6e"]
+
+[ext_resource type="Texture2D" uid="uid://bdpfpma0pmuis" path="res://пикчи/Pixel_Sofa_Art_sQ46GxRZ.png" id="1_cm7w0"]
+[ext_resource type="Script" uid="uid://blfcbscvvxome" path="res://items/elevator.gd" id="1_skx8g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_skx8g"]
+size = Vector2(84, 106)
+
+[node name="Area2D" type="Area2D" unique_id=285219494]
+script = ExtResource("1_skx8g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=543589761]
+position = Vector2(-2, -3)
+shape = SubResource("RectangleShape2D_skx8g")
+
+[node name="PixelSofaArtSQ46GxRz" type="Sprite2D" parent="." unique_id=924545258]
+position = Vector2(7.0000076, -2)
+scale = Vector2(0.15657552, 0.13964844)
+texture = ExtResource("1_cm7w0")

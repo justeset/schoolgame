@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://c6rdhslydpy3o"]
+
+[ext_resource type="Script" uid="uid://clxit6cjk7fm2" path="res://scenes/resultpanel.gd" id="1_uttl3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_card"]
+bg_color = Color(0.098, 0.118, 0.149, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.898, 0.753, 0.9)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button"]
+bg_color = Color(0, 0.898, 0.753, 0.15)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.898, 0.753, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ResultPanel" type="CanvasLayer" unique_id=1035560760]
+layer = 10
+script = ExtResource("1_uttl3")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1480743008]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="Card" type="Panel" parent="." unique_id=469852501]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -220.0
+offset_right = 320.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_card")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Card" unique_id=1153867357]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="Label" parent="Card/VBoxContainer" unique_id=1822226186]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="Card/VBoxContainer" unique_id=594865719]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+
+[node name="Explanation" type="RichTextLabel" parent="Card/VBoxContainer" unique_id=1361443014]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="Hint" type="Label" parent="Card/VBoxContainer" unique_id=1152211470]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Card/VBoxContainer" unique_id=1681386790]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="Card/VBoxContainer/Buttons" unique_id=1461010654]
+custom_minimum_size = Vector2(180, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Попробовать ещё раз"
+
+[node name="ContinueButton" type="Button" parent="Card/VBoxContainer/Buttons" unique_id=1532443110]
+custom_minimum_size = Vector2(180, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Выйти"
+
+[connection signal="pressed" from="Card/VBoxContainer/Buttons/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="Card/VBoxContainer/Buttons/ContinueButton" to="." method="_on_continue_button_pressed"]
