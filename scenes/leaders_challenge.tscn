@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://b5bjdr74bfnsx"]
+[gd_scene format=3 uid="uid://d2fnocvyvh8oc"]
 
-[ext_resource type="Script" uid="uid://djq3erl8nnops" path="res://scenes/leaders_challenge.gd" id="1_hhyb5"]
+[ext_resource type="Script" uid="uid://dsib7qd4oufej" path="res://scenes/leaders_challenge.gd" id="1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_main"]
 bg_color = Color(0.0588, 0.0784, 0.098, 0.96)
@@ -33,16 +33,16 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="LessonPanel" type="Panel" unique_id=985969712]
+[node name="LessonPanel" type="Panel" unique_id=840326166]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_main")
-script = ExtResource("1_hhyb5")
+script = ExtResource("1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1780742371]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=644312908]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,23 +55,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="Header" type="Panel" parent="VBoxContainer" unique_id=904120422]
+[node name="Header" type="Panel" parent="VBoxContainer" unique_id=121826039]
 custom_minimum_size = Vector2(0, 68)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_header")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Header" unique_id=59189806]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Header" unique_id=1899832264]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="VBoxContainer/Header/HBoxContainer" unique_id=1664245833]
+[node name="Title" type="Label" parent="VBoxContainer/Header/HBoxContainer" unique_id=1435635690]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
@@ -79,34 +76,35 @@ theme_override_font_sizes/font_size = 26
 text = "Алгоритмы • Сортировка пузырьком"
 vertical_alignment = 1
 
-[node name="CloseButton" type="Button" parent="VBoxContainer/Header/HBoxContainer" unique_id=1482674788]
+[node name="CloseButton" type="Button" parent="VBoxContainer/Header/HBoxContainer" unique_id=1413723109]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_button")
 text = "Закрыть"
 
-[node name="Content" type="HSplitContainer" parent="VBoxContainer" unique_id=979744992]
+[node name="Content" type="HSplitContainer" parent="VBoxContainer" unique_id=930965508]
 layout_mode = 2
 size_flags_vertical = 3
 split_offsets = PackedInt32Array(420)
 split_offset = 420
 
-[node name="TheoryPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=816398108]
+[node name="TheoryPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=261731592]
 layout_mode = 2
 
-[node name="TheoryTitle" type="Label" parent="VBoxContainer/Content/TheoryPanel" unique_id=1491828497]
+[node name="TheoryTitle" type="Label" parent="VBoxContainer/Content/TheoryPanel" unique_id=256058276]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
 theme_override_font_sizes/font_size = 20
 text = "Идея пузырьковой сортировки:"
 
-[node name="TheoryContent" type="ScrollContainer" parent="VBoxContainer/Content/TheoryPanel" unique_id=2138034745]
+[node name="TheoryContent" type="ScrollContainer" parent="VBoxContainer/Content/TheoryPanel" unique_id=257324913]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Content/TheoryPanel/TheoryContent" unique_id=379992896]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Content/TheoryPanel/TheoryContent" unique_id=1927544916]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -126,27 +124,27 @@ n = len(numbers)
 
 # Проходим по всему массиву
 for i in range(n):
-# Сравниваем соседние элементы
-for j in range(0, n - i - 1):
-# Если левый элемент меньше правого (для убывания)
-if numbers[j] < numbers[j + 1]:
-# Меняем их местами
-numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
-print(\"После прохода\", i + 1, \"массив выглядит так:\", numbers)
+    # Сравниваем соседние элементы
+    for j in range(0, n - i - 1):
+        # Если левый элемент меньше правого (для убывания)
+        if numbers[j] < numbers[j + 1]:
+            # Меняем их местами
+            numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
+    print(\"После прохода\", i + 1, \"массив выглядит так:\", numbers)
 
 # Итоговый отсортированный массив
 print(\"Отсортированный массив по убыванию:\", numbers)"
 fit_content = true
 
-[node name="TaskPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=1976127786]
+[node name="TaskPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=1609031820]
 layout_mode = 2
 theme_override_constants/separation = 13
 
-[node name="TaskText" type="RichTextLabel" parent="VBoxContainer/Content/TaskPanel" unique_id=2074274642]
+[node name="TaskText" type="RichTextLabel" parent="VBoxContainer/Content/TaskPanel" unique_id=32940295]
 layout_mode = 2
 text = "Допиши функцию bubble_sort, которая принимает массив arr в качестве аргумента"
 
-[node name="AnswerEdit" type="TextEdit" parent="VBoxContainer/Content/TaskPanel" unique_id=1866550126]
+[node name="AnswerEdit" type="TextEdit" parent="VBoxContainer/Content/TaskPanel" unique_id=1744044863]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
@@ -156,17 +154,17 @@ def bubble_sort(arr):
 	# здесь должен быть твой код"
 wrap_mode = 1
 
-[node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=757845656]
+[node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="CheckButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=1554201606]
+[node name="CheckButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=1616921557]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_button")
 text = "Проверить"
 
-[node name="ClearButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=197283682]
+[node name="ClearButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=1325702748]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_button")

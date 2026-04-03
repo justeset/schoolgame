@@ -1,5 +1,7 @@
 extends Panel
 
+const API_URL = "https://schoolgame-1i34.onrender.com"
+
 @onready var answer_edit: TextEdit = $VBoxContainer/Content/TaskPanel/AnswerEdit
 @onready var http_request: HTTPRequest = HTTPRequest.new()
 
@@ -47,9 +49,10 @@ func _on_check_button_pressed() -> void:
 	
 	print("Отправляем запрос...")
 	print("JSON:", json_data)
+	print("URL:", API_URL + "/check")
 	
 	var err = http_request.request(
-		"http://127.0.0.1:8000/check",
+		API_URL + "/check",
 		headers,
 		HTTPClient.METHOD_POST,
 		json_data
@@ -62,7 +65,7 @@ func _on_check_button_pressed() -> void:
 			false,
 			"Ошибка отправки",
 			"Не удалось отправить запрос на сервер.",
-			"Проверь, запущен ли backend на http://127.0.0.1:8000"
+			"Проверь доступность backend."
 		)
 
 
@@ -98,6 +101,7 @@ func _on_request_completed(result, response_code, headers, body) -> void:
 	var fb = json_dict.get("feedback", {})
 	
 	if json_dict.get("success", false):
+		_mark_task_completed("bubble_sort")
 		var passed = json_dict.get("passed_tests", 0)
 		var total = json_dict.get("total_tests", 0)
 		
@@ -159,3 +163,20 @@ func _on_result_continue() -> void:
 
 func _on_result_retry() -> void:
 	pass
+
+
+func _mark_task_completed(task_id: String) -> void:
+	var completed_tasks: Dictionary = {}
+	
+	if FileAccess.file_exists("user://tasks_progress.save"):
+		var read_file = FileAccess.open("user://tasks_progress.save", FileAccess.READ)
+		if read_file:
+			var saved_data = read_file.get_var()
+			if typeof(saved_data) == TYPE_DICTIONARY:
+				completed_tasks = saved_data
+	
+	completed_tasks[task_id] = true
+	
+	var write_file = FileAccess.open("user://tasks_progress.save", FileAccess.WRITE)
+	if write_file:
+		write_file.store_var(completed_tasks)
