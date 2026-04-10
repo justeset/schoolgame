@@ -11,7 +11,7 @@ import (
 
 func Register(c *gin.Context) {
     var input struct {
-        Username string `json:"username"`
+        Username string `json:"email"`
         Password string `json:"password"`
     }
 
@@ -23,14 +23,14 @@ func Register(c *gin.Context) {
     }
 
     hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
-    
+
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "ошибка сервера"})
         return
     }
 
     _, err = db.DB.Exec(
-        "INSERT INTO users (username, password) VALUES ($1, $2)",
+        "INSERT INTO users (email, password) VALUES ($1, $2)",
         input.Username,
         string(hashedPassword),
     )
@@ -59,7 +59,7 @@ func Login(c *gin.Context) {
     err = db.DB.QueryRow(
         "SELECT id, username, password FROM users WHERE username = $1",
         input.Username,
-    ).Scan(&user.ID, &user.Username, &user.Password)
+    ).Scan(&user.ID, &user.Email, &user.Password)
 
     if err != nil {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "пользователь не найден"})
