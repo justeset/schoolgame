@@ -5,7 +5,16 @@ import (
     "authorization/handlers"
     "github.com/gin-gonic/gin"
     "github.com/joho/godotenv"
+    _ "authorization/docs"
+    swaggerFiles "github.com/swaggo/files"
+    ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+// @title School Game API
+// @version 1.0
+// @description Бэкенд для школьной игры
+// @host localhost:8080
+// @BasePath /
 
 func main() {
     godotenv.Load()
@@ -28,5 +37,7 @@ func main() {
     r.POST("/tasks/done", handlers.CompleteTask)
     r.GET("/tasks", handlers.GetUserTasks)
 
+    r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+    
     r.Run(":8080")
 }

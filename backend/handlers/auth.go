@@ -9,6 +9,16 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// Register godoc
+// @Summary Регистрация пользователя
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param input body models.RegisterRequest true "Данные пользователя"
+// @Success 201 {object} models.MessageResponse
+// @Failure 400 {object} models.ErrorResponse
+// @Failure 409 {object} models.ErrorResponse
+// @Router /auth/register [post]
 func Register(c *gin.Context) {
     var input struct {
         Email    string `json:"email"`
@@ -42,6 +52,15 @@ func Register(c *gin.Context) {
     c.JSON(http.StatusCreated, gin.H{"message": "пользователь создан"})
 }
 
+// Login godoc
+// @Summary Логин пользователя
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param input body models.LoginRequest true "Данные для входа"
+// @Success 200 {object} models.LoginResponse
+// @Failure 401 {object} models.ErrorResponse
+// @Router /auth/login [post]
 func Login(c *gin.Context) {
     var user models.User
 
