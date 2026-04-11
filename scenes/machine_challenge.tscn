@@ -155,7 +155,9 @@ def coins_control(change_due, coins_given):
 	if coins_given == change_due:
     	print(\"Успех! Аппарат работает.\")
 	else:
-    	print(\"Провал! Аппарат зажевал деньги.\")"
+    	print(\"Провал! Аппарат зажевал деньги.\")
+
+	return coins_given"
 wrap_mode = 1
 
 [node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]
