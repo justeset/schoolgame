@@ -25,13 +25,8 @@ func main() {
     r.POST("/auth/register", handlers.Register)
     r.POST("/auth/login", handlers.Login)
     // tasks
-    r.POST("/tasks", handlers.CreateTask)
     r.POST("/tasks/done", handlers.CompleteTask)
     r.GET("/tasks", handlers.GetUserTasks)
-
-    r.GET("/ping", func(c *gin.Context) {
-        c.JSON(200, gin.H{"message": "ok"})
-    })
 
     r.Run(":8080")
 }
