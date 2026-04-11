@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://o7rnscdasy8i" path="res://пикчи/IMG_20260327_183236_167.jpg.png" id="8_l53as"]
 [ext_resource type="PackedScene" uid="uid://dv6r1d7gfhgtk" path="res://items/vending_machine.tscn" id="8_lrvbd"]
 [ext_resource type="Texture2D" uid="uid://ko4w6424ermj" path="res://пикчи/Pixel_Sofa_Art_A_pixelated_gray_armchair_is_centered_on_a_black_V0hS9GRG.png" id="9_08mmt"]
+[ext_resource type="Script" uid="uid://cmx6hroa4isma" path="res://items/vending_machine.gd" id="9_w75he"]
 [ext_resource type="Texture2D" uid="uid://d1lr1hs27vhv7" path="res://пикчи/Pixel_Sofa_Art_crfFaLSU.png" id="10_5ot28"]
 [ext_resource type="PackedScene" uid="uid://uxfw22ytayo0" path="res://items/skype_rooms.tscn" id="12_aerfg"]
 [ext_resource type="PackedScene" uid="uid://dcnaopv1djc6e" path="res://items/elevator.tscn" id="13_nmsli"]
@@ -387,6 +388,7 @@ scale = Vector2(0.102417, 0.10089107)
 
 [node name="Area2D" parent="stairs_1floor" unique_id=2049448845 instance=ExtResource("8_lrvbd")]
 position = Vector2(-10467.013, -2477.92)
+script = ExtResource("9_w75he")
 
 [node name="stairs_2floor" parent="." unique_id=1968633380 instance=ExtResource("7_bgw3c")]
 position = Vector2(1433.9999, 274)

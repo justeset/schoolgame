@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://tjvc510kyshy"]
+
+[ext_resource type="Script" uid="uid://cpylbvty64rky" path="res://scenes/machine_challenge.gd" id="1_7tv4h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_main"]
+bg_color = Color(0.0588, 0.0784, 0.098, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.898, 0.753, 0.65)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_header"]
+bg_color = Color(0.098, 0.118, 0.149, 1)
+border_width_bottom = 3
+border_color = Color(0, 0.898, 0.753, 0.8)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button"]
+bg_color = Color(0, 0.898, 0.753, 0.12)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.898, 0.753, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="LessonPanel" type="Panel" unique_id=840326166]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_main")
+script = ExtResource("1_7tv4h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=644312908]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Header" type="Panel" parent="VBoxContainer" unique_id=121826039]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_header")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Header" unique_id=1899832264]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Header/HBoxContainer" unique_id=1435635690]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "Циклы • Цикл while"
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/Header/HBoxContainer" unique_id=1413723109]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Закрыть"
+
+[node name="Content" type="HSplitContainer" parent="VBoxContainer" unique_id=930965508]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(420)
+split_offset = 420
+
+[node name="TheoryPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=261731592]
+layout_mode = 2
+
+[node name="TheoryTitle" type="Label" parent="VBoxContainer/Content/TheoryPanel" unique_id=256058276]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
+theme_override_font_sizes/font_size = 20
+text = "Циклы и их надобность:"
+
+[node name="TheoryContent" type="ScrollContainer" parent="VBoxContainer/Content/TheoryPanel" unique_id=257324913]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Content/TheoryPanel/TheoryContent" unique_id=1927544916]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Цикл в программировании — это конструкция, которая позволяет выполнять один и тот же блок кода многократно, пока соблюдается определённое условие.
+
+Если говорить совсем просто: вместо того чтобы писать команду «напечатай слово Привет» 100 раз подряд, мы пишем: «повтори 100 раз: напечатай слово Привет».
+
+Пример кода:
+
+change_due = 7 
+coins_given = 0 
+
+while coins_given < change_due:  
+    print(\"Дзынь! Монета выдана.\")
+    coins_given = coins_given + 1 
+
+"
+fit_content = true
+
+[node name="TaskPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=1609031820]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="TaskText" type="RichTextLabel" parent="VBoxContainer/Content/TaskPanel" unique_id=32940295]
+layout_mode = 2
+text = "Допиши функцию bubble_sort, которая принимает массив arr в качестве аргумента"
+
+[node name="AnswerEdit" type="TextEdit" parent="VBoxContainer/Content/TaskPanel" unique_id=1744044863]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_colors/background_color = Color(0.098, 0.118, 0.149, 1)
+text = "# ЗАДАНИЕ: Аппарат для размена. 
+# У вас есть сумма сдачи (change_due). 
+# Напиши код в отмеченном месте, чтобы аппарат 
+# выдал НУЖНОЕ количество монет (по 1 доллару).
+
+def coins_control(change_due, coins_given):
+	change_due = 7  # Должен выдать 7 монет
+	coins_given = 0 # Счетчик выданных монет
+
+# ===== МЕСТО ДЛЯ КОДА =======
+	
+# ============================
+
+	print(f\"Итого выдано монет: {coins_given}\")
+	if coins_given == change_due:
+    	print(\"Успех! Аппарат работает.\")
+	else:
+    	print(\"Провал! Аппарат зажевал деньги.\")"
+wrap_mode = 1
+
+[node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="CheckButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=1616921557]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Проверить"
+
+[node name="ClearButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=1325702748]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Очистить"
+
+[connection signal="pressed" from="VBoxContainer/Header/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/CheckButton" to="." method="_on_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/ClearButton" to="." method="_on_clear_button_pressed"]
