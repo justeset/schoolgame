@@ -1,20 +1,25 @@
 [gd_scene format=4 uid="uid://bpy3kl1pkmayo"]
 
-[ext_resource type="PackedScene" uid="uid://b444ywce2l1gi" path="res://scenes/bg.tscn" id="1_btoec"]
+[ext_resource type="PackedScene" uid="uid://f0argq6frc41" path="res://scenes/background.tscn" id="1_vjtdm"]
 [ext_resource type="Texture2D" uid="uid://do0ppq6lwu4mg" path="res://пикчи/Room_Builder_free_16x16.png" id="2_gwceb"]
 [ext_resource type="PackedScene" uid="uid://c07qlqo84fdnr" path="res://items/tasks.tscn" id="3_l53as"]
 [ext_resource type="Script" uid="uid://doutb5u7cs7vy" path="res://items/tasks.gd" id="4_3sk1a"]
 [ext_resource type="PackedScene" uid="uid://dnu57mgftjfri" path="res://items/leaders.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://djna0aejvjs27" path="res://male_player.tscn" id="6_5ot28"]
 [ext_resource type="Script" uid="uid://dowkfsgh1m5hl" path="res://items/leaders.gd" id="6_aerfg"]
+[ext_resource type="PackedScene" uid="uid://drehjkwtvx2nr" path="res://items/stairs.tscn" id="7_bgw3c"]
 [ext_resource type="Texture2D" uid="uid://dacjmip8h8380" path="res://пикчи/Pixel_Sofa_Art_krXA9afc.png" id="7_gwceb"]
 [ext_resource type="Texture2D" uid="uid://o7rnscdasy8i" path="res://пикчи/IMG_20260327_183236_167.jpg.png" id="8_l53as"]
+[ext_resource type="PackedScene" uid="uid://dv6r1d7gfhgtk" path="res://items/vending_machine.tscn" id="8_lrvbd"]
 [ext_resource type="Texture2D" uid="uid://ko4w6424ermj" path="res://пикчи/Pixel_Sofa_Art_A_pixelated_gray_armchair_is_centered_on_a_black_V0hS9GRG.png" id="9_08mmt"]
 [ext_resource type="Texture2D" uid="uid://d1lr1hs27vhv7" path="res://пикчи/Pixel_Sofa_Art_crfFaLSU.png" id="10_5ot28"]
 [ext_resource type="PackedScene" uid="uid://uxfw22ytayo0" path="res://items/skype_rooms.tscn" id="12_aerfg"]
 [ext_resource type="PackedScene" uid="uid://dcnaopv1djc6e" path="res://items/elevator.tscn" id="13_nmsli"]
 [ext_resource type="PackedScene" uid="uid://coy88jef6xnsv" path="res://items/claster.tscn" id="14_betor"]
-[ext_resource type="Texture2D" uid="uid://c8n7s0bx1t88a" path="res://пикчи/Pixel_Sofa_Art_G1U_FkCo.png" id="16_lrvbd"]
+[ext_resource type="Texture2D" uid="uid://cpsa1ebwpa7hh" path="res://пикчи/file_00000000296c7243b6741c4b2839897c.png" id="16_bgw3c"]
+[ext_resource type="PackedScene" uid="uid://dhophliov512q" path="res://items/bookcase.tscn" id="18_oqlok"]
+[ext_resource type="FontFile" uid="uid://dikie42ma48xp" path="res://fonts/kom-post.ttf" id="19_jkxa6"]
+[ext_resource type="StyleBox" uid="uid://d2343pj1gb2i3" path="res://default_button.tres" id="20_w75he"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hph3"]
 texture = ExtResource("2_gwceb")
@@ -302,9 +307,12 @@ sources/0 = SubResource("TileSetAtlasSource_5hph3")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_betor"]
 bg_color = Color(0.30588236, 0.4627451, 0.6, 0.44705883)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udfhf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="level1" type="Node2D" unique_id=273332764]
 
-[node name="ParallaxBackground" parent="." unique_id=1773508521 instance=ExtResource("1_btoec")]
+[node name="ParallaxBackground2" parent="." unique_id=307818867 instance=ExtResource("1_vjtdm")]
 
 [node name="TileMap" type="TileMapLayer" parent="." unique_id=1357131927]
 tile_set = SubResource("TileSet_j7kpp")
@@ -358,7 +366,7 @@ autowrap_mode = 3
 autowrap_trim_flags = 64
 
 [node name="Area2D5" parent="." unique_id=933411234 instance=ExtResource("13_nmsli")]
-position = Vector2(1583, 555)
+position = Vector2(1583, 554)
 scale = Vector2(1.1999985, 1)
 
 [node name="Label" type="Label" parent="Area2D5" unique_id=2020352144]
@@ -374,6 +382,21 @@ horizontal_alignment = 1
 vertical_alignment = 3
 autowrap_mode = 3
 autowrap_trim_flags = 64
+
+[node name="stairs_1floor" parent="." unique_id=1127732951 instance=ExtResource("7_bgw3c")]
+position = Vector2(1435, 550)
+scale = Vector2(0.102417, 0.10089107)
+
+[node name="Area2D" parent="stairs_1floor" unique_id=2049448845 instance=ExtResource("8_lrvbd")]
+position = Vector2(-10467.013, -2477.92)
+
+[node name="stairs_2floor" parent="." unique_id=1968633380 instance=ExtResource("7_bgw3c")]
+position = Vector2(1433.9999, 274)
+scale = Vector2(0.102417, 0.10089107)
+
+[node name="stairs_3floor" parent="." unique_id=1598028829 instance=ExtResource("7_bgw3c")]
+position = Vector2(1435, 42)
+scale = Vector2(0.102417, 0.10089107)
 
 [node name="CharacterBody2D" parent="." unique_id=721984087 instance=ExtResource("6_5ot28")]
 position = Vector2(268, 569)
@@ -406,7 +429,28 @@ flip_h = true
 [node name="Area2D7" parent="." unique_id=1673118510 instance=ExtResource("14_betor")]
 position = Vector2(423, 130)
 
-[node name="PixelSofaArtG1uFkCo" type="Sprite2D" parent="." unique_id=194657090]
-position = Vector2(1431.5625, 565.6562)
-scale = Vector2(0.102417, 0.10089107)
-texture = ExtResource("16_lrvbd")
+[node name="File00000000296c7243b6741c4b2839897c" type="Sprite2D" parent="." unique_id=1757930287]
+position = Vector2(1108, 567)
+scale = Vector2(0.15706383, 0.15063483)
+texture = ExtResource("16_bgw3c")
+
+[node name="Area2D8" parent="." unique_id=94041992 instance=ExtResource("18_oqlok")]
+position = Vector2(2131, 49)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=472829921]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1899523276]
+offset_left = 26.0
+offset_top = 20.0
+offset_right = 115.0
+offset_bottom = 73.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("19_jkxa6")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("20_w75he")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/hover = ExtResource("20_w75he")
+text = "Меню"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="Area2D2" method="_on_button_pressed"]

@@ -15,4 +15,14 @@ func _on_mouse_exited():
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			get_tree().change_scene_to_file("res://scenes/leaders_challenge.tscn")
+			get_tree().change_scene_to_file("res://scenes/leaders_problem.tscn")
+
+
+func _on_button_pressed() -> void:
+	_clear_progress()
+	get_tree().change_scene_to_file("res://mainmenu.tscn")
+	
+func _clear_progress() -> void:
+	var save_file = FileAccess.open("user://tasks_progress.save", FileAccess.WRITE)
+	if save_file:
+		save_file.store_var({})

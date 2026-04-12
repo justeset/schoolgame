@@ -1,0 +1,264 @@
+[gd_scene format=3 uid="uid://f0argq6frc41"]
+
+[ext_resource type="Texture2D" uid="uid://npxbgc32bkvr" path="res://пикчи/Pixel_Sofa_Art_EmrTqaUs.png" id="1_y0upk"]
+[ext_resource type="Texture2D" uid="uid://dfgxud800h7o" path="res://пикчи/Pixel_Sofa_Art_pmJv21u8.png" id="2_jougr"]
+[ext_resource type="Texture2D" uid="uid://cx4glog8t57k2" path="res://пикчи/Sprite-0004.png" id="3_6vm3t"]
+[ext_resource type="Texture2D" uid="uid://dcswvitrm6lr" path="res://пикчи/Pixel_Sofa_Art_XRvWYHgN.png" id="3_jougr"]
+[ext_resource type="Texture2D" uid="uid://ul0asoayvu13" path="res://пикчи2/IMG_20260328_145619_259.jpg.png" id="4_cbsqf"]
+[ext_resource type="Texture2D" uid="uid://bqfbr84aig77f" path="res://пикчи2/Pixel_Glass_Room_KCaDzhMW.png" id="5_wisxt"]
+[ext_resource type="Texture2D" uid="uid://bcgi0mumykoxe" path="res://пикчи2/Pixel_Glass_Room_tCLkoCxP.png" id="6_wax1t"]
+[ext_resource type="PackedScene" uid="uid://coy88jef6xnsv" path="res://items/claster.tscn" id="7_1tmhi"]
+[ext_resource type="Texture2D" uid="uid://o36bab1mvthf" path="res://пикчи3/Pixel_Art_Vending_Machine_F76gkayn (1).png" id="7_0470j"]
+[ext_resource type="Texture2D" uid="uid://nts6761hifdh" path="res://пикчи3/Pixel_Art_Vending_Machine_IWEwzYrm (1).png" id="8_ivgg2"]
+[ext_resource type="Texture2D" uid="uid://i4pvqhx3723n" path="res://пикчи/Sprite-0013.png" id="8_l5f8m"]
+[ext_resource type="Texture2D" uid="uid://thaywiyo4epa" path="res://пикчи3/Pixel_Art_Vending_Machine_6kj2Sz4c.png" id="10_8efq7"]
+[ext_resource type="Texture2D" uid="uid://dvsjp7yxh55sp" path="res://пикчи3/Pixel_Art_Vending_Machine_GlntGa9D.png" id="11_b6e46"]
+[ext_resource type="Texture2D" uid="uid://ch4okcq6c1bjw" path="res://пикчи/Pixel_Sofa_Art_A_round_white_table_is_centered_with_a_green_MKH3NXyV.png" id="12_r4ipc"]
+[ext_resource type="Texture2D" uid="uid://dn4o2r8yxmwlc" path="res://пикчи3/Pixel_Art_Vending_Machine_IHoA_J9o.png" id="12_td6w2"]
+[ext_resource type="Texture2D" uid="uid://dbsqy1314t1bc" path="res://пикчи3/Pixel_Art_Vending_Machine_cV0KZ50T (1).png" id="13_5xduy"]
+[ext_resource type="Texture2D" uid="uid://bcmdit444sktq" path="res://пикчи2/экраны монитора/Без названия146_20260328153423.png" id="16_ivgg2"]
+[ext_resource type="Texture2D" uid="uid://kv38s8jdti65" path="res://пикчи2/экраны монитора/Pixel_Glass_Room_jZ-9nk_F.png" id="16_r4ipc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wax1t"]
+bg_color = Color(0.8666667, 0.90588236, 0.93333334, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tmhi"]
+bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6e46"]
+bg_color = Color(0.49411765, 0.5647059, 0.62352943, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="ParallaxBackground" type="ParallaxBackground" unique_id=307818867]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="." unique_id=2012762534]
+motion_mirroring = Vector2(1324, 0)
+
+[node name="PixelSofaArtEmrTqaUs" type="Sprite2D" parent="ParallaxLayer" unique_id=17236917]
+position = Vector2(551, 299)
+scale = Vector2(0.43834463, 0.19467904)
+texture = ExtResource("1_y0upk")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="." unique_id=1193394794]
+motion_mirroring = Vector2(1324, 0)
+
+[node name="PixelSofaArtEmrTqaUs" type="Sprite2D" parent="ParallaxLayer2" unique_id=1553753123]
+position = Vector2(551, 68)
+scale = Vector2(0.43834463, 0.19467904)
+texture = ExtResource("1_y0upk")
+
+[node name="PixelSofaArtPmJv21u8" type="Sprite2D" parent="ParallaxLayer2" unique_id=841217022]
+position = Vector2(547, 533)
+scale = Vector2(0.43693697, 0.19763513)
+texture = ExtResource("2_jougr")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="." unique_id=373752294]
+motion_mirroring = Vector2(1324, 0)
+
+[node name="PixelSofaArtPmJv21u8" type="Sprite2D" parent="ParallaxLayer3" unique_id=1232178909]
+position = Vector2(-12952.706, -500.63232)
+scale = Vector2(3.1458836, 1.2423245)
+texture = ExtResource("2_jougr")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="." unique_id=448698332]
+
+[node name="PixelSofaArtXRvWyHgN" type="Sprite2D" parent="ParallaxLayer4" unique_id=423632807]
+position = Vector2(2011.125, 464.125)
+scale = Vector2(0.19254534, 0.1130371)
+texture = ExtResource("3_jougr")
+
+[node name="PixelSofaArtXRvWyHgN3" type="Sprite2D" parent="ParallaxLayer4" unique_id=13823060]
+position = Vector2(2447.9998, 464)
+scale = Vector2(0.21142569, 0.1130371)
+texture = ExtResource("3_jougr")
+
+[node name="PixelSofaArtXRvWyHgN2" type="Sprite2D" parent="ParallaxLayer4" unique_id=2030470564]
+position = Vector2(2227, 465.00003)
+scale = Vector2(0.23722321, 0.1130371)
+texture = ExtResource("3_jougr")
+
+[node name="Img20260328145619259_jpg" type="Sprite2D" parent="ParallaxLayer4" unique_id=728837788]
+position = Vector2(2090, 535)
+scale = Vector2(0.07011718, 0.06579722)
+texture = ExtResource("4_cbsqf")
+
+[node name="PixelGlassRoomKCaDzhMw" type="Sprite2D" parent="ParallaxLayer4" unique_id=1690546853]
+position = Vector2(2176, 286.62503)
+scale = Vector2(0.29215118, 0.17008469)
+texture = ExtResource("5_wisxt")
+
+[node name="PixelGlassRoomTCLkoCxP" type="Sprite2D" parent="ParallaxLayer4" unique_id=693616452]
+position = Vector2(2349, 253)
+scale = Vector2(0.080830984, 0.05761712)
+texture = ExtResource("6_wax1t")
+
+[node name="Panel" type="Panel" parent="ParallaxLayer4" unique_id=1716798283]
+offset_left = 14.0
+offset_top = 227.0
+offset_right = 181.0
+offset_bottom = 307.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wax1t")
+
+[node name="Panel2" type="Panel" parent="ParallaxLayer4" unique_id=1477155298]
+offset_left = 1522.0
+offset_top = 228.0
+offset_right = 1689.0
+offset_bottom = 308.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wax1t")
+
+[node name="Panel3" type="Panel" parent="ParallaxLayer4" unique_id=1901771980]
+offset_left = 1527.0
+offset_top = -5.0
+offset_right = 1694.0
+offset_bottom = 75.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wax1t")
+
+[node name="Panel4" type="Panel" parent="ParallaxLayer4" unique_id=1828093922]
+offset_left = 1342.0
+offset_top = -3.0
+offset_right = 1509.0
+offset_bottom = 77.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wax1t")
+
+[node name="Panel5" type="Panel" parent="ParallaxLayer4" unique_id=1454226293]
+offset_left = 1342.0
+offset_top = 227.0
+offset_right = 1509.0
+offset_bottom = 307.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wax1t")
+
+[node name="Panel6" type="Panel" parent="ParallaxLayer4" unique_id=1521795781]
+offset_left = 191.0
+offset_top = -5.0
+offset_right = 358.0
+offset_bottom = 75.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wax1t")
+metadata/_edit_use_anchors_ = true
+
+[node name="PixelArtVendingMachineF76Gkayn(1)" type="Sprite2D" parent="ParallaxLayer4" unique_id=1124060876]
+position = Vector2(-87.00001, 265)
+scale = Vector2(0.09522223, 0.095222235)
+texture = ExtResource("7_0470j")
+
+[node name="PixelArtVendingMachineIwEwzYrm(1)" type="Sprite2D" parent="ParallaxLayer4" unique_id=1881943983]
+position = Vector2(82, 264)
+scale = Vector2(0.09444439, 0.09444439)
+texture = ExtResource("8_ivgg2")
+
+[node name="Area2D" parent="ParallaxLayer4" unique_id=1673118510 instance=ExtResource("7_1tmhi")]
+position = Vector2(747, 129)
+
+[node name="Panel" type="Panel" parent="ParallaxLayer4/Area2D" unique_id=1454913965]
+offset_left = 22.0
+offset_top = -80.0
+offset_right = 46.0
+offset_bottom = -59.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1tmhi")
+
+[node name="Area2D2" parent="ParallaxLayer4" unique_id=835378738 instance=ExtResource("7_1tmhi")]
+position = Vector2(20, 371)
+
+[node name="Panel" type="Panel" parent="ParallaxLayer4/Area2D2" unique_id=493274683]
+offset_left = 22.0
+offset_top = -80.0
+offset_right = 46.0
+offset_bottom = -59.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1tmhi")
+
+[node name="Area2D3" parent="ParallaxLayer4" unique_id=343724434 instance=ExtResource("7_1tmhi")]
+position = Vector2(1105, 369)
+
+[node name="Panel" type="Panel" parent="ParallaxLayer4/Area2D3" unique_id=513396342]
+offset_left = 22.0
+offset_top = -80.0
+offset_right = 46.0
+offset_bottom = -59.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1tmhi")
+
+[node name="Area2D4" parent="ParallaxLayer4" unique_id=916069309 instance=ExtResource("7_1tmhi")]
+position = Vector2(806, 367)
+
+[node name="Panel" type="Panel" parent="ParallaxLayer4/Area2D4" unique_id=1851621685]
+offset_left = 22.0
+offset_top = -80.0
+offset_right = 46.0
+offset_bottom = -59.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1tmhi")
+
+[node name="Sprite0013" type="Sprite2D" parent="ParallaxLayer4" unique_id=551313635]
+position = Vector2(1849, 584)
+texture = ExtResource("8_l5f8m")
+
+[node name="Sprite0004" type="Sprite2D" parent="ParallaxLayer4" unique_id=856142594]
+position = Vector2(898, 588.5)
+scale = Vector2(4.6875, 1.2708337)
+texture = ExtResource("3_6vm3t")
+
+[node name="Panel7" type="Panel" parent="ParallaxLayer4" unique_id=90797398]
+offset_left = 1155.0
+offset_top = -6.0
+offset_right = 1316.0
+offset_bottom = 77.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b6e46")
+
+[node name="Panel8" type="Panel" parent="ParallaxLayer4" unique_id=897095367]
+offset_left = 1708.0
+offset_top = 218.0
+offset_right = 1868.0
+offset_bottom = 311.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b6e46")
+
+[node name="Panel9" type="Panel" parent="ParallaxLayer4" unique_id=945378276]
+offset_left = 623.0
+offset_top = 474.0
+offset_right = 771.0
+offset_bottom = 560.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b6e46")
+
+[node name="PixelSofaArtARoundWhiteTableIsCenteredWithAGreenMkh3nXyV" type="Sprite2D" parent="ParallaxLayer4" unique_id=1436851147]
+position = Vector2(517.4375, 343.125)
+scale = Vector2(0.14396158, 0.1501465)
+texture = ExtResource("12_r4ipc")
+
+[node name="PixelArtVendingMachineCV0kz50t(1)" type="Sprite2D" parent="ParallaxLayer4" unique_id=999770164]
+position = Vector2(247, 303.0625)
+scale = Vector2(0.061000008, 0.09944446)
+texture = ExtResource("13_5xduy")
+
+[node name="PixelArtVendingMachineCV0kz50t(1)2" type="Sprite2D" parent="ParallaxLayer4" unique_id=1286049400]
+position = Vector2(1875, 71.000046)
+scale = Vector2(0.114000015, 0.09944446)
+texture = ExtResource("13_5xduy")
+
+[node name="PixelArtVendingMachineCV0kz50t(1)3" type="Sprite2D" parent="ParallaxLayer4" unique_id=975124337]
+position = Vector2(902.50006, 560.00006)
+scale = Vector2(0.10050002, 0.13066664)
+texture = ExtResource("13_5xduy")
+
+[node name="PixelArtVendingMachine6Kj2Sz4c" type="Sprite2D" parent="ParallaxLayer4" unique_id=1299751902]
+position = Vector2(1235.625, 35.75)
+scale = Vector2(0.055131413, 0.048926767)
+texture = ExtResource("10_8efq7")
+
+[node name="PixelArtVendingMachineGlntGa9d" type="Sprite2D" parent="ParallaxLayer4" unique_id=2019990144]
+position = Vector2(1788, 264)
+scale = Vector2(0.054450747, 0.054450747)
+texture = ExtResource("11_b6e46")
+
+[node name="PixelArtVendingMachineIHoAJ9o" type="Sprite2D" parent="ParallaxLayer4" unique_id=2049841184]
+position = Vector2(697, 517)
+scale = Vector2(0.050426144, 0.05042614)
+texture = ExtResource("12_td6w2")
+
+[node name="БезНазвания14620260328153423" type="Sprite2D" parent="ParallaxLayer4" unique_id=1134690995]
+position = Vector2(1754.9999, 503.99997)
+scale = Vector2(0.098739505, 0.09873952)
+texture = ExtResource("16_ivgg2")
+
+[node name="PixelGlassRoomJZ9NkF" type="Sprite2D" parent="ParallaxLayer4" unique_id=669043376]
+position = Vector2(2333, 36)
+scale = Vector2(0.05257159, 0.05257161)
+texture = ExtResource("16_r4ipc")
