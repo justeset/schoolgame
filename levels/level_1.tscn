@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cpsa1ebwpa7hh" path="res://пикчи/file_00000000296c7243b6741c4b2839897c.png" id="16_bgw3c"]
 [ext_resource type="PackedScene" uid="uid://dhophliov512q" path="res://items/bookcase.tscn" id="18_oqlok"]
 [ext_resource type="FontFile" uid="uid://dikie42ma48xp" path="res://fonts/kom-post.ttf" id="19_jkxa6"]
+[ext_resource type="Script" uid="uid://gr8eurqgjmvu" path="res://items/bookcase.gd" id="20_udfhf"]
 [ext_resource type="StyleBox" uid="uid://d2343pj1gb2i3" path="res://default_button.tres" id="20_w75he"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hph3"]
@@ -382,13 +383,14 @@ vertical_alignment = 3
 autowrap_mode = 3
 autowrap_trim_flags = 64
 
+[node name="VendingMachine" parent="." unique_id=2049448845 instance=ExtResource("8_lrvbd")]
+position = Vector2(363, 300)
+scale = Vector2(0.102417, 0.10089107)
+script = ExtResource("9_w75he")
+
 [node name="stairs_1floor" parent="." unique_id=1127732951 instance=ExtResource("7_bgw3c")]
 position = Vector2(1435, 550)
 scale = Vector2(0.102417, 0.10089107)
-
-[node name="Area2D" parent="stairs_1floor" unique_id=2049448845 instance=ExtResource("8_lrvbd")]
-position = Vector2(-10467.013, -2477.92)
-script = ExtResource("9_w75he")
 
 [node name="stairs_2floor" parent="." unique_id=1968633380 instance=ExtResource("7_bgw3c")]
 position = Vector2(1433.9999, 274)
@@ -434,8 +436,9 @@ position = Vector2(1108, 567)
 scale = Vector2(0.15706383, 0.15063483)
 texture = ExtResource("16_bgw3c")
 
-[node name="Area2D8" parent="." unique_id=94041992 instance=ExtResource("18_oqlok")]
+[node name="Bookcase" parent="." unique_id=94041992 instance=ExtResource("18_oqlok")]
 position = Vector2(2131, 49)
+script = ExtResource("20_udfhf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=472829921]
 
