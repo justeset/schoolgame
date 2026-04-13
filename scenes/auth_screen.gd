@@ -55,7 +55,7 @@ func _show_ok(msg: String) -> void:
 
 
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://mainmenu.tscn")
+	get_tree().quit()
 
 
 func _on_login_button_pressed() -> void:

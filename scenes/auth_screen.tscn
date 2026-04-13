@@ -231,7 +231,7 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "Назад в меню"
+text = "Выход"
 
 [connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields/RegisterButton" to="." method="_on_register_button_pressed"]
