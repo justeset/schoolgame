@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1775253989|447422459';
+const CACHE_VERSION = '1776077445|685473196';
 /** @type {string} */
 const CACHE_PREFIX = 'school21_game-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
