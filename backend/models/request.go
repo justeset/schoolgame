@@ -15,3 +15,9 @@ type CompleteTaskRequest struct {
     UserID int `json:"user_id" example:"1"`
     TaskID int `json:"task_id" example:"1"`
 }
+
+type UpdateUserRequest struct {
+	Email    string `json:"email" example:"new@example.com"`
+	Name     string `json:"name" example:"Новое имя"`
+	Password string `json:"password" example:"newpassword"`
+}

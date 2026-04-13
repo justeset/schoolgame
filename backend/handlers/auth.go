@@ -37,19 +37,34 @@ func Register(c *gin.Context) {
         return
     }
 
-    _, err = db.DB.Exec(
-        "INSERT INTO users (email, name, password) VALUES ($1, $2, $3)",
+    var userID int
+
+    err = db.DB.QueryRow(
+        "INSERT INTO users (email, name, password) VALUES ($1, $2, $3) RETURNING id",
         input.Email,
         input.Name,
         string(hashedPassword),
-    )
+    ).Scan(&userID)
 
     if err != nil {
         c.JSON(http.StatusConflict, gin.H{"error": "пользователь уже существует"})
         return
     }
 
-    c.JSON(http.StatusCreated, gin.H{"message": "пользователь создан"})
+    token, err := GenerateToken(userID)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "ошибка сервера"})
+        return
+    }
+
+    c.JSON(http.StatusCreated, gin.H{
+        "token": token,
+        "user": gin.H{
+            "id":    userID,
+            "email": input.Email,
+            "name":  input.Name,
+        },
+    })
 }
 
 // Login godoc

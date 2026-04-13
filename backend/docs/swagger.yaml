@@ -54,6 +54,18 @@ definitions:
       title:
         type: string
     type: object
+  models.UpdateUserRequest:
+    properties:
+      email:
+        example: new@example.com
+        type: string
+      name:
+        example: Новое имя
+        type: string
+      password:
+        example: newpassword
+        type: string
+    type: object
   models.User:
     properties:
       email:
@@ -179,4 +191,59 @@ paths:
       summary: Отметить задачу выполненной
       tags:
       - tasks
+  /users/{id}:
+    delete:
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Удалить пользователя
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Новые данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Изменить данные пользователя
+      tags:
+      - users
 swagger: "2.0"
