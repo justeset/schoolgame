@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://uxfw22ytayo0"]
+
+[ext_resource type="Texture2D" uid="uid://g38pskolap78" path="res://пикчи2/Pixel_Glass_Room_XJoeNkLy.png" id="1_vkfmt"]
+[ext_resource type="Script" uid="uid://datp85g7odlyn" path="res://items/skype_rooms.gd" id="1_xtfqw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtfqw"]
+size = Vector2(361, 154)
+
+[node name="Area2D" type="Area2D" unique_id=1579155738]
+script = ExtResource("1_xtfqw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=373452396]
+position = Vector2(-0.5, -8)
+shape = SubResource("RectangleShape2D_xtfqw")
+
+[node name="PixelGlassRoomXJoeNkLy2" type="Sprite2D" parent="." unique_id=328827527]
+position = Vector2(14.85939, -10.50001)
+scale = Vector2(0.2761406, 0.26099998)
+texture = ExtResource("1_vkfmt")

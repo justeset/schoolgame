@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://coy88jef6xnsv"]
+
+[ext_resource type="Texture2D" uid="uid://6djbmn6jjalv" path="res://пикчи2/IMG_20260328_160141_421.png.png" id="1_1xh3u"]
+[ext_resource type="Script" uid="uid://bn5r6np00r48x" path="res://items/claster.gd" id="1_e0y5c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0y5c"]
+size = Vector2(23, 19)
+
+[node name="Area2D" type="Area2D" unique_id=1673118510]
+script = ExtResource("1_e0y5c")
+
+[node name="Img20260328160141421_png" type="Sprite2D" parent="." unique_id=636763404]
+position = Vector2(11.000004, -58.249992)
+scale = Vector2(0.19191921, 0.29538688)
+texture = ExtResource("1_1xh3u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=254682377]
+position = Vector2(34.5, -69.5)
+shape = SubResource("RectangleShape2D_e0y5c")

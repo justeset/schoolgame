@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dnu57mgftjfri"]
+
+[ext_resource type="Texture2D" uid="uid://dfvxa468mybrx" path="res://пикчи/IMG_20260327_122327_235.png.png" id="1_ma6u1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aykv0"]
+size = Vector2(196, 145)
+
+[node name="Area2D" type="Area2D" unique_id=1528196110]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1572941586]
+position = Vector2(-31, 1.5)
+shape = SubResource("RectangleShape2D_aykv0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=453568100]
+position = Vector2(-22.000008, 6.4687533)
+scale = Vector2(0.24999999, 0.21380617)
+texture = ExtResource("1_ma6u1")

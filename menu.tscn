@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://d4dqyv3hnnjq0"]
+
+[sub_resource type="GDScript" id="GDScript_vsb4k"]
+script/source = "extends Node2D
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+	
+
+func _on_play_button_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://levels/level_1.tscn\")
+"
+
+[node name="menu" type="Node2D" unique_id=1918138150]
+script = SubResource("GDScript_vsb4k")
+
+[node name="play_button" type="Button" parent="." unique_id=268403430]
+offset_left = 501.0
+offset_top = 164.0
+offset_right = 644.0
+offset_bottom = 224.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "Play"
+
+[node name="quit_button" type="Button" parent="." unique_id=584504931]
+offset_left = 503.0
+offset_top = 298.0
+offset_right = 646.0
+offset_bottom = 375.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "Quit"
+
+[connection signal="pressed" from="play_button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]

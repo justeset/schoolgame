@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c07qlqo84fdnr"]
+
+[ext_resource type="Texture2D" uid="uid://b1n1sw83h3507" path="res://пикчи/Pixel_Sofa_Art_5vdScxmS.png" id="1_qes7k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mak0g"]
+size = Vector2(107, 115)
+
+[node name="Area2D" type="Area2D" unique_id=239347453]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1303325797]
+position = Vector2(-6.5, -4.5)
+shape = SubResource("RectangleShape2D_mak0g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=683073370]
+position = Vector2(-7.8749914, -4.6874995)
+scale = Vector2(0.13655598, 0.14318848)
+texture = ExtResource("1_qes7k")
