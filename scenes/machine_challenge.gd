@@ -1,6 +1,7 @@
 extends Panel
 
 const _DEFAULT_CHECKER_API_URL := "https://schoolgame-1i34.onrender.com"
+const _DEFAULT_AI_HINT_API_URL := "http://127.0.0.1:8001"
 const GROQ_API_URL := "https://api.groq.com/openai/v1/chat/completions"
 const GROQ_MODEL := "llama-3.1-8b-instant"
 
@@ -14,11 +15,15 @@ var _offer_ask_ai_in_toolbar: bool = false
 var _groq_key_resolved: bool = false
 var _groq_api_key: String = ""
 var _checker_api_url: String = _DEFAULT_CHECKER_API_URL
+var _ai_hint_api_url: String = _DEFAULT_AI_HINT_API_URL
 
 func _ready() -> void:
 	var checker := OS.get_environment("SCHOOLGAME_CHECKER_API_BASE").strip_edges().rstrip("/")
 	if checker != "":
 		_checker_api_url = checker
+	var ai_hint := OS.get_environment("SCHOOLGAME_AI_HINT_API_BASE").strip_edges().rstrip("/")
+	if ai_hint != "":
+		_ai_hint_api_url = ai_hint
 
 	if not http_request.is_inside_tree():
 		add_child(http_request)
@@ -249,17 +254,6 @@ func _set_ask_ai_toolbar_loading(loading: bool) -> void:
 
 
 func _on_ask_ai_button_pressed() -> void:
-	var api_key := _get_groq_api_key()
-	if api_key == "":
-		_show_ai_hint_popup(
-			"Не задан ключ Groq.\n\n"
-			+ "Задай GROQ_API_KEY (desktop), либо прокинь его в web как window.GROQ_API_KEY "
-			+ "(или window.env.GROQ_API_KEY / window.__ENV.GROQ_API_KEY), "
-			+ "либо добавь строку GROQ_API_KEY=... в res/.env или builds/web/.env.\n"
-			+ "Ключ: https://console.groq.com/keys"
-		)
-		return
-	
 	_set_ask_ai_toolbar_loading(true)
 	
 	var code_text := answer_edit.text.strip_edges()
@@ -274,68 +268,47 @@ func _on_ask_ai_button_pressed() -> void:
 	)
 	
 	var payload := {
-		"model": GROQ_MODEL,
-		"messages": [
-			{"role": "user", "content": prompt}
-		],
-		"temperature": 0.6,
-		"max_tokens": 768
+		"task_type": "hash-tables",
+		"player_code": code_text,
+		"task_prompt": prompt
 	}
 	var json_data := JSON.stringify(payload)
-	var headers := PackedStringArray([
-		"Content-Type: application/json",
-		"Authorization: Bearer " + api_key
-	])
-	var err := _ai_http_request.request(GROQ_API_URL, headers, HTTPClient.METHOD_POST, json_data)
+	var headers := PackedStringArray(["Content-Type: application/json"])
+	var err := _ai_http_request.request(_ai_hint_api_url + "/ai_hint_reguests", headers, HTTPClient.METHOD_POST, json_data)
 	if err != OK:
 		_set_ask_ai_toolbar_loading(false)
-		_show_ai_hint_popup("Не удалось отправить запрос к ИИ (код " + str(err) + ").")
+		_show_ai_hint_popup("Не удалось отправить запрос к серверу подсказок (код " + str(err) + ").")
 
 
 func _on_groq_request_completed(result, response_code: int, _headers, body: PackedByteArray) -> void:
 	_set_ask_ai_toolbar_loading(false)
 	
 	if result != HTTPRequest.RESULT_SUCCESS:
-		_show_ai_hint_popup("Ошибка сети при обращении к ИИ.")
+		_show_ai_hint_popup("Ошибка сети при обращении к серверу подсказок.")
 		return
 	
 	var response_text := body.get_string_from_utf8()
 	var json_dict = JSON.parse_string(response_text)
 	if typeof(json_dict) != TYPE_DICTIONARY:
 		if response_code != 200:
-			_show_ai_hint_popup("Ошибка ИИ (HTTP " + str(response_code) + ").")
+			_show_ai_hint_popup("Ошибка сервера подсказок (HTTP " + str(response_code) + ").")
 		else:
-			_show_ai_hint_popup("Некорректный ответ ИИ.")
-		return
-	
-	if json_dict.has("error"):
-		var err_info = json_dict["error"]
-		var msg := "Ошибка API"
-		if typeof(err_info) == TYPE_DICTIONARY and err_info.has("message"):
-			msg = str(err_info["message"])
-		_show_ai_hint_popup(msg)
+			_show_ai_hint_popup("Некорректный ответ сервера подсказок.")
 		return
 	
 	if response_code != 200:
-		_show_ai_hint_popup("Ошибка ИИ (HTTP " + str(response_code) + ").")
+		_show_ai_hint_popup("Ошибка сервера подсказок (HTTP " + str(response_code) + ").")
 		return
 	
-	var choices = json_dict.get("choices", [])
-	if typeof(choices) != TYPE_ARRAY or choices.is_empty():
-		_show_ai_hint_popup("ИИ не вернул подсказку (пустой ответ).")
+	if not json_dict.get("ok", false):
+		_show_ai_hint_popup(str(json_dict.get("error", "Сервер подсказок вернул ошибку.")))
 		return
 	
-	var ch0 = choices[0]
-	if typeof(ch0) != TYPE_DICTIONARY:
-		_show_ai_hint_popup("Некорректный ответ ИИ.")
+	var hint := str(json_dict.get("hint", "")).strip_edges()
+	if hint == "":
+		_show_ai_hint_popup("Сервер подсказок вернул пустой ответ.")
 		return
-	
-	var message: Variant = ch0.get("message", {})
-	if typeof(message) != TYPE_DICTIONARY or not message.has("content"):
-		_show_ai_hint_popup("Некорректный ответ ИИ.")
-		return
-	
-	_show_ai_hint_popup(str(message["content"]))
+	_show_ai_hint_popup(hint)
 
 
 func _show_ai_hint_popup(message: String) -> void:
