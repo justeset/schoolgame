@@ -5,10 +5,10 @@ const CHAT_FONT_SIZE := 26
 const CHAT_TEXT_COLOR := Color(0.92, 0.95, 1.0, 1.0)
 
 const CHAT_MESSAGES: Array[Dictionary] = [
-	{ "text": "О НЕТ!!!" },
+	{ "text": "МОИ ДЕНЬГИИ!!!" },
 	{ "text": "", "image": CHAT_IMAGE_TEX },
-	{ "text": "Вендиговый аппарат сломался!!! Он не выдает сдачу, нужно дописать недостоющую логику." },
-	{ "text": "Поможешь?" },
+	{ "text": "Вендиговый аппарат не выдает сдачу, нужно срочно дописать недостающую логику!" },
+	{ "text": "ПОМОГИИ!!!" },
 ]
 
 @export var delay_per_message_sec: float = 1.2
