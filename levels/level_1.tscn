@@ -391,14 +391,17 @@ script = ExtResource("9_w75he")
 [node name="stairs_1floor" parent="." unique_id=1127732951 instance=ExtResource("7_bgw3c")]
 position = Vector2(1435, 550)
 scale = Vector2(0.102417, 0.10089107)
+script = null
 
 [node name="stairs_2floor" parent="." unique_id=1968633380 instance=ExtResource("7_bgw3c")]
 position = Vector2(1433.9999, 274)
 scale = Vector2(0.102417, 0.10089107)
+script = null
 
 [node name="stairs_3floor" parent="." unique_id=1598028829 instance=ExtResource("7_bgw3c")]
 position = Vector2(1435, 42)
 scale = Vector2(0.102417, 0.10089107)
+script = null
 
 [node name="Player" parent="." unique_id=721984087 instance=ExtResource("6_5ot28")]
 position = Vector2(276, 570)

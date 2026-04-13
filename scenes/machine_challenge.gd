@@ -101,7 +101,7 @@ func _on_request_completed(result, response_code, headers, body) -> void:
 	var fb = json_dict.get("feedback", {})
 	
 	if json_dict.get("success", false):
-		_mark_task_completed("cycle")
+		_mark_task_completed("dict")
 		var passed = json_dict.get("passed_tests", 0)
 		var total = json_dict.get("total_tests", 0)
 		
