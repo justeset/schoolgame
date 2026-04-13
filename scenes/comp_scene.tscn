@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://dnuvi22nhgvkx"]
+
+[ext_resource type="Script" uid="uid://bw6wbq85tmbcs" path="res://scenes/comp_scene.gd" id="1_hqvie"]
+[ext_resource type="Texture2D" uid="uid://b65d0ub18v5ry" path="res://пикчи2/экраны монитора/Pixel_Glass_Room_fUmMXyI.png" id="2_jbpnl"]
+[ext_resource type="Texture2D" uid="uid://d2x33a60l0xmq" path="res://пикчи3/ErrorIcn.png" id="3_jbpnl"]
+[ext_resource type="Texture2D" uid="uid://d0cpvjfi1oxlm" path="res://пикчи3/offButton.png" id="4_n7m1n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2hdm"]
+content_margin_bottom = 11.0
+bg_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+border_color = Color(0, 0, 0, 1)
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7m1n"]
+bg_color = Color(0.16948137, 0.24315521, 0.9508193, 0.98039216)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1h5qk"]
+bg_color = Color(0.03137255, 0.4392157, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbpnl"]
+bg_color = Color(0.03137255, 0.7137255, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uuk2b"]
+bg_color = Color(0.14509805, 0.11764706, 0.23137255, 1)
+
+[node name="CompScene" type="Node2D" unique_id=798429524]
+script = ExtResource("1_hqvie")
+
+[node name="Desktop" type="Sprite2D" parent="." unique_id=88386692]
+position = Vector2(576, 323)
+scale = Vector2(0.41787785, 0.41927087)
+texture = ExtResource("2_jbpnl")
+
+[node name="ErrorWindow" type="PanelContainer" parent="." unique_id=1582121067]
+offset_left = 297.0
+offset_top = 169.0
+offset_right = 897.0
+offset_bottom = 469.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_s2hdm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ErrorWindow" unique_id=2065662373]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ErrorWindow/VBoxContainer" unique_id=655561814]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n7m1n")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ErrorWindow/VBoxContainer/PanelContainer" unique_id=77333313]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ErrorWindow/VBoxContainer/PanelContainer/HBoxContainer" unique_id=541878737]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Label" type="Label" parent="ErrorWindow/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer" unique_id=1605429244]
+layout_mode = 2
+text = "ОШИБКА"
+
+[node name="Control" type="Control" parent="ErrorWindow/VBoxContainer" unique_id=198851451]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="ErrorWindow/VBoxContainer/Control" unique_id=1770395771]
+layout_mode = 0
+offset_left = -221.0
+offset_top = 15.0
+offset_right = -118.0
+offset_bottom = 117.0
+texture = ExtResource("3_jbpnl")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="ErrorWindow/VBoxContainer" unique_id=179638467]
+layout_mode = 2
+theme_override_constants/margin_top = -120
+
+[node name="Label" type="Label" parent="ErrorWindow/VBoxContainer/MarginContainer" unique_id=295289551]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Не удалось удалить 
+повторяющиеся файлы"
+
+[node name="OK_Button" type="Button" parent="ErrorWindow/VBoxContainer" unique_id=1908732144]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_1h5qk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jbpnl")
+text = "OK"
+
+[node name="Panel" type="Panel" parent="." unique_id=333631553]
+offset_left = 1.0
+offset_top = 614.0
+offset_right = 1028.0
+offset_bottom = 643.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uuk2b")
+
+[node name="Button" type="Button" parent="Panel" unique_id=1539391832]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.008
+anchor_bottom = 0.13800001
+offset_top = 0.9999999
+offset_right = 261.784
+offset_bottom = 266.998
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("4_n7m1n")
+
+[connection signal="pressed" from="ErrorWindow/VBoxContainer/OK_Button" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]

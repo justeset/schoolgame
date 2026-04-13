@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci8wnm3qcoakx"
-path="res://.godot/imported/Pixel_Art_Vending_Machine_5-DsfIPW (1).png-0a5226392c41b793096328fb5f58e44f.ctex"
+uid="uid://d0cpvjfi1oxlm"
+path="res://.godot/imported/offButton.png-9f51f54ca64f4233f6d4d2cce516cd40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://пикчи3/Pixel_Art_Vending_Machine_5-DsfIPW (1).png"
-dest_files=["res://.godot/imported/Pixel_Art_Vending_Machine_5-DsfIPW (1).png-0a5226392c41b793096328fb5f58e44f.ctex"]
+source_file="res://пикчи3/offButton.png"
+dest_files=["res://.godot/imported/offButton.png-9f51f54ca64f4233f6d4d2cce516cd40.ctex"]
 
 [params]
 

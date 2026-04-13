@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gk3uwx3ej2er"
-path="res://.godot/imported/Pixel_Art_Vending_Machine_5-DsfIPW (4).png-00ca60362066301e87f7060e17938f31.ctex"
+uid="uid://d2x33a60l0xmq"
+path="res://.godot/imported/ErrorIcn.png-040aebf983a2f017efc1b74cb3b0b7f3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://пикчи3/Pixel_Art_Vending_Machine_5-DsfIPW (4).png"
-dest_files=["res://.godot/imported/Pixel_Art_Vending_Machine_5-DsfIPW (4).png-00ca60362066301e87f7060e17938f31.ctex"]
+source_file="res://пикчи3/ErrorIcn.png"
+dest_files=["res://.godot/imported/ErrorIcn.png-040aebf983a2f017efc1b74cb3b0b7f3.ctex"]
 
 [params]
 

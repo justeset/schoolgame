@@ -15,4 +15,4 @@ func _on_mouse_exited():
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			get_tree().change_scene_to_file("res://scenes/tasks_scene.tscn")
+			get_tree().change_scene_to_file("res://scenes/comp_scene.tscn")
