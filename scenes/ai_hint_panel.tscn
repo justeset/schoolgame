@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://bqh8aihintp01"]
+
+[ext_resource type="Script" path="res://scenes/ai_hint_panel.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_card"]
+bg_color = Color(0.098, 0.118, 0.149, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.898, 0.753, 0.9)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button"]
+bg_color = Color(0, 0.898, 0.753, 0.15)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.898, 0.753, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="AiHintPanel" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Overlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="Card" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -230.0
+offset_right = 340.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_card")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Card"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 36.0
+offset_right = -40.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Card/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
+theme_override_font_sizes/font_size = 26
+text = "Подсказка от ИИ"
+horizontal_alignment = 1
+
+[node name="BodyScroll" type="ScrollContainer" parent="Card/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Body" type="RichTextLabel" parent="Card/VBoxContainer/BodyScroll"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.92, 0.95, 1, 1)
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 3
+
+[node name="CloseButton" type="Button" parent="Card/VBoxContainer"]
+custom_minimum_size = Vector2(200, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Понятно"
+
+[connection signal="pressed" from="Card/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

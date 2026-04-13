@@ -73,7 +73,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 26
-text = "Структуры данных • Словари"
+text = "Хэш-таблицы • Частоты"
 vertical_alignment = 1
 
 [node name="CloseButton" type="Button" parent="VBoxContainer/Header/HBoxContainer" unique_id=1413723109]
@@ -96,7 +96,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
 theme_override_font_sizes/font_size = 20
-text = "Словарь (dict):"
+text = "Идея подсчёта частот:"
 
 [node name="TheoryContent" type="ScrollContainer" parent="VBoxContainer/Content/TheoryPanel" unique_id=257324913]
 layout_mode = 2
@@ -109,22 +109,32 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "Словарь  — это встроенный тип данных в Python, который хранит коллекцию пар \"ключ-значение\". Каждый ключ уникален и связан с определённым значением.
+text = "1. Частота элемента — сколько раз он встретился в списке.
+2. Чтобы не сканировать весь список заново для каждого нового значения, заводят счётчики в словаре dict: ключ — элемент, значение — число вхождений.
+3. Один проход по списку: для каждого элемента увеличиваем его счётчик в словаре.
 
-Представьте настоящий словарь: вы ищете слово (ключ) и получаете его определение (значение). В Python-словаре всё работает так же.
+В Python dict — это ассоциативный массив (на практике — хэш-таблица): обращение по ключу в среднем за O(1), весь подсчёт по n элементам — O(n).
 
 Пример кода:
+# список значений подряд
+items = [\"a\", \"b\", \"a\", \"a\", \"b\"]
 
-drink_list = [\"кола\", \"спрайт\", \"кола\", \"фанта\", \"кола\", \"спрайт\"]
-result = {}
-    
-for drink in drink_list:
-	if drink in result:
-		result[drink] += 1
-	else:
-		result[drink] = 1
-    
-print(result) #{'кола': 3, 'спрайт': 2, 'фанта': 1}
+# вариант с проверкой: есть ли уже ключ
+counts = {}
+for x in items:
+    if x in counts:
+        counts[x] = counts[x] + 1
+    else:
+        counts[x] = 1
+
+print(\"Частоты:\", counts)
+
+# тот же смысл короче — get даёт 0, если ключа ещё не было
+counts2 = {}
+for x in items:
+    counts2[x] = counts2.get(x, 0) + 1
+
+print(\"Снова:\", counts2)
 "
 fit_content = true
 
@@ -134,17 +144,24 @@ theme_override_constants/separation = 13
 
 [node name="TaskText" type="RichTextLabel" parent="VBoxContainer/Content/TaskPanel" unique_id=32940295]
 layout_mode = 2
-text = "Допиши функцию bubble_sort, которая принимает массив arr в качестве аргумента"
+text = "Допиши функцию count_orders: по списку кодов напитков верни словарь «код → сколько раз встретился»."
 
 [node name="AnswerEdit" type="TextEdit" parent="VBoxContainer/Content/TaskPanel" unique_id=1744044863]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
 theme_override_colors/background_color = Color(0.098, 0.118, 0.149, 1)
-text = "# допиши функцию count_orders, которая принимает массив order_codes в качестве аргумента
+text = "# ЗАДАНИЕ: Каталог вендинга — частоты заказов.
+# order_codes: список строк (коды напитков).
+# Верни словарь: уникальный код -> сколько раз встретился в списке.
 
 def count_orders(order_codes):
-	# здесь должен быть твой код"
+    counts = {}
+    # ===== МЕСТО ДЛЯ КОДА =======
+
+    # ============================
+    return counts"
+middle_mouse_paste_enabled = false
 wrap_mode = 1
 
 [node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]
@@ -163,6 +180,14 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_button")
 text = "Очистить"
 
+[node name="AskAIButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=1616921558]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Спросить у ИИ"
+
 [connection signal="pressed" from="VBoxContainer/Header/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/CheckButton" to="." method="_on_check_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/AskAIButton" to="." method="_on_ask_ai_button_pressed"]

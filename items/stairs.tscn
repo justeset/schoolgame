@@ -1,11 +1,14 @@
-[gd_scene format=3 uid="uid://drehjkwtvx2nr"]
+[gd_scene load_steps=3 format=3 uid="uid://drehjkwtvx2nr"]
 
 [ext_resource type="Texture2D" uid="uid://tml3krq5wv70" path="res://пикчи3/Без названия149_20260330112224.png.png" id="1_ssx1q"]
+[ext_resource type="Script" path="res://items/stairs.gd" id="2_stairs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6e4vq"]
 size = Vector2(682, 1014)
 
 [node name="Area2D" type="Area2D" unique_id=1127732951]
+collision_mask = 1
+script = ExtResource("2_stairs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1164695546]
 position = Vector2(0, 57)
