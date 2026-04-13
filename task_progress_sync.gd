@@ -3,9 +3,9 @@ extends Node
 
 ## Синхронизация выполненных задач с бэкендом (GET /tasks, POST /tasks/done).
 ## Доступ из других скриптов: TaskProgressSyncService.get_singleton() — см. [autoload] TaskProgressSync.
-## База задач (API URL): переменная окружения SCHOOLGAME_API_BASE; по умолчанию локальный бэкенд.
+## База задач (API URL): переменная окружения SCHOOLGAME_API_BASE; по умолчанию прод-бэкенд.
 
-const _DEFAULT_API_BASE := "http://127.0.0.1:8080"
+const _DEFAULT_API_BASE := "https://schoolgame-64wq.onrender.com"
 
 var _api_base: String = _DEFAULT_API_BASE
 

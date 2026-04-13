@@ -1,7 +1,7 @@
 extends Control
 
-## Базовый URL Go API (см. backend/main.go, порт 8080).
-const API_BASE := "http://127.0.0.1:8080"
+## Базовый URL Go API.
+const API_BASE := "https://schoolgame-64wq.onrender.com"
 
 @onready var _tab: TabContainer = $CenterContainer/MainPanel/Margin/VBox/TabContainer
 @onready var _login_email: LineEdit = $CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields/EmailEdit
