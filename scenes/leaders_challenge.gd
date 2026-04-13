@@ -116,6 +116,8 @@ func _read_key_from_web_env() -> String:
 		+ "(window.__ENV && window.__ENV.GROQ_API_KEY) || '')"
 	)
 	var key := str(js_value).strip_edges()
+	if key == "__GROQ_API_KEY__":
+		return ""
 	return key
 
 
