@@ -15,7 +15,7 @@ func _on_mouse_exited():
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/leaders_problem.tscn")
+			LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/machine_problem.tscn")
 
 
 func _on_button_pressed() -> void:

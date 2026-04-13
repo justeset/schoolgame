@@ -6,7 +6,7 @@ var custom_font = preload("res://fonts/kom-post.ttf")
 
 var tasks_data = [
 	{ "id": "bubble_sort",  "text": "Проверить таблицу лидеров" },
-	{ "id": "hash-tables",  "text": "Проверить вендинговый аппарат" },
+	{ "id": "hash-tables",  "text": "Починить каталог вендинга (частоты заказов)" },
 	{ "id": "binary-search", "text": "Проверить стеллаж с книгами" }
 ]
 
@@ -14,7 +14,14 @@ var completed_tasks: Dictionary = {}
 
 func _ready() -> void:
 	load_progress()
-	create_task_list()
+	var sync := TaskProgressSyncService.get_singleton()
+	if sync:
+		sync.fetch_into(
+			completed_tasks,
+			func(): save_progress(); create_task_list()
+		)
+	else:
+		create_task_list()
 
 func create_task_list() -> void:
 	for child in tasks_container.get_children():
@@ -81,6 +88,9 @@ func create_task_list() -> void:
 func mark_task_completed(task_id: String) -> void:
 	completed_tasks[task_id] = true
 	save_progress()
+	var sync := TaskProgressSyncService.get_singleton()
+	if sync:
+		sync.push_task_completed(task_id)
 	create_task_list()
 
 func save_progress() -> void:

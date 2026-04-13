@@ -12,6 +12,7 @@ func _process(delta: float) -> void:
 
 
 func _on_start_button_pressed() -> void:
+	LevelReturnState.clear_pending_spawn()
 	get_tree().change_scene_to_file("res://levels/level_1.tscn")
 
 

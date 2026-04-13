@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://dvh5mvsm04ekf"]
+
+[ext_resource type="Script" path="res://scenes/machine_problem.gd" id="1_n5ajs"]
+[ext_resource type="Texture2D" uid="uid://b4wjhc8d0tlnt" path="res://пикчи2/иконка2.png" id="2_4li85"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xplo"]
+bg_color = Color(0.085, 0.105, 0.158, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.89, 0.71, 0.7)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axn0n"]
+bg_color = Color(0, 0.89, 0.71, 0.18)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.89, 0.71, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MachineProblem" type="Node2D" unique_id=1218705717]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=787246675]
+script = ExtResource("1_n5ajs")
+
+[node name="Background" type="ColorRect" parent="CanvasLayer" unique_id=1384308649]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.085, 0.105, 0.158, 1)
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1173474202]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7xplo")
+
+[node name="MainVBox" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=968091803]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 3.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ChatMargin" type="MarginContainer" parent="CanvasLayer/Panel/MainVBox" unique_id=2028261358]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 180
+theme_override_constants/margin_bottom = -100
+
+[node name="ChatScroll" type="ScrollContainer" parent="CanvasLayer/Panel/MainVBox/ChatMargin" unique_id=906218634]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="Messages" type="VBoxContainer" parent="CanvasLayer/Panel/MainVBox/ChatMargin/ChatScroll" unique_id=1834739004]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="CanvasLayer/Panel/MainVBox" unique_id=1997951099]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Avatar" type="TextureRect" parent="CanvasLayer/Panel/MainVBox/BottomBar" unique_id=1130679631]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("2_4li85")
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="CanvasLayer/Panel/MainVBox/BottomBar" unique_id=1054926765]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SolveButton" type="Button" parent="CanvasLayer/Panel" unique_id=1569520458]
+layout_mode = 0
+offset_left = 924.0
+offset_top = 544.0
+offset_right = 1119.0
+offset_bottom = 609.0
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_axn0n")
+text = "Погнали!"
+
+[connection signal="pressed" from="CanvasLayer/Panel/SolveButton" to="CanvasLayer" method="_on_solve_button_pressed"]

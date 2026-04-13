@@ -17,6 +17,6 @@ func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			clicks += 1
-			get_tree().change_scene_to_file("res://scenes/tasks.tscn")
+			LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/tasks.tscn")
 
 	

@@ -1,13 +1,13 @@
 extends CanvasLayer
 
-const CHAT_IMAGE_TEX: Texture2D = preload("res://пикчи3/pic2.png")
+const CHAT_IMAGE_TEX: Texture2D = preload("res://пикчи3/Vending_Machine_7Y3thSqy.png")
 const CHAT_FONT_SIZE := 26
 const CHAT_TEXT_COLOR := Color(0.92, 0.95, 1.0, 1.0)
 
 const CHAT_MESSAGES: Array[Dictionary] = [
-	{ "text": "О НЕТ!!!" },
+	{ "text": "УЖАС!!!" },
 	{ "text": "", "image": CHAT_IMAGE_TEX },
-	{ "text": "Таблица лидеров сломалась!!! Все места перемешались, нужно срочно починить сортировку." },
+	{ "text": "Вендинговый аппарат глючит: в отчёте не видно, сколько раз заказывали каждый напиток. Нужно посчитать частоты кодов в списке заказов — через словарь." },
 	{ "text": "Поможешь?" },
 ]
 
@@ -168,4 +168,4 @@ func _clear_container(container: Node) -> void:
 func _on_solve_button_pressed() -> void:
 	# Снимаем паузу перед переходом (на всякий случай)
 	get_tree().paused = false
-	get_tree().change_scene_to_file.bind("res://scenes/leaders_challenge.tscn").call_deferred()
+	get_tree().change_scene_to_file.bind("res://scenes/machine_challenge.tscn").call_deferred()

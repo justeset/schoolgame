@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://d2fnocvyvh8oc"]
+[gd_scene format=3 uid="uid://tjvc510kyshy"]
 
-[ext_resource type="Script" uid="uid://dsib7qd4oufej" path="res://scenes/leaders_challenge.gd" id="1"]
+[ext_resource type="Script" uid="uid://cpylbvty64rky" path="res://scenes/machine_challenge.gd" id="1_7tv4h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_main"]
 bg_color = Color(0.0588, 0.0784, 0.098, 0.96)
@@ -40,7 +40,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_main")
-script = ExtResource("1")
+script = ExtResource("1_7tv4h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=644312908]
 layout_mode = 1
@@ -73,7 +73,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 26
-text = "Алгоритмы • Сортировка пузырьком"
+text = "Хэш-таблицы • Частоты"
 vertical_alignment = 1
 
 [node name="CloseButton" type="Button" parent="VBoxContainer/Header/HBoxContainer" unique_id=1413723109]
@@ -96,7 +96,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
 theme_override_font_sizes/font_size = 20
-text = "Идея пузырьковой сортировки:"
+text = "Идея подсчёта частот:"
 
 [node name="TheoryContent" type="ScrollContainer" parent="VBoxContainer/Content/TheoryPanel" unique_id=257324913]
 layout_mode = 2
@@ -109,31 +109,33 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "1. Мы сравниваем соседние элементы массива.
-2. Если они стоят не в порядке (для убывания — больше слева, меньше справа), мы меняем их местами.
-3. Проходим по всему массиву несколько раз, пока всё не станет отсортировано.
+text = "1. Частота элемента — сколько раз он встретился в списке.
+2. Чтобы не сканировать весь список заново для каждого нового значения, заводят счётчики в словаре dict: ключ — элемент, значение — число вхождений.
+3. Один проход по списку: для каждого элемента увеличиваем его счётчик в словаре.
 
-По убыванию: самые большие числа «всплывают» в начало массива.
+В Python dict — это ассоциативный массив (на практике — хэш-таблица): обращение по ключу в среднем за O(1), весь подсчёт по n элементам — O(n).
 
 Пример кода:
-# Массив чисел
-numbers = [5, 2, 9, 1, 7]
+# список значений подряд
+items = [\"a\", \"b\", \"a\", \"a\", \"b\"]
 
-# Длина массива
-n = len(numbers)
+# вариант с проверкой: есть ли уже ключ
+counts = {}
+for x in items:
+    if x in counts:
+        counts[x] = counts[x] + 1
+    else:
+        counts[x] = 1
 
-# Проходим по всему массиву
-for i in range(n):
-    # Сравниваем соседние элементы
-    for j in range(0, n - i - 1):
-        # Если левый элемент меньше правого (для убывания)
-        if numbers[j] < numbers[j + 1]:
-            # Меняем их местами
-            numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
-    print(\"После прохода\", i + 1, \"массив выглядит так:\", numbers)
+print(\"Частоты:\", counts)
 
-# Итоговый отсортированный массив
-print(\"Отсортированный массив по убыванию:\", numbers)"
+# тот же смысл короче — get даёт 0, если ключа ещё не было
+counts2 = {}
+for x in items:
+    counts2[x] = counts2.get(x, 0) + 1
+
+print(\"Снова:\", counts2)
+"
 fit_content = true
 
 [node name="TaskPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=1609031820]
@@ -142,20 +144,24 @@ theme_override_constants/separation = 13
 
 [node name="TaskText" type="RichTextLabel" parent="VBoxContainer/Content/TaskPanel" unique_id=32940295]
 layout_mode = 2
-text = "Допиши функцию bubble_sort, которая принимает массив arr в качестве аргумента"
+text = "Допиши функцию count_orders: по списку кодов напитков верни словарь «код → сколько раз встретился»."
 
 [node name="AnswerEdit" type="TextEdit" parent="VBoxContainer/Content/TaskPanel" unique_id=1744044863]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
 theme_override_colors/background_color = Color(0.098, 0.118, 0.149, 1)
-text = "# ЗАДАНИЕ: Пузырьковая сортировка массива по убыванию.
-# arr: список чисел.
+text = "# ЗАДАНИЕ: Каталог вендинга — частоты заказов.
+# order_codes: список строк (коды напитков).
+# Верни словарь: уникальный код -> сколько раз встретился в списке.
 
-def bubble_sort(arr):
+def count_orders(order_codes):
+    counts = {}
     # ===== МЕСТО ДЛЯ КОДА =======
 
-    # ============================"
+    # ============================
+    return counts"
+middle_mouse_paste_enabled = false
 wrap_mode = 1
 
 [node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]

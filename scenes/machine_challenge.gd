@@ -158,7 +158,7 @@ func _on_check_request_completed(result, response_code, headers, body) -> void:
 	var fb = json_dict.get("feedback", {})
 	
 	if json_dict.get("success", false):
-		_mark_task_completed("bubble_sort")
+		_mark_task_completed("hash-tables")
 		_offer_ask_ai_in_toolbar = false
 		if ask_ai_button:
 			ask_ai_button.visible = false
@@ -245,8 +245,10 @@ func _on_ask_ai_button_pressed() -> void:
 	
 	var code_text := answer_edit.text.strip_edges()
 	var prompt := (
-		"Ты помощник по обучению Python. Игрок пишет функцию bubble_sort (пузырьковая сортировка массива по убыванию). "
-		+ "Ниже его код. Дай краткую подсказку: на что обратить внимание или что исправить, без полного готового решения. Ответ по-русски.\n\n"
+		"Ты помощник по обучению Python. Игрок решает задачу про подсчёт частот в списке: функция count_orders(order_codes) "
+		+ "должна вернуть словарь (хэш-таблицу в Python — dict), где ключ — код напитка, значение — сколько раз он встретился. "
+		+ "Обычно используют обход списка и counts[code] = counts.get(code, 0) + 1 или аналог. "
+		+ "Ниже код игрока. Дай краткую подсказку: на что обратить внимание или что исправить, без полного готового решения. Ответ по-русски.\n\n"
 		+ "```python\n"
 		+ code_text
 		+ "\n```"
