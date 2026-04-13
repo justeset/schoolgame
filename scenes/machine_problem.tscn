@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cshof4ntiis5a"]
+[gd_scene format=3 uid="uid://dvh5mvsm04ekf"]
 
 [ext_resource type="Script" uid="uid://cc0ndi8f2p3si" path="res://scenes/machine_problem.gd" id="1_n5ajs"]
-[ext_resource type="Texture2D" uid="uid://b4wjhc8d0tlnt" path="res://пикчи2/иконка2.png" id="2_4li85"]
+[ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="2_4li85"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xplo"]
 bg_color = Color(0.085, 0.105, 0.158, 0.98)
