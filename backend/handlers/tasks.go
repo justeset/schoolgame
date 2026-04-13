@@ -82,3 +82,44 @@ func GetUserTasks(c *gin.Context) {
 
 	c.JSON(http.StatusOK, tasks)
 }
+
+type LeaderboardEntry struct {
+	UserID      int    `json:"user_id"`
+	Name        string `json:"name"`
+	SolvedCount int    `json:"solved_count"`
+}
+
+// GetLeaderboard godoc
+// @Summary Таблица лидеров по решенным заданиям
+// @Tags tasks
+// @Produce json
+// @Success 200 {array} LeaderboardEntry
+// @Failure 500 {object} models.ErrorResponse
+// @Router /leaderboard [get]
+func GetLeaderboard(c *gin.Context) {
+	rows, err := db.DB.Query(`
+		SELECT u.id, COALESCE(NULLIF(u.name, ''), u.email) AS display_name, COUNT(ut.task_id) AS solved_count
+		FROM users u
+		LEFT JOIN user_tasks ut ON u.id = ut.user_id
+		GROUP BY u.id, display_name
+		ORDER BY solved_count DESC, display_name ASC
+		LIMIT 20
+	`)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "ошибка сервера"})
+		return
+	}
+	defer rows.Close()
+
+	var leaderboard []LeaderboardEntry
+	for rows.Next() {
+		var entry LeaderboardEntry
+		if err := rows.Scan(&entry.UserID, &entry.Name, &entry.SolvedCount); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "ошибка чтения"})
+			return
+		}
+		leaderboard = append(leaderboard, entry)
+	}
+
+	c.JSON(http.StatusOK, leaderboard)
+}
