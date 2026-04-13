@@ -73,7 +73,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 26
-text = "Циклы • Цикл while"
+text = "Структуры данных • Словари"
 vertical_alignment = 1
 
 [node name="CloseButton" type="Button" parent="VBoxContainer/Header/HBoxContainer" unique_id=1413723109]
@@ -96,7 +96,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
 theme_override_font_sizes/font_size = 20
-text = "Циклы и их надобность:"
+text = "Словарь (dict):"
 
 [node name="TheoryContent" type="ScrollContainer" parent="VBoxContainer/Content/TheoryPanel" unique_id=257324913]
 layout_mode = 2
@@ -109,19 +109,22 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "Цикл в программировании — это конструкция, которая позволяет выполнять один и тот же блок кода многократно, пока соблюдается определённое условие.
+text = "Словарь  — это встроенный тип данных в Python, который хранит коллекцию пар \"ключ-значение\". Каждый ключ уникален и связан с определённым значением.
 
-Если говорить совсем просто: вместо того чтобы писать команду «напечатай слово Привет» 100 раз подряд, мы пишем: «повтори 100 раз: напечатай слово Привет».
+Представьте настоящий словарь: вы ищете слово (ключ) и получаете его определение (значение). В Python-словаре всё работает так же.
 
 Пример кода:
 
-change_due = 7 
-coins_given = 0 
-
-while coins_given < change_due:  
-    print(\"Дзынь! Монета выдана.\")
-    coins_given = coins_given + 1 
-
+drink_list = [\"кола\", \"спрайт\", \"кола\", \"фанта\", \"кола\", \"спрайт\"]
+result = {}
+    
+for drink in drink_list:
+	if drink in result:
+		result[drink] += 1
+	else:
+		result[drink] = 1
+    
+print(result) #{'кола': 3, 'спрайт': 2, 'фанта': 1}
 "
 fit_content = true
 
@@ -138,26 +141,10 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
 theme_override_colors/background_color = Color(0.098, 0.118, 0.149, 1)
-text = "# ЗАДАНИЕ: Аппарат для размена. 
-# У вас есть сумма сдачи (change_due). 
-# Напиши код в отмеченном месте, чтобы аппарат 
-# выдал НУЖНОЕ количество монет (по 1 доллару).
+text = "# допиши функцию count_orders, которая принимает массив order_codes в качестве аргумента
 
-def coins_control(change_due, coins_given):
-	change_due = 7  # Должен выдать 7 монет
-	coins_given = 0 # Счетчик выданных монет
-
-# ===== МЕСТО ДЛЯ КОДА =======
-	
-# ============================
-
-	print(f\"Итого выдано монет: {coins_given}\")
-	if coins_given == change_due:
-    	print(\"Успех! Аппарат работает.\")
-	else:
-    	print(\"Провал! Аппарат зажевал деньги.\")
-
-	return coins_given"
+def count_orders(order_codes):
+	# здесь должен быть твой код"
 wrap_mode = 1
 
 [node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]
