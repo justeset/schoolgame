@@ -98,10 +98,25 @@ func _resolve_groq_api_key() -> String:
 	var k := OS.get_environment("GROQ_API_KEY").strip_edges()
 	if k != "":
 		return k
+	k = _read_key_from_web_env()
+	if k != "":
+		return k
 	k = _read_key_from_env_file("res://res/.env")
 	if k != "":
 		return k
 	return _read_key_from_env_file("res://builds/web/.env")
+
+
+func _read_key_from_web_env() -> String:
+	if not OS.has_feature("web"):
+		return ""
+	var js_value: Variant = JavaScriptBridge.eval(
+		"(window.GROQ_API_KEY || " \
+		+ "(window.env && window.env.GROQ_API_KEY) || " \
+		+ "(window.__ENV && window.__ENV.GROQ_API_KEY) || '')"
+	)
+	var key := str(js_value).strip_edges()
+	return key
 
 
 func _read_key_from_env_file(path: String) -> String:
@@ -236,8 +251,10 @@ func _on_ask_ai_button_pressed() -> void:
 	if api_key == "":
 		_show_ai_hint_popup(
 			"Не задан ключ Groq.\n\n"
-			+ "Задай переменную окружения GROQ_API_KEY или добавь строку GROQ_API_KEY=... в файл res/.env "
-			+ "или в builds/web/.env.\nКлюч: https://console.groq.com/keys"
+			+ "Задай GROQ_API_KEY (desktop), либо прокинь его в web как window.GROQ_API_KEY "
+			+ "(или window.env.GROQ_API_KEY / window.__ENV.GROQ_API_KEY), "
+			+ "либо добавь строку GROQ_API_KEY=... в res/.env или builds/web/.env.\n"
+			+ "Ключ: https://console.groq.com/keys"
 		)
 		return
 	
