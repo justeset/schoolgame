@@ -22,7 +22,6 @@ var _skip_requested: bool = false
 
 func _ready() -> void:
 	set_process_unhandled_input(true)
-	# Важно: снимаем паузу при входе в сцену
 	get_tree().paused = false
 
 	solve_button.visible = false
@@ -166,6 +165,5 @@ func _clear_container(container: Node) -> void:
 
 
 func _on_solve_button_pressed() -> void:
-	# Снимаем паузу перед переходом (на всякий случай)
 	get_tree().paused = false
 	get_tree().change_scene_to_file.bind("res://scenes/machine_challenge.tscn").call_deferred()

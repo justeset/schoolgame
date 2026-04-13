@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://r865cf7o4wb5"]
+
+[ext_resource type="Script" uid="uid://iksum6ck2byp" path="res://scenes/auth_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://beabd6swybpoj" path="res://пикчи3/building.png" id="2_bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.12, 0.14, 0.18, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_norm"]
+bg_color = Color(0.96, 0.69, 0.36, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_press"]
+bg_color = Color(0.85, 0.55, 0.27, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(1, 0.77, 0.42, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="AuthScreen" type="Control" unique_id=1103329070]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=135375080]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="." unique_id=1428765554]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1044408280]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPanel" type="PanelContainer" parent="CenterContainer" unique_id=192332252]
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/MainPanel" unique_id=1361806910]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/MainPanel/Margin" unique_id=2048445232]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=1741008969]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Вход в аккаунт"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=419963266]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=125240032]
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+current_tab = 0
+
+[node name="Login" type="MarginContainer" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer" unique_id=995591759]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+metadata/_tab_index = 0
+
+[node name="LoginFields" type="VBoxContainer" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login" unique_id=387065725]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="EmailLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields" unique_id=1950688956]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Email"
+
+[node name="EmailEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields" unique_id=1713506009]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+placeholder_text = "you@mail.ru"
+
+[node name="PasswordLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields" unique_id=2102069142]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Пароль"
+
+[node name="PasswordEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields" unique_id=1784290069]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+placeholder_text = "••••••••"
+
+[node name="LoginButton" type="Button" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields" unique_id=1366419740]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Войти"
+
+[node name="Register" type="MarginContainer" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer" unique_id=1886378270]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+metadata/_tab_index = 1
+
+[node name="RegFields" type="VBoxContainer" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register" unique_id=8938719]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields" unique_id=873686805]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Имя"
+
+[node name="NameEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields" unique_id=706807489]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+placeholder_text = "Как к вам обращаться"
+
+[node name="RegEmailLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields" unique_id=823649235]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Email"
+
+[node name="RegEmailEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields" unique_id=1178356532]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+placeholder_text = "you@mail.ru"
+
+[node name="RegPasswordLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields" unique_id=1942448572]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Пароль"
+
+[node name="RegPasswordEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields" unique_id=162426781]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+placeholder_text = "Не короче 6 символов"
+
+[node name="RegisterButton" type="Button" parent="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields" unique_id=1324901574]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Зарегистрироваться"
+
+[node name="BackButton" type="Button" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=611360209]
+custom_minimum_size = Vector2(20, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Назад в меню"
+
+[connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/TabContainer/Register/RegFields/RegisterButton" to="." method="_on_register_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/BackButton" to="." method="_on_back_button_pressed"]
