@@ -6,8 +6,6 @@ services:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: tower_game
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U app -d tower_game"]
       interval: 5s
@@ -23,3 +21,10 @@ services:
         condition: service_healthy
     environment:
       DB_DSN: "host=db port=5432 user=app password=secret dbname=tower_game sslmode=disable"
+
+  checker:
+    build:
+      context: ../checker
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"

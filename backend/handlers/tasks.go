@@ -82,3 +82,27 @@ func GetUserTasks(c *gin.Context) {
 
 	c.JSON(http.StatusOK, tasks)
 }
+
+// ResetUserTasks godoc
+// @Summary Сбросить прогресс пользователя
+// @Tags tasks
+// @Produce json
+// @Param user_id query int true "ID пользователя"
+// @Success 200 {object} models.MessageResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Router /tasks [delete]
+func ResetUserTasks(c *gin.Context) {
+	userID := c.Query("user_id")
+
+	_, err := db.DB.Exec(`
+		DELETE FROM user_tasks
+		WHERE user_id = $1
+	`, userID)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "ошибка сервера"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "прогресс сброшен"})
+}

@@ -35,6 +35,7 @@ func main() {
     // tasks
     r.POST("/tasks/done", handlers.CompleteTask)
     r.GET("/tasks", handlers.GetUserTasks)
+    r.DELETE("/tasks", handlers.ResetUserTasks)
     // users
     r.DELETE("/users/:id", handlers.DeleteUser)
     r.PUT("/users/:id", handlers.UpdateUser)
