@@ -1,7 +1,7 @@
 extends Panel
 
 const _DEFAULT_CHECKER_API_URL := "https://schoolgame-1i34.onrender.com"
-const _DEFAULT_AI_HINT_API_URL := "http://127.0.0.1:8001"
+const _DEFAULT_AI_HINT_API_URL := "https://ai-hints-reguest.onrender.com"
 const GROQ_API_URL := "https://api.groq.com/openai/v1/chat/completions"
 const GROQ_MODEL := "llama-3.1-8b-instant"
 

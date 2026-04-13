@@ -6,4 +6,4 @@ addons/
 *.uid
 .DS_Store
 .venv/
-__pychache__/
+__pycache__/
