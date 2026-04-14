@@ -22,7 +22,6 @@ const CHOICE_FRAME_SIZE := Vector2(52, 78)
 var _player_in: CharacterBody2D = null
 var _busy: bool = false
 var _e_prev: bool = false
-var _mouse_left_prev: bool = false
 
 var _floor2_choice_layer: CanvasLayer = null
 var _floor2_choice_pos_root: Control = null
@@ -47,14 +46,11 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	if _busy or _player_in == null:
 		_e_prev = Input.is_physical_key_pressed(KEY_E)
-		_mouse_left_prev = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 		return
 	var e_now := Input.is_physical_key_pressed(KEY_E)
-	var mouse_now := Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	if (e_now and not _e_prev) or (mouse_now and not _mouse_left_prev):
+	if e_now and not _e_prev:
 		_try_use_stairs()
 	_e_prev = e_now
-	_mouse_left_prev = mouse_now
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -71,8 +67,11 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body == _player_in:
-		_player_in = null
+	if body != _player_in:
+		return
+	if _floor2_choice_layer != null and is_instance_valid(_floor2_choice_layer):
+		_close_stairs_dialog(_floor2_choice_layer)
+	_player_in = null
 
 
 func _try_use_stairs() -> void:
