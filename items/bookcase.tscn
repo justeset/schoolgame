@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://dhophliov512q"]
 
 [ext_resource type="Texture2D" uid="uid://bqdl13my7mugd" path="res://пикчи3/Pixel_Art_Vending_Machine_5-DsfIPW.png" id="1_4o1bb"]
+[ext_resource type="Script" uid="uid://gr8eurqgjmvu" path="res://items/bookcase.gd" id="1_pfetu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4o1bb"]
 size = Vector2(201, 110)
 
 [node name="Area2D" type="Area2D" unique_id=94041992]
+script = ExtResource("1_pfetu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=929527442]
 position = Vector2(-3.5, 7)

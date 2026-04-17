@@ -18,18 +18,27 @@ func _ready() -> void:
 	overlay.modulate.a = 1.0
 	card.scale = Vector2.ONE
 	card.modulate.a = 1.0
+	
+	var font = load("res://fonts/NotoSans-Regular.ttf")
+	
+	icon_label.add_theme_font_override("font", font)
+	title_label.add_theme_font_override("font", font)
+	explanation_label.add_theme_font_override("normal_font", font)
+	hint_label.add_theme_font_override("font", font)
+	retry_button.add_theme_font_override("font", font)
+	continue_button.add_theme_font_override("font", font)
 
 func show_result(success: bool, title: String, explanation: String, hint: String = "") -> void:
 	was_successful = success
 	
 	if success:
-		icon_label.text = "✓"
+		icon_label.text = "✅"
 		icon_label.modulate = Color(0, 0.9, 0.75)
 		title_label.modulate = Color(0, 0.9, 0.75)
 		continue_button.text = "Продолжить"
 		retry_button.visible = false
 	else:
-		icon_label.text = "✕"
+		icon_label.text = "❌"
 		icon_label.modulate = Color(1, 0.35, 0.35)
 		title_label.modulate = Color(1, 0.35, 0.35)
 		continue_button.text = "Закрыть"

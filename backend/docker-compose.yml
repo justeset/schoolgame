@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: tower_game
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d tower_game"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_DSN: "host=db port=5432 user=app password=secret dbname=tower_game sslmode=disable"
+
+  checker:
+    build:
+      context: ./checker
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"

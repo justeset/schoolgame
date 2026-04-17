@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c1nup00xfmqrg" path="res://gangster-pixel-character-sprite-sheets-pack/Gangsters_2/Idle.png" id="1_f23ml"]
 [ext_resource type="Texture2D" uid="uid://cf54iuaru55rb" path="res://gangster-pixel-character-sprite-sheets-pack/Gangsters_2/Walk.png" id="2_kqny2"]
 [ext_resource type="Texture2D" uid="uid://gbqhp8wb1lgn" path="res://gangster-pixel-character-sprite-sheets-pack/Gangsters_2/Run.png" id="2_ylpj4"]
+[ext_resource type="Texture2D" uid="uid://dpwbxkobonybh" path="res://gangster-pixel-character-sprite-sheets-pack/Gangsters_2/Jump.png" id="3_5ma3d"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kqny2"]
 radius = 28.0
@@ -36,6 +37,46 @@ region = Rect2(635, 0, 127, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ojsn"]
 atlas = ExtResource("1_f23ml")
 region = Rect2(762, 0, 127, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fh3pr"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sffaw"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oigol"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ueb3l"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qh0d"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf4vc"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uroad"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjsxc"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pbag"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2lyi"]
+atlas = ExtResource("3_5ma3d")
+region = Rect2(1152, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05qv4"]
 atlas = ExtResource("2_ylpj4")
@@ -147,6 +188,41 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fh3pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sffaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oigol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ueb3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qh0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf4vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uroad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjsxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pbag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2lyi")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_05qv4")
 }, {
 "duration": 1.0,
@@ -226,8 +302,8 @@ shape = SubResource("CapsuleShape2D_kqny2")
 position = Vector2(5, -39)
 scale = Vector2(1.3862265, 1.2399901)
 sprite_frames = SubResource("SpriteFrames_cf1y6")
-animation = &"walk"
-frame_progress = 0.56595695
+animation = &"default"
+frame_progress = 0.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=187645764]
 zoom = Vector2(1.5, 1.5)

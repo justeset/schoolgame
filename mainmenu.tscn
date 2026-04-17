@@ -104,6 +104,7 @@ theme_override_styles/hover = SubResource("2")
 text = "Начать игру"
 
 [node name="ContinueButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1407697395]
+visible = false
 custom_minimum_size = Vector2(320, 64)
 layout_mode = 2
 mouse_default_cursor_shape = 2

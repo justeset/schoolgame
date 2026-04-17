@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dv6r1d7gfhgtk"]
 
-[ext_resource type="Texture2D" uid="uid://68sdyf7ho6xt" path="res://пикчи3/Pixel_Art_Vending_Machine_7Y3thSqy.png" id="1_6r7yc"]
+[ext_resource type="Texture2D" uid="uid://68sdyf7ho6xt" path="res://пикчи3/Vending_Machine_7Y3thSqy.png" id="1_6r7yc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sp4gv"]
 size = Vector2(692, 1012)

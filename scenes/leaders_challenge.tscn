@@ -109,6 +109,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
+selection_enabled = true
 text = "1. Мы сравниваем соседние элементы массива.
 2. Если они стоят не в порядке (для убывания — больше слева, меньше справа), мы меняем их местами.
 3. Проходим по всему массиву несколько раз, пока всё не станет отсортировано.
@@ -149,9 +150,13 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
 theme_override_colors/background_color = Color(0.098, 0.118, 0.149, 1)
-text = "# допиши функцию bubble_sort, которая принимает массив arr в качестве аргумента
+text = "# ЗАДАНИЕ: Пузырьковая сортировка массива по убыванию.
+# arr: список чисел.
+
 def bubble_sort(arr):
-	# здесь должен быть твой код"
+    # ===== МЕСТО ДЛЯ КОДА =======
+
+    # ============================"
 wrap_mode = 1
 
 [node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]
@@ -170,6 +175,14 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_button")
 text = "Очистить"
 
+[node name="AskAIButton" type="Button" parent="VBoxContainer/Content/TaskPanel/TaskButtons" unique_id=1616921558]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Спросить у ИИ"
+
 [connection signal="pressed" from="VBoxContainer/Header/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/CheckButton" to="." method="_on_check_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/TaskPanel/TaskButtons/AskAIButton" to="." method="_on_ask_ai_button_pressed"]
