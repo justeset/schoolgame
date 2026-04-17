@@ -1,0 +1,255 @@
+extends CanvasLayer
+
+signal tutorial_finished
+
+const CHAT_FONT_SIZE := 26
+const CHAT_TEXT_COLOR := Color(0.92, 0.95, 1.0, 1.0)
+
+static var tutorial_shown: bool = false
+
+@export var delay_per_message_sec: float = 1.5
+
+@onready var messages_container: VBoxContainer = $Panel/MainVBox/ChatMargin/ChatScroll/Messages
+@onready var solve_button: Button = $Panel/SolveButton
+
+var _chat_running: bool = false
+var _skip_requested: bool = false
+var chat_messages: Array[Dictionary] = []
+
+
+func _ready() -> void:
+	print("=== TUTORIAL READY ===")
+	
+	# НЕ показываем автоматически, ждём вызова show_tutorial()
+	hide()
+	
+	# Настраиваем обработку ввода
+	set_process_unhandled_input(false)
+	
+	# Настраиваем кнопку
+	solve_button.text = "ПРОПУСТИТЬ"
+	solve_button.visible = true
+	solve_button.disabled = false
+	solve_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	
+	# Подключаем сигнал кнопки
+	if solve_button.pressed.is_connected(_on_solve_button_pressed):
+		solve_button.pressed.disconnect(_on_solve_button_pressed)
+	solve_button.pressed.connect(_on_solve_button_pressed)
+
+
+func show_tutorial() -> void:
+	
+	if tutorial_shown:
+		print("Обучение уже было показано")
+		return
+	
+	tutorial_shown = true
+	
+	# Формируем сообщения
+	_build_chat_messages()
+	
+	# Отключаем управление игроком
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_process(false)
+		player.set_physics_process(false)
+		player.set_process_input(false)
+		print("Управление игроком отключено")
+	
+	# Показываем обучение
+	show()
+	set_process_unhandled_input(true)
+	
+	print("Запускаю анимацию чата у доски...")
+	_play_chat()
+
+
+func _build_chat_messages() -> void:
+	# Получаем имя игрока из SessionManager
+	var player_name = "игрок"
+	
+	if has_node("/root/SessionManager"):
+		var session = get_node("/root/SessionManager")
+		var user = session.get_user()
+		if not user.is_empty() and user.has("name") and user["name"] != "":
+			player_name = user["name"]
+	
+	# Сообщения для обучения у доски
+	chat_messages = [
+		{ "text": "Отлично, " + player_name + "!" },
+		{ "text": "Ты у доски с квестами." },
+		{ "text": "Здесь ты можешь взять задания," },
+		{ "text": "чтобы исправить сбои в системе школы." },
+		{ "text": "и посмотреть доступные квесты." },
+	]
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not _chat_running:
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_SPACE or event.physical_keycode == KEY_SPACE:
+			print("Пробел нажат - пропуск")
+			_skip_requested = true
+			get_viewport().set_input_as_handled()
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			print("Клик мыши - пропуск")
+			_skip_requested = true
+
+
+func _play_chat() -> void:
+	print("=== _play_chat НАЧАЛО ===")
+	_chat_running = true
+	_skip_requested = false
+	
+	_clear_container(messages_container)
+	
+	for i in range(chat_messages.size()):
+		var data: Dictionary = chat_messages[i]
+		print("Показываю сообщение ", i + 1, "/", chat_messages.size(), ": ", data.get("text", ""))
+		
+		var bubble: Control = _make_bubble(data)
+		bubble.modulate.a = 0.0
+		messages_container.add_child(bubble)
+		
+		await get_tree().process_frame
+		_scroll_chat_to_bottom()
+		
+		if _skip_requested:
+			print("  -> ПРОПУСК")
+			bubble.modulate.a = 1.0
+			await _add_remaining_bubbles_instant(i + 1)
+			break
+		
+		var tw := create_tween()
+		tw.tween_property(bubble, "modulate:a", 1.0, 0.4)
+		
+		while tw.is_running():
+			if _skip_requested:
+				tw.kill()
+				bubble.modulate.a = 1.0
+				break
+			await get_tree().process_frame
+		
+		if _skip_requested:
+			await _add_remaining_bubbles_instant(i + 1)
+			break
+		
+		var wait_time = delay_per_message_sec
+		var timer = get_tree().create_timer(wait_time)
+		while timer.time_left > 0:
+			if _skip_requested:
+				break
+			await get_tree().process_frame
+		
+		if _skip_requested:
+			await _add_remaining_bubbles_instant(i + 1)
+			break
+	
+	_chat_running = false
+	solve_button.text = "ПОНЯТНО"
+	print("=== _play_chat КОНЕЦ ===")
+
+
+func _add_remaining_bubbles_instant(from_index: int) -> void:
+	print("Добавляю оставшиеся сообщения с ", from_index)
+	for j in range(from_index, chat_messages.size()):
+		var bubble: Control = _make_bubble(chat_messages[j])
+		bubble.modulate.a = 1.0
+		messages_container.add_child(bubble)
+	await get_tree().process_frame
+	_scroll_chat_to_bottom()
+
+
+func _scroll_chat_to_bottom() -> void:
+	var scroll := $Panel/MainVBox/ChatMargin/ChatScroll as ScrollContainer
+	if scroll:
+		scroll.scroll_vertical = scroll.get_v_scroll_bar().max_value
+
+
+func _make_bubble(data: Dictionary) -> Control:
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_BEGIN
+	row.size_flags_horizontal = Control.SIZE_FILL
+	row.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	
+	var bubble := PanelContainer.new()
+	bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	bubble.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(bubble)
+	
+	var inner := VBoxContainer.new()
+	inner.size_flags_horizontal = Control.SIZE_FILL
+	inner.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	bubble.add_child(inner)
+	
+	var style := StyleBoxFlat.new()
+	style.content_margin_left = 20
+	style.content_margin_right = 20
+	style.content_margin_top = 14
+	style.content_margin_bottom = 14
+	style.corner_radius_top_left = 18
+	style.corner_radius_top_right = 18
+	style.corner_radius_bottom_left = 18
+	style.corner_radius_bottom_right = 18
+	style.bg_color = Color(0.16, 0.22, 0.38, 1.0)
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.border_color = Color(0.0, 0.89, 0.71, 0.75)
+	bubble.add_theme_stylebox_override("panel", style)
+	
+	var text_value := str(data.get("text", ""))
+	if text_value != "":
+		var label := Label.new()
+		label.text = text_value
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.add_theme_font_size_override("font_size", CHAT_FONT_SIZE)
+		label.add_theme_color_override("font_color", CHAT_TEXT_COLOR)
+		label.custom_minimum_size = Vector2(520, 0)
+		label.size_flags_horizontal = Control.SIZE_FILL
+		label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		inner.add_child(label)
+	
+	if data.has("image") and data["image"] != null:
+		var img := TextureRect.new()
+		img.texture = data["image"]
+		img.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		img.custom_minimum_size = Vector2(260, 150)
+		img.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		img.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		inner.add_child(img)
+	
+	return row
+
+
+func _clear_container(container: Node) -> void:
+	for child in container.get_children():
+		child.queue_free()
+
+
+func _on_solve_button_pressed() -> void:
+	print("=== КНОПКА НАЖАТА: ", solve_button.text, " ===")
+	
+	if _chat_running:
+		print("Чат ещё идёт, пропускаем анимацию")
+		_skip_requested = true
+		solve_button.text = "ПОНЯТНО"
+	else:
+		print("Закрываем обучение")
+		
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			player.set_process(true)
+			player.set_physics_process(true)
+			player.set_process_input(true)
+			print("Управление игроком включено")
+		
+		hide()
+		set_process_unhandled_input(false)
+		tutorial_finished.emit()

@@ -1,10 +1,29 @@
 extends Node2D
 
+@onready var tutorial_chat: CanvasLayer = $TutorialChat
 
 func _ready() -> void:
+	print("=== LEVEL_1 READY ===")
+	
+	# Подключаем сигнал от обучения
+	if tutorial_chat:
+		print("TutorialChat найден")
+		if tutorial_chat.has_signal("tutorial_finished"):
+			if not tutorial_chat.tutorial_finished.is_connected(_on_tutorial_finished):
+				tutorial_chat.tutorial_finished.connect(_on_tutorial_finished)
+				print("Сигнал tutorial_finished подключен")
+		else:
+			print("ОШИБКА: сигнал не найден")
+	else:
+		print("ОШИБКА: TutorialChat не найден")
+		# Если обучения нет - сразу спавним игрока
+		call_deferred("_apply_pending_spawn")
+
+func _on_tutorial_finished() -> void:
+	print("Обучение завершено, спавним игрока")
 	call_deferred("_apply_pending_spawn")
-
-
+	
+	
 func _apply_pending_spawn() -> void:
 	if not LevelReturnState.has_pending_spawn:
 		return

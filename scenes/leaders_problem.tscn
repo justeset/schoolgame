@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1ry114cga268"]
 
 [ext_resource type="Script" uid="uid://cp30sqt4m4434" path="res://scenes/leaders_problem.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://b4wjhc8d0tlnt" path="res://пикчи2/иконка2.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_main"]
 bg_color = Color(0.085, 0.105, 0.158, 0.98)

@@ -1,6 +1,7 @@
 extends Control
 
 @onready var tasks_container: VBoxContainer = $Board/TasksContainer
+@onready var tutorial_chat: CanvasLayer = $TutorialChat  # ← ДОБАВИТЬ
 
 var custom_font = preload("res://fonts/kom-post.ttf")
 
@@ -12,7 +13,26 @@ var tasks_data = [
 
 var completed_tasks: Dictionary = {}
 
+
 func _ready() -> void:
+	print("=== QUEST BOARD READY ===")
+	
+	# Подключаем сигнал от обучения
+	if tutorial_chat:
+		print("TutorialChat найден")
+		if tutorial_chat.has_signal("tutorial_finished"):
+			if not tutorial_chat.tutorial_finished.is_connected(_on_tutorial_finished):
+				tutorial_chat.tutorial_finished.connect(_on_tutorial_finished)
+				print("Сигнал tutorial_finished подключен")
+		
+		# ПОКАЗЫВАЕМ ОБУЧЕНИЕ ПРИ ЗАГРУЗКЕ СЦЕНЫ
+		# Небольшая задержка, чтобы сцена успела загрузиться
+		await get_tree().process_frame
+		tutorial_chat.show_tutorial()
+		print("Вызван show_tutorial()")
+	else:
+		print("ОШИБКА: TutorialChat не найден!")
+	
 	load_progress()
 	var sync := TaskProgressSyncService.get_singleton()
 	if sync:
@@ -22,6 +42,12 @@ func _ready() -> void:
 		)
 	else:
 		create_task_list()
+
+
+func _on_tutorial_finished() -> void:
+	print("=== Обучение у доски завершено ===")
+	# Обучение закончено, можно ничего не делать или показать подсказку
+
 
 func create_task_list() -> void:
 	for child in tasks_container.get_children():
@@ -85,6 +111,7 @@ func create_task_list() -> void:
 		row.add_child(label)
 		tasks_container.add_child(row)
 
+
 func mark_task_completed(task_id: String) -> void:
 	completed_tasks[task_id] = true
 	save_progress()
@@ -93,10 +120,12 @@ func mark_task_completed(task_id: String) -> void:
 		sync.push_task_completed(task_id)
 	create_task_list()
 
+
 func save_progress() -> void:
 	var file = FileAccess.open("user://tasks_progress.save", FileAccess.WRITE)
 	if file:
 		file.store_var(completed_tasks)
+
 
 func load_progress() -> void:
 	if FileAccess.file_exists("user://tasks_progress.save"):

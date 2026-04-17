@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://do1uiwrnkn285" path="res://пикчи3/whiteboard.png" id="1"]
 [ext_resource type="Script" uid="uid://bvaw3nndcd1fu" path="res://scenes/tasks.gd" id="1_820ab"]
 [ext_resource type="FontFile" uid="uid://dikie42ma48xp" path="res://fonts/kom-post.ttf" id="3_fbbsq"]
+[ext_resource type="Script" uid="uid://d2vesjyefak0g" path="res://scenes/task_tutor.gd" id="4_gwg68"]
+[ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="5_q1kst"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_board"]
 bg_color = Color(0.9537712, 0.9537712, 0.95377105, 1)
@@ -28,6 +30,30 @@ bg_color = Color(0.9529412, 0.9529412, 0.9529412, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3yned"]
 bg_color = Color(0.9529412, 0.9529412, 0.9529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1kg1j"]
+bg_color = Color(0.08627451, 0.105882354, 0.15686275, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.89, 0.71, 0.7)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c55w8"]
+bg_color = Color(0, 0.89, 0.71, 0.18)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.89, 0.71, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="TasksScene" type="Control" unique_id=2031804720]
 layout_mode = 3
@@ -118,4 +144,80 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fg2cy")
 theme_override_styles/focus = SubResource("StyleBoxFlat_3yned")
 text = "назад"
 
+[node name="TutorialChat" type="CanvasLayer" parent="." unique_id=480891018]
+script = ExtResource("4_gwg68")
+
+[node name="Background" type="ColorRect" parent="TutorialChat" unique_id=1028162758]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.105882354, 0.15686275, 0.6313726)
+
+[node name="Panel" type="Panel" parent="TutorialChat" unique_id=234401619]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1kg1j")
+
+[node name="MainVBox" type="VBoxContainer" parent="TutorialChat/Panel" unique_id=853744309]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 3.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ChatMargin" type="MarginContainer" parent="TutorialChat/Panel/MainVBox" unique_id=277171635]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 180
+theme_override_constants/margin_bottom = -100
+
+[node name="ChatScroll" type="ScrollContainer" parent="TutorialChat/Panel/MainVBox/ChatMargin" unique_id=1030793498]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="Messages" type="VBoxContainer" parent="TutorialChat/Panel/MainVBox/ChatMargin/ChatScroll" unique_id=1169684750]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="TutorialChat/Panel/MainVBox" unique_id=723448353]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Avatar" type="TextureRect" parent="TutorialChat/Panel/MainVBox/BottomBar" unique_id=860303906]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("5_q1kst")
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="TutorialChat/Panel/MainVBox/BottomBar" unique_id=1786117968]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SolveButton" type="Button" parent="TutorialChat/Panel" unique_id=565513909]
+layout_mode = 0
+offset_left = 924.0
+offset_top = 544.0
+offset_right = 1119.0
+offset_bottom = 609.0
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_c55w8")
+text = "Погнали!"
+
 [connection signal="pressed" from="Board/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TutorialChat/Panel/SolveButton" to="TutorialChat" method="_on_solve_button_pressed"]
