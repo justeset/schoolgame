@@ -19,6 +19,7 @@ const _DEFAULT_APP_API_URL := "https://auth-aviz.onrender.com"
 @onready var drill_fix_text: RichTextLabel = $Card/VBox/DrillBlock/DrillColumns/FixColumn/FixText
 @onready var player_code_input: TextEdit = $Card/VBox/DrillBlock/DrillColumns/CodeColumn/PlayerCodeInput
 @onready var drill_feedback: Label = $Card/VBox/DrillBlock/Feedback
+@onready var back_to_list_button: Button = $Card/VBox/DrillBlock/DrillButtons/BackToListButton
 @onready var drill_check_button: Button = $Card/VBox/DrillBlock/DrillButtons/CheckFixButton
 
 @onready var quiz_question: Label = $Card/VBox/QuizBlock/Question
@@ -118,6 +119,8 @@ func _ready() -> void:
 	_code_errors_get_request.request_completed.connect(_on_code_errors_loaded)
 	_code_errors_post_request = HTTPRequest.new()
 	add_child(_code_errors_post_request)
+	if not back_to_list_button.pressed.is_connected(_on_back_to_list_button_pressed):
+		back_to_list_button.pressed.connect(_on_back_to_list_button_pressed)
 	set_process_unhandled_input(true)
 	_build_error_rows()
 	_show_state(STATE_LIST)

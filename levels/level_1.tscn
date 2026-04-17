@@ -26,6 +26,7 @@
 [ext_resource type="FontFile" uid="uid://cmsjtk2svi1tq" path="res://fonts/NotoSans-Regular.ttf" id="24_ryfpa"]
 [ext_resource type="Script" uid="uid://6e7mx3gfb3pa" path="res://levels/tutorial_chat.gd" id="24_ntdhj"]
 [ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="25_tutoravatar"]
+[ext_resource type="Texture2D" path="res://пикчи3/3388823.png" id="26_hamburger"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hph3"]
 texture = ExtResource("2_gwceb")
@@ -1201,7 +1202,9 @@ theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxFlat_udfhf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_udfhf")
-text = "☰"
+icon = ExtResource("26_hamburger")
+expand_icon = true
+icon_alignment = 1
 
 [node name="SidePanel" type="Panel" parent="CanvasLayer" unique_id=801001245]
 anchors_preset = -1
