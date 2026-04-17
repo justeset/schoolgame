@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://do1uiwrnkn285" path="res://пикчи3/whiteboard.png" id="1"]
 [ext_resource type="Script" uid="uid://bvaw3nndcd1fu" path="res://scenes/tasks.gd" id="1_820ab"]
 [ext_resource type="FontFile" uid="uid://dikie42ma48xp" path="res://fonts/kom-post.ttf" id="3_fbbsq"]
-[ext_resource type="Script" path="res://scenes/task_tutor.gd" id="4_gwg68"]
+[ext_resource type="Script" uid="uid://doht7svpmjb8g" path="res://scenes/task_tutor.gd" id="4_gwg68"]
 [ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="5_q1kst"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_board"]
