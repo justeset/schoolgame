@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://bod5rl5yrexng"]
+[gd_scene format=3 uid="uid://je3dpt61qrfd"]
 
-[ext_resource type="Script" uid="uid://3blr6kt54054" path="res://scenes/comp_challenge.gd" id="1_juvju"]
+[ext_resource type="Script" uid="uid://dd30ohapy2aum" path="res://scenes/comp_challenge.gd" id="1_juvju"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_main"]
 bg_color = Color(0.0588, 0.0784, 0.098, 0.96)

@@ -1,6 +1,6 @@
 extends Panel
 
-const _DEFAULT_CHECKER_API_URL := "https://schoolgame-1i34.onrender.com"
+const _DEFAULT_CHECKER_API_URL := "https://schoolgame-64wq.onrender.com"
 const _DEFAULT_AI_HINT_API_URL := "https://ai-hints-reguest.onrender.com"
 
 @onready var answer_edit: TextEdit = $VBoxContainer/Content/TaskPanel/AnswerEdit
