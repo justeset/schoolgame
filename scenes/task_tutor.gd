@@ -118,7 +118,7 @@ func _play_chat() -> void:
 		_scroll_chat_to_bottom()
 		
 		if _skip_requested:
-			print("  -> ПРОПУСК")
+			print("  -> ПОНЯТНО")
 			bubble.modulate.a = 1.0
 			await _add_remaining_bubbles_instant(i + 1)
 			break
