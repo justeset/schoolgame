@@ -4,6 +4,7 @@ const STATE_LIST := "list"
 const STATE_DRILL := "drill"
 const STATE_QUIZ := "quiz"
 const STATE_DONE := "done"
+const _DEFAULT_CHECKER_API_URL := "https://schoolgame-64wq.onrender.com"
 
 @onready var title_label: Label = $Card/VBox/Header/Title
 @onready var list_block: VBoxContainer = $Card/VBox/ListBlock
@@ -17,6 +18,7 @@ const STATE_DONE := "done"
 @onready var drill_fix_text: RichTextLabel = $Card/VBox/DrillBlock/DrillColumns/FixColumn/FixText
 @onready var player_code_input: TextEdit = $Card/VBox/DrillBlock/DrillColumns/CodeColumn/PlayerCodeInput
 @onready var drill_feedback: Label = $Card/VBox/DrillBlock/Feedback
+@onready var drill_check_button: Button = $Card/VBox/DrillBlock/DrillButtons/CheckFixButton
 
 @onready var quiz_question: Label = $Card/VBox/QuizBlock/Question
 @onready var quiz_feedback: Label = $Card/VBox/QuizBlock/Feedback
@@ -28,23 +30,28 @@ var _state: String = STATE_LIST
 var _current_error_idx: int = 0
 var _quiz_idx: int = 0
 var _quiz_score: int = 0
+var _checker_api_url: String = _DEFAULT_CHECKER_API_URL
+var _check_request: HTTPRequest
 
 var _errors: Array[Dictionary] = [
 	{
 		"name": "Пустой ответ",
 		"count": 3,
+		"task_id": "count_orders",
 		"fix": "Добавь хотя бы каркас решения перед проверкой.\n\n[code]def count_orders(order_codes):\n    return {}[/code]",
 		"player_code": ""
 	},
 	{
 		"name": "Неверное имя функции",
 		"count": 2,
+		"task_id": "count_orders",
 		"fix": "Переименуй функцию в ожидаемое имя задачи.\n\n[code]def count_orders(order_codes):\n    ...[/code]",
 		"player_code": "def countOrder(order_codes):\n    return {}"
 	},
 	{
 		"name": "Ошибка логики на тесте",
 		"count": 2,
+		"task_id": "count_orders",
 		"fix": "Проверь граничные случаи и корректный подсчет повторов.\n\n[code]for code in order_codes:\n    counts[code] = counts.get(code, 0) + 1[/code]",
 		"player_code": "def count_orders(order_codes):\n    return {code: 1 for code in order_codes}"
 	},
@@ -82,6 +89,12 @@ var _quiz: Array[Dictionary] = [
 
 
 func _ready() -> void:
+	var checker := OS.get_environment("SCHOOLGAME_CHECKER_API_BASE").strip_edges().rstrip("/")
+	if checker != "":
+		_checker_api_url = checker
+	_check_request = HTTPRequest.new()
+	add_child(_check_request)
+	_check_request.request_completed.connect(_on_drill_check_request_completed)
 	set_process_unhandled_input(true)
 	_build_error_rows()
 	_show_state(STATE_LIST)
@@ -147,6 +160,9 @@ func _open_drill() -> void:
 	drill_fix_text.text = "[b]Как исправить ошибку:[/b]\n%s" % str(e.get("fix", ""))
 	player_code_input.text = str(e.get("player_code", ""))
 	drill_feedback.text = ""
+	drill_feedback.modulate = Color(0.9, 0.95, 1.0, 1.0)
+	drill_check_button.disabled = false
+	drill_check_button.text = "Проверить"
 	_show_state(STATE_DRILL)
 
 
@@ -211,3 +227,59 @@ func _on_next_question_button_pressed() -> void:
 		_render_quiz()
 		return
 	_show_state(STATE_DONE)
+
+
+func _on_check_fix_button_pressed() -> void:
+	var code_text := player_code_input.text.strip_edges()
+	if code_text == "":
+		drill_feedback.text = "Введи код перед проверкой."
+		drill_feedback.modulate = Color(1.0, 0.35, 0.35, 1.0)
+		return
+	var e: Dictionary = _errors[_current_error_idx]
+	var task_id := str(e.get("task_id", "count_orders"))
+	var payload := {
+		"code": code_text,
+		"task_id": task_id
+	}
+	var err := _check_request.request(
+		_checker_api_url + "/check",
+		PackedStringArray(["Content-Type: application/json"]),
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+	if err != OK:
+		drill_feedback.text = "Не удалось отправить запрос на сервер."
+		drill_feedback.modulate = Color(1.0, 0.35, 0.35, 1.0)
+		return
+	drill_check_button.disabled = true
+	drill_check_button.text = "Проверка..."
+	drill_feedback.text = "Отправили код на проверку..."
+	drill_feedback.modulate = Color(0.75, 0.85, 0.95, 1.0)
+
+
+func _on_drill_check_request_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	drill_check_button.disabled = false
+	drill_check_button.text = "Проверить"
+	if response_code != 200:
+		drill_feedback.text = "Сервер вернул код %d." % response_code
+		drill_feedback.modulate = Color(1.0, 0.35, 0.35, 1.0)
+		return
+	var text := body.get_string_from_utf8()
+	var data: Variant = JSON.parse_string(text)
+	if typeof(data) != TYPE_DICTIONARY:
+		drill_feedback.text = "Некорректный ответ сервера."
+		drill_feedback.modulate = Color(1.0, 0.35, 0.35, 1.0)
+		return
+	var payload := data as Dictionary
+	if bool(payload.get("success", false)):
+		var passed := int(payload.get("passed_tests", 0))
+		var total := int(payload.get("total_tests", 0))
+		drill_feedback.text = "Отлично, код проходит проверку (%d/%d)." % [passed, total]
+		drill_feedback.modulate = Color(0.0, 0.9, 0.75, 1.0)
+	else:
+		var feedback: Variant = payload.get("feedback", {})
+		var explanation := "Код пока не прошел проверку."
+		if typeof(feedback) == TYPE_DICTIONARY:
+			explanation = str((feedback as Dictionary).get("explanation", explanation))
+		drill_feedback.text = explanation
+		drill_feedback.modulate = Color(1.0, 0.35, 0.35, 1.0)

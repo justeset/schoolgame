@@ -188,6 +188,14 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_button")
 text = "К списку ошибок"
 
+[node name="CheckFixButton" type="Button" parent="Card/VBox/DrillBlock/DrillButtons" unique_id=1070091887]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Проверить"
+
 [node name="QuizBlock" type="VBoxContainer" parent="Card/VBox" unique_id=505018828]
 visible = false
 layout_mode = 2
@@ -278,6 +286,7 @@ text = "Вернуться на уровень"
 
 [connection signal="pressed" from="Card/VBox/Header/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="Card/VBox/ListBlock/StartQuizButton" to="." method="_on_start_quiz_button_pressed"]
+[connection signal="pressed" from="Card/VBox/DrillBlock/DrillButtons/CheckFixButton" to="." method="_on_check_fix_button_pressed"]
 [connection signal="pressed" from="Card/VBox/QuizBlock/Options/OptionA" to="." method="_on_option_a_pressed"]
 [connection signal="pressed" from="Card/VBox/QuizBlock/Options/OptionB" to="." method="_on_option_b_pressed"]
 [connection signal="pressed" from="Card/VBox/QuizBlock/Options/OptionC" to="." method="_on_option_c_pressed"]

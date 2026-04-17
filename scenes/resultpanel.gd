@@ -32,13 +32,13 @@ func show_result(success: bool, title: String, explanation: String, hint: String
 	was_successful = success
 	
 	if success:
-		icon_label.text = "✓"
+		icon_label.text = "✅"
 		icon_label.modulate = Color(0, 0.9, 0.75)
 		title_label.modulate = Color(0, 0.9, 0.75)
 		continue_button.text = "Продолжить"
 		retry_button.visible = false
 	else:
-		icon_label.text = "✕"
+		icon_label.text = "❌"
 		icon_label.modulate = Color(1, 0.35, 0.35)
 		title_label.modulate = Color(1, 0.35, 0.35)
 		continue_button.text = "Закрыть"

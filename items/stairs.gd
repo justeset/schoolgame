@@ -24,6 +24,7 @@ const CHOICE_FRAME_SIZE := Vector2(52, 78)
 var _player_in: CharacterBody2D = null
 var _busy: bool = false
 var _e_prev: bool = false
+var _lmb_prev: bool = false
 
 var _floor2_choice_layer: CanvasLayer = null
 var _floor2_choice_pos_root: Control = null
@@ -48,11 +49,14 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	if _busy or _player_in == null:
 		_e_prev = Input.is_physical_key_pressed(KEY_E)
+		_lmb_prev = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 		return
 	var e_now := Input.is_physical_key_pressed(KEY_E)
-	if e_now and not _e_prev:
+	var lmb_now := Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	if (e_now and not _e_prev) or (lmb_now and not _lmb_prev):
 		_try_use_stairs()
 	_e_prev = e_now
+	_lmb_prev = lmb_now
 
 
 func _unhandled_input(event: InputEvent) -> void:

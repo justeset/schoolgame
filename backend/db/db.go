@@ -44,28 +44,19 @@ func Connect() {
         PRIMARY KEY (user_id, task_id)
     );
 
-    INSERT INTO tasks (id, title) VALUES
-        (1, 'Сортировка пузырьком'),
-        (2, 'Бинарный поиск'),
-        (3, 'Хеш-таблицы')
-    ON CONFLICT (id) DO UPDATE SET
-        title = EXCLUDED.title;
-
-    SELECT setval(
-        pg_get_serial_sequence('tasks', 'id'),
-        GREATEST(COALESCE((SELECT MAX(id) FROM tasks), 1), 1),
-        true
+    CREATE TABLE IF NOT EXISTS code_errors (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        task_id TEXT NOT NULL,
+        submitted_code TEXT NOT NULL,
+        error_type TEXT NOT NULL,
+        error_message TEXT NOT NULL,
+        test_number INTEGER,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
     );
 
-    INSERT INTO users (id, email, name, password)
-    SELECT 1, 'default-player@schoolgame.local', 'Player', '-'
-    WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 1);
-
-    SELECT setval(
-        pg_get_serial_sequence('users', 'id'),
-        GREATEST(COALESCE((SELECT MAX(id) FROM users), 1), 1),
-        true
-    );
+    CREATE INDEX IF NOT EXISTS idx_code_errors_user_task ON code_errors(user_id, task_id);
+    CREATE INDEX IF NOT EXISTS idx_code_errors_created ON code_errors(created_at DESC);
     `)
 	if err != nil {
 		log.Fatal(err)

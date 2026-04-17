@@ -3,6 +3,7 @@ extends Area2D
 @onready var sprite = $"."
 var _player_in_range: bool = false
 var _e_prev: bool = false
+var _lmb_prev: bool = false
 
 func _ready():
 	body_entered.connect(_on_body_entered)
@@ -23,9 +24,11 @@ func _on_body_exited(body: Node) -> void:
 
 func _physics_process(_delta: float) -> void:
 	var e_now := Input.is_physical_key_pressed(KEY_E)
-	if _player_in_range and e_now and not _e_prev:
+	var lmb_now := Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	if _player_in_range and ((e_now and not _e_prev) or (lmb_now and not _lmb_prev)):
 		LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/bookcase_problem.tscn")
 	_e_prev = e_now
+	_lmb_prev = lmb_now
 
 
 func _on_button_pressed() -> void:

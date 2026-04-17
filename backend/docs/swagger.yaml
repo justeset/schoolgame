@@ -1,5 +1,22 @@
-basePath: /
 definitions:
+  handlers.CodeErrorRequest:
+    properties:
+      error_message:
+        type: string
+      error_type:
+        type: string
+      submitted_code:
+        type: string
+      task_id:
+        type: string
+      test_number:
+        type: integer
+    required:
+    - error_message
+    - error_type
+    - submitted_code
+    - task_id
+    type: object
   models.CompleteTaskRequest:
     properties:
       task_id:
@@ -77,12 +94,8 @@ definitions:
       password:
         type: string
     type: object
-host: localhost:8080
 info:
   contact: {}
-  description: Бэкенд для школьной игры
-  title: School Game API
-  version: "1.0"
 paths:
   /auth/login:
     post:
@@ -138,7 +151,87 @@ paths:
       summary: Регистрация пользователя
       tags:
       - auth
+  /code-errors:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Получить список задач с ошибками для пользователя
+      tags:
+      - code-errors
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные об ошибке
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CodeErrorRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Сохранить ошибку кода
+      tags:
+      - code-errors
   /tasks:
+    delete:
+      parameters:
+      - description: ID пользователя
+        in: query
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Сбросить прогресс пользователя
+      tags:
+      - tasks
     get:
       parameters:
       - description: ID пользователя

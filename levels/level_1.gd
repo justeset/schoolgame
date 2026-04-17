@@ -53,7 +53,7 @@ func _on_menu_toggle_button_pressed() -> void:
 
 
 func _on_topics_button_pressed() -> void:
-	LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/tasks.tscn")
+	LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/themes.tscn")
 
 
 func _on_common_errors_button_pressed() -> void:

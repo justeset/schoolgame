@@ -7,7 +7,8 @@ var custom_font = preload("res://fonts/kom-post.ttf")
 var tasks_data = [
 	{ "id": "bubble_sort",  "text": "Проверить таблицу лидеров" },
 	{ "id": "hash-tables",  "text": "Проверить вендиговый аппарат" },
-	{ "id": "binary-search", "text": "Проверить стеллаж с книгами" }
+	{ "id": "binary-search", "text": "Проверить стеллаж с книгами" },
+	{ "id": "set", "text": "Проверить компьютер в кластере на третьем этаже" }
 ]
 
 var completed_tasks: Dictionary = {}
