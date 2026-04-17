@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"authorization/db"
+	"backend/db"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

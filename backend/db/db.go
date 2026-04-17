@@ -42,6 +42,20 @@ func Connect() {
         task_id INT REFERENCES tasks(id) ON DELETE CASCADE,
         PRIMARY KEY (user_id, task_id)
     );
+
+    CREATE TABLE IF NOT EXISTS code_errors (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        task_id TEXT NOT NULL,
+        submitted_code TEXT NOT NULL,
+        error_type TEXT NOT NULL,
+        error_message TEXT NOT NULL,
+        test_number INTEGER,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_code_errors_user_task ON code_errors(user_id, task_id);
+    CREATE INDEX IF NOT EXISTS idx_code_errors_created ON code_errors(created_at DESC);
     `)
     if err != nil {
         log.Fatal(err)

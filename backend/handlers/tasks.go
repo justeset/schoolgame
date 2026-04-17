@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"authorization/db"
-	"authorization/models"
+	"backend/db"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
