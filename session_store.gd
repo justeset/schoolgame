@@ -41,3 +41,8 @@ func get_user() -> Dictionary:
 		"email": str(config.get_value(SECTION, "email", "")),
 		"name": str(config.get_value(SECTION, "name", "")),
 	}
+
+
+func update_user(user: Dictionary) -> void:
+	var token := get_token()
+	save_session(token, user)

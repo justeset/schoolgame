@@ -1,0 +1,204 @@
+[gd_scene format=3 uid="uid://brft3f0l2f7tt"]
+
+[ext_resource type="Script" uid="uid://cpk8gt7kptntg" path="res://scenes/settings_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://beabd6swybpoj" path="res://пикчи3/building.png" id="2_bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.12, 0.14, 0.18, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_norm"]
+bg_color = Color(0.96, 0.69, 0.36, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_press"]
+bg_color = Color(0.85, 0.55, 0.27, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(1, 0.77, 0.42, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.36, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="SettingsScreen" type="Control" unique_id=1061227275]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=68636123]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="." unique_id=825319343]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=761782534]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPanel" type="PanelContainer" parent="CenterContainer" unique_id=397477132]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/MainPanel" unique_id=490482275]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/MainPanel/Margin" unique_id=59885485]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=858328533]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Настройки профиля"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=273940550]
+custom_minimum_size = Vector2(10, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="NameLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=1967407913]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Имя"
+
+[node name="NameEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=1739412407]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+placeholder_text = "Ваше имя"
+
+[node name="EmailLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=509348706]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Email"
+
+[node name="EmailEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=1938117728]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+placeholder_text = "you@mail.ru"
+
+[node name="PasswordLabel" type="Label" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=1201759900]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
+text = "Новый пароль (опционально)"
+
+[node name="PasswordEdit" type="LineEdit" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=103099808]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+placeholder_text = "Оставьте пустым, чтобы не менять"
+
+[node name="SaveButton" type="Button" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=900477710]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Сохранить профиль"
+
+[node name="ResetProgressButton" type="Button" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=2060274679]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Сбросить прогресс"
+
+[node name="DeleteProfileButton" type="Button" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=1840746268]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Удалить профиль"
+
+[node name="BackButton" type="Button" parent="CenterContainer/MainPanel/Margin/VBox" unique_id=120083452]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.18, 0.24, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_norm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_press")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Назад"
+
+[node name="ConfirmDeleteDialog" type="ConfirmationDialog" parent="." unique_id=1533300848]
+title = "Подтверждение"
+initial_position = 1
+ok_button_text = "Удалить"
+dialog_text = "Удалить профиль без возможности восстановления?"
+
+[connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/ResetProgressButton" to="." method="_on_reset_progress_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/DeleteProfileButton" to="." method="_on_delete_profile_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/Margin/VBox/BackButton" to="." method="_on_back_button_pressed"]

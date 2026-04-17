@@ -15,7 +15,6 @@ import (
 // @description Бэкенд для школьной игры
 // @host localhost:8080
 // @BasePath /
-
 func main() {
 	godotenv.Load()
 	db.Connect()
@@ -36,7 +35,11 @@ func main() {
 	// tasks
 	r.POST("/tasks/done", handlers.CompleteTask)
 	r.GET("/tasks", handlers.GetUserTasks)
+	r.DELETE("/tasks", handlers.ResetUserTasks)
 	r.GET("/leaderboard", handlers.GetLeaderboard)
+	// users
+	r.DELETE("/users/:id", handlers.DeleteUser)
+	r.PUT("/users/:id", handlers.UpdateUser)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
