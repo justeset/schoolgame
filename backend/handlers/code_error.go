@@ -88,11 +88,16 @@ func GetUserCodeErrors(c *gin.Context) {
 	}
 
 	rows, err := db.DB.Query(`
-		SELECT task_id, COUNT(*) as error_count
+		SELECT
+			task_id,
+			error_type,
+			error_message,
+			MAX(submitted_code) as submitted_code,
+			COUNT(*) as error_count
 		FROM code_errors
 		WHERE user_id = $1
-		GROUP BY task_id
-		ORDER BY error_count DESC, task_id
+		GROUP BY task_id, error_type, error_message
+		ORDER BY error_count DESC, task_id, error_type
 	`, userID)
 
 	if err != nil {
@@ -108,8 +113,11 @@ func GetUserCodeErrors(c *gin.Context) {
 
 	for rows.Next() {
 		var taskID string
+		var errorType string
+		var errorMessage string
+		var submittedCode string
 		var errorCount int
-		if err := rows.Scan(&taskID, &errorCount); err != nil {
+		if err := rows.Scan(&taskID, &errorType, &errorMessage, &submittedCode, &errorCount); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"success": false,
 				"message": "Ошибка чтения данных",
@@ -117,8 +125,11 @@ func GetUserCodeErrors(c *gin.Context) {
 			return
 		}
 		taskErrors = append(taskErrors, map[string]interface{}{
-			"task_id":     taskID,
-			"error_count": errorCount,
+			"task_id":        taskID,
+			"error_type":     errorType,
+			"error_message":  errorMessage,
+			"submitted_code": submittedCode,
+			"error_count":    errorCount,
 		})
 	}
 

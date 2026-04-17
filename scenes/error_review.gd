@@ -347,12 +347,21 @@ func _on_code_errors_loaded(_result: int, response_code: int, _headers: PackedSt
 		var count := int(row.get("error_count", 0))
 		if count <= 0:
 			continue
+		var error_message := str(row.get("error_message", "")).strip_edges()
+		var error_type := str(row.get("error_type", "")).strip_edges()
+		var title := error_message
+		if title == "":
+			title = str(template.get("name", normalized_task_id))
+		var fix_text := str(template.get("fix", ""))
+		if error_type != "":
+			fix_text = "[b]Тип ошибки:[/b] %s\n\n%s" % [error_type, fix_text]
+		var submitted_code := str(row.get("submitted_code", "")).strip_edges()
 		mapped_errors.append({
-			"name": str(template.get("name", normalized_task_id)),
+			"name": title,
 			"count": count,
 			"task_id": normalized_task_id,
-			"fix": str(template.get("fix", "")),
-			"player_code": str(template.get("player_code", ""))
+			"fix": fix_text,
+			"player_code": submitted_code if submitted_code != "" else str(template.get("player_code", ""))
 		})
 	mapped_errors.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return int(a.get("count", 0)) > int(b.get("count", 0))
