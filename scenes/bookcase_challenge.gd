@@ -60,7 +60,8 @@ func _on_check_button_pressed() -> void:
 		return
 	
 	var data = {
-		"code": code_text
+		"code": code_text,
+		"task_id": "binary_search"
 	}
 	
 	var json_data = JSON.stringify(data)

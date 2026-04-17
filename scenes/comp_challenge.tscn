@@ -140,7 +140,7 @@ theme_override_constants/separation = 13
 
 [node name="TaskText" type="RichTextLabel" parent="VBoxContainer/Content/TaskPanel" unique_id=32940295]
 layout_mode = 2
-text = "Допиши функцию count_orders: по списку кодов напитков верни словарь «код → сколько раз встретился»."
+text = "Допиши функцию remove_duplicates_preserve_order: по списку верни элементы без повторов с сохранением порядка."
 
 [node name="AnswerEdit" type="TextEdit" parent="VBoxContainer/Content/TaskPanel" unique_id=1744044863]
 layout_mode = 2

@@ -82,10 +82,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Не удалось удалить 
-повторяющиеся файлы.
-
-Нажмите на <OK> чтобы 
-перейти к заданию"
+повторяющиеся файлы."
 
 [node name="OK_Button" type="Button" parent="ErrorWindow/VBoxContainer" unique_id=1908732144]
 custom_minimum_size = Vector2(100, 40)
@@ -94,7 +91,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_styles/normal = SubResource("StyleBoxFlat_1h5qk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jbpnl")
-text = "OK"
+text = "Исправить"
 
 [node name="Panel" type="Panel" parent="." unique_id=333631553]
 offset_left = 1.0
