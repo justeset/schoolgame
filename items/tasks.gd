@@ -4,7 +4,6 @@ extends Area2D
 var clicks = 0
 var _player_in_range: bool = false
 var _e_prev: bool = false
-var _lmb_prev: bool = false
 
 func _ready():
 	body_entered.connect(_on_body_entered)
@@ -25,11 +24,9 @@ func _on_body_exited(body: Node) -> void:
 
 func _physics_process(_delta: float) -> void:
 	var e_now := Input.is_physical_key_pressed(KEY_E)
-	var lmb_now := Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	if _player_in_range and ((e_now and not _e_prev) or (lmb_now and not _lmb_prev)):
+	if _player_in_range and e_now and not _e_prev:
 		clicks += 1
 		LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/tasks.tscn")
 	_e_prev = e_now
-	_lmb_prev = lmb_now
 
 	

@@ -61,6 +61,7 @@ func _on_check_button_pressed() -> void:
 	var code_text = answer_edit.text.strip_edges()
 	
 	if code_text == "":
+		_save_code_error("binary_search", "", "Введите код перед проверкой.", 0, "empty_input")
 		_show_result_panel(
 			false,
 			"Пустой ответ",
@@ -175,7 +176,8 @@ func _on_check_request_completed(result, response_code, headers, body) -> void:
 			explanation,
 			hint
 		)
-		_save_code_error("binary_search", answer_edit.text, explanation, int(json_dict.get("test_number", 0)))
+		var error_type := _classify_error_type(title, explanation, answer_edit.text)
+		_save_code_error("binary_search", answer_edit.text, explanation, int(json_dict.get("test_number", 0)), error_type)
 
 
 func _show_result_panel(success: bool, title: String, explanation: String, hint: String = "") -> void:
@@ -301,7 +303,19 @@ func _mark_task_completed(task_id: String) -> void:
 		write_file.store_var(completed_tasks)
 
 
-func _save_code_error(task_id: String, submitted_code: String, explanation: String, test_number: int) -> void:
+func _classify_error_type(title: String, explanation: String, submitted_code: String) -> String:
+	var t := title.to_lower()
+	var e := explanation.to_lower()
+	if submitted_code.strip_edges() == "":
+		return "empty_input"
+	if t.contains("имя функции") or e.contains("функц") and e.contains("не найд"):
+		return "wrong_function_name"
+	if e.contains("syntaxerror") or e.contains("traceback") or e.contains("exception") or e.contains("ошибка выполнения"):
+		return "runtime_or_syntax_error"
+	return "logic_failed"
+
+
+func _save_code_error(task_id: String, submitted_code: String, explanation: String, test_number: int, error_type: String = "checker_failed") -> void:
 	if not GameSession.is_logged_in():
 		return
 	var token := GameSession.get_token().strip_edges()
@@ -315,7 +329,7 @@ func _save_code_error(task_id: String, submitted_code: String, explanation: Stri
 	var payload := {
 		"task_id": task_id,
 		"submitted_code": submitted_code,
-		"error_type": "checker_failed",
+		"error_type": error_type,
 		"error_message": explanation,
 		"test_number": test_number
 	}

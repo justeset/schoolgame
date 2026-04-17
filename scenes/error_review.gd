@@ -62,6 +62,14 @@ const _ERROR_TEMPLATES := {
 	}
 }
 
+const _ERROR_TYPE_TITLES := {
+	"empty_input": "Пустой ввод",
+	"logic_failed": "Сломана логика",
+	"wrong_function_name": "Неверное имя функции",
+	"runtime_or_syntax_error": "Ошибка запуска/синтаксиса",
+	"checker_failed": "Ошибка в коде"
+}
+
 var _quiz: Array[Dictionary] = [
 	{
 		"q": "Что чаще всего приводит к ошибке 'Функция не найдена'?",
@@ -349,7 +357,9 @@ func _on_code_errors_loaded(_result: int, response_code: int, _headers: PackedSt
 			continue
 		var error_message := str(row.get("error_message", "")).strip_edges()
 		var error_type := str(row.get("error_type", "")).strip_edges()
-		var title := error_message
+		var title := str(_ERROR_TYPE_TITLES.get(error_type, "")).strip_edges()
+		if title == "":
+			title = error_message
 		if title == "":
 			title = str(template.get("name", normalized_task_id))
 		var fix_text := str(template.get("fix", ""))
