@@ -88,11 +88,11 @@ func GetUserCodeErrors(c *gin.Context) {
 	}
 
 	rows, err := db.DB.Query(`
-		SELECT DISTINCT task_id, COUNT(*) as error_count
+		SELECT task_id, COUNT(*) as error_count
 		FROM code_errors
 		WHERE user_id = $1
 		GROUP BY task_id
-		ORDER BY task_id
+		ORDER BY error_count DESC, task_id
 	`, userID)
 
 	if err != nil {
@@ -107,7 +107,7 @@ func GetUserCodeErrors(c *gin.Context) {
 	var taskErrors []map[string]interface{}
 
 	for rows.Next() {
-		var taskID int
+		var taskID string
 		var errorCount int
 		if err := rows.Scan(&taskID, &errorCount); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{

@@ -2,6 +2,7 @@ extends Panel
 
 const _DEFAULT_CHECKER_API_URL := "https://schoolgame-64wq.onrender.com"
 const _DEFAULT_AI_HINT_API_URL := "https://ai-hints-reguest.onrender.com"
+const _DEFAULT_APP_API_URL := "https://auth-aviz.onrender.com"
 
 @onready var answer_edit: TextEdit = $VBoxContainer/Content/TaskPanel/AnswerEdit
 @onready var ask_ai_button: Button = $VBoxContainer/Content/TaskPanel/TaskButtons/AskAIButton
@@ -12,6 +13,7 @@ var _failed_task_check_count: int = 0
 var _offer_ask_ai_in_toolbar: bool = false
 var _checker_api_url: String = _DEFAULT_CHECKER_API_URL
 var _ai_hint_api_url: String = _DEFAULT_AI_HINT_API_URL
+var _app_api_url: String = _DEFAULT_APP_API_URL
 
 func _ready() -> void:
 	var checker := OS.get_environment("SCHOOLGAME_CHECKER_API_BASE").strip_edges().rstrip("/")
@@ -20,6 +22,11 @@ func _ready() -> void:
 	var ai_hint := OS.get_environment("SCHOOLGAME_AI_HINT_API_BASE").strip_edges().rstrip("/")
 	if ai_hint != "":
 		_ai_hint_api_url = ai_hint
+	var api_base := OS.get_environment("SCHOOLGAME_API_BASE").strip_edges().rstrip("/")
+	if api_base != "":
+		_app_api_url = api_base
+	elif checker != "":
+		_app_api_url = checker
 
 	if not http_request.is_inside_tree():
 		add_child(http_request)
@@ -168,6 +175,7 @@ func _on_check_request_completed(result, response_code, headers, body) -> void:
 			explanation,
 			hint
 		)
+		_save_code_error("binary_search", answer_edit.text, explanation, int(json_dict.get("test_number", 0)))
 
 
 func _show_result_panel(success: bool, title: String, explanation: String, hint: String = "") -> void:
@@ -291,3 +299,28 @@ func _mark_task_completed(task_id: String) -> void:
 	var write_file = FileAccess.open("user://tasks_progress.save", FileAccess.WRITE)
 	if write_file:
 		write_file.store_var(completed_tasks)
+
+
+func _save_code_error(task_id: String, submitted_code: String, explanation: String, test_number: int) -> void:
+	if not GameSession.is_logged_in():
+		return
+	var token := GameSession.get_token().strip_edges()
+	if token == "":
+		return
+	var req := HTTPRequest.new()
+	add_child(req)
+	req.request_completed.connect(func(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+		req.queue_free()
+	)
+	var payload := {
+		"task_id": task_id,
+		"submitted_code": submitted_code,
+		"error_type": "checker_failed",
+		"error_message": explanation,
+		"test_number": test_number
+	}
+	var headers := PackedStringArray([
+		"Content-Type: application/json",
+		"Authorization: Bearer " + token
+	])
+	req.request(_app_api_url + "/code-errors", headers, HTTPClient.METHOD_POST, JSON.stringify(payload))
