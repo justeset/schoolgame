@@ -24,6 +24,8 @@
 [ext_resource type="StyleBox" uid="uid://d2343pj1gb2i3" path="res://default_button.tres" id="20_w75he"]
 [ext_resource type="Script" uid="uid://sqoeemngcikh" path="res://levels/level_1.gd" id="21_lvl1rt"]
 [ext_resource type="FontFile" uid="uid://cmsjtk2svi1tq" path="res://fonts/NotoSans-Regular.ttf" id="24_ryfpa"]
+[ext_resource type="Script" uid="uid://6e7mx3gfb3pa" path="res://levels/tutorial_chat.gd" id="24_ntdhj"]
+[ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="25_tutoravatar"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hph3"]
 texture = ExtResource("2_gwceb")
@@ -1029,6 +1031,30 @@ bg_color = Color(0.30588236, 0.4627451, 0.6, 0.44705883)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udfhf"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntdhj"]
+bg_color = Color(0.08627451, 0.105882354, 0.15686275, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.89, 0.71, 0.7)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fu15"]
+bg_color = Color(0, 0.89, 0.71, 0.18)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.89, 0.71, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="level1" type="Node2D" unique_id=273332764]
 script = ExtResource("21_lvl1rt")
 
@@ -1246,3 +1272,80 @@ text = "Меню"
 [connection signal="pressed" from="CanvasLayer/SidePanel/VBoxContainer/CommonErrorsButton" to="." method="_on_common_errors_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SidePanel/VBoxContainer/TasksButton" to="." method="_on_tasks_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SidePanel/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[node name="TutorialChat" type="CanvasLayer" parent="." unique_id=984784194]
+script = ExtResource("24_ntdhj")
+
+[node name="Background" type="ColorRect" parent="TutorialChat" unique_id=2116071876]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.105882354, 0.15686275, 0.6313726)
+
+[node name="Panel" type="Panel" parent="TutorialChat" unique_id=1213977602]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntdhj")
+
+[node name="MainVBox" type="VBoxContainer" parent="TutorialChat/Panel" unique_id=1046643023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 3.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ChatMargin" type="MarginContainer" parent="TutorialChat/Panel/MainVBox" unique_id=683068882]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 180
+theme_override_constants/margin_bottom = -100
+
+[node name="ChatScroll" type="ScrollContainer" parent="TutorialChat/Panel/MainVBox/ChatMargin" unique_id=1312878057]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="Messages" type="VBoxContainer" parent="TutorialChat/Panel/MainVBox/ChatMargin/ChatScroll" unique_id=1309496891]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="TutorialChat/Panel/MainVBox" unique_id=267785972]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Avatar" type="TextureRect" parent="TutorialChat/Panel/MainVBox/BottomBar" unique_id=666869915]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("25_tutoravatar")
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="TutorialChat/Panel/MainVBox/BottomBar" unique_id=109711097]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SolveButton" type="Button" parent="TutorialChat/Panel" unique_id=1181855011]
+layout_mode = 0
+offset_left = 924.0
+offset_top = 544.0
+offset_right = 1119.0
+offset_bottom = 609.0
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_0fu15")
+text = "Погнали!"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="TourmentRes" method="_on_button_pressed"]
+[connection signal="pressed" from="TutorialChat/Panel/SolveButton" to="TutorialChat" method="_on_solve_button_pressed"]

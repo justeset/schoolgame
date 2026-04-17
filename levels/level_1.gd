@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var side_panel: Panel = $CanvasLayer/SidePanel
 @onready var menu_button: Button = $CanvasLayer/MenuToggleButton
+@onready var tutorial_chat: CanvasLayer = $TutorialChat
 
 var _menu_button_closed_style: StyleBoxFlat
 var _menu_button_transparent_style: StyleBoxFlat
@@ -26,9 +27,17 @@ func _ready() -> void:
 	_menu_button_transparent_style.bg_color = Color(0.0, 0.0, 0.0, 0.0)
 	side_panel.visible = false
 	_update_menu_button_style()
-	_apply_pending_spawn()
+	if tutorial_chat:
+		if tutorial_chat.has_signal("tutorial_finished"):
+			if not tutorial_chat.tutorial_finished.is_connected(_on_tutorial_finished):
+				tutorial_chat.tutorial_finished.connect(_on_tutorial_finished)
+	# Восстанавливаем позицию/камеру даже если TutorialChat уже был показан и удалится сам.
+	call_deferred("_apply_pending_spawn")
 
-
+func _on_tutorial_finished() -> void:
+	call_deferred("_apply_pending_spawn")
+	
+	
 func _apply_pending_spawn() -> void:
 	if not LevelReturnState.has_pending_spawn:
 		return
@@ -77,4 +86,4 @@ func _update_menu_button_style() -> void:
 
 
 func _on_tasks_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/tasks.tscn")
+	LevelReturnState.change_scene_saving_player(get_tree(), "res://scenes/tasks.tscn")
