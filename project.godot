@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="school21_game"
-run/main_scene="uid://mainmenu123"
+run/main_scene="uid://r865cf7o4wb5"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
