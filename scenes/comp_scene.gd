@@ -40,10 +40,7 @@ func _on_close():
 
 
 func _on_ok_button_pressed() -> void:
-	error_window.hide()
-
-
-	
+	get_tree().change_scene_to_file("res://scenes/comp_challenge.tscn")
 
 
 func _on_button_pressed() -> void:

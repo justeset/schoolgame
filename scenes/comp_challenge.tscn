@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://q63p7qrk2lgn"]
+[gd_scene format=3 uid="uid://bod5rl5yrexng"]
 
-[ext_resource type="Script" uid="uid://dcfu2yhc3y8rg" path="res://scenes/bookcase_challenge.gd" id="2_8miu1"]
+[ext_resource type="Script" uid="uid://3blr6kt54054" path="res://scenes/comp_challenge.gd" id="1_juvju"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_main"]
 bg_color = Color(0.0588, 0.0784, 0.098, 0.96)
@@ -40,7 +40,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_main")
-script = ExtResource("2_8miu1")
+script = ExtResource("1_juvju")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=644312908]
 layout_mode = 1
@@ -73,7 +73,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 26
-text = "Алгоритмы • Бинарный поиск"
+text = "Множества • Дедубликация"
 vertical_alignment = 1
 
 [node name="CloseButton" type="Button" parent="VBoxContainer/Header/HBoxContainer" unique_id=1413723109]
@@ -96,7 +96,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
 theme_override_font_sizes/font_size = 20
-text = "Идея бинарного поиска:"
+text = "Множества:"
 
 [node name="TheoryContent" type="ScrollContainer" parent="VBoxContainer/Content/TheoryPanel" unique_id=257324913]
 layout_mode = 2
@@ -109,38 +109,29 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "Бинарный (двоичный) поиск — это фундаментальный алгоритм поиска элемента в отсортированном массиве или списке. Его главная особенность и преимущество — скорость.
+text = "Множества в Python (set) — это встроенный тип данных, представляющий собой неупорядоченную коллекцию уникальных элементов.
 
-В отличие от обычного перебора (линейного поиска), где мы проверяем каждый элемент подряд, бинарный поиск действует по принципу «разделяй и властвуй»:
+Представь коробку, в которую нельзя положить два одинаковых предмета, и при этом ты никогда не знаешь, в каком порядке они там лежат.
 
-Смотрим в середину отсортированного массива.
-Сравниваем: Средний элемент с искомым значением.
-Если равен — нашли.
-Если искомое больше среднего — значит, искать нужно только в правой половине (всё, что слева, точно меньше и нам не подходит).
-Если искомое меньше среднего — искать нужно в левой половине.
-Повторяем шаг 1 для выбранной половины, пока не найдем элемент или пока область поиска не сузится до нуля.
+Основные характеристики: 
+1. Уникальность — нет повторяющихся элементов
+2. Неупорядоченность — Нельзя обратиться к элементу по индексу
+3. Изменяемость — В set можно добавлять и удалять элементы (но сами элементы внутри должны быть неизменяемыми)
+4. Скорость — Проверка наличия элемента работает очень быстро (в среднем за O(1))
 
 Пример кода:
+my_array = [1, 2, 3, 2, 1, 4, 5, 3, 6, 4]
+    seen = set()
+    result = []
+    for item in my_array:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
 
-sorted_numbers = [1, 3, 5, 7, 9, 11, 13]
-target = 7
-left = 0
-right = len(sorted_numbers) - 1
-
-while left <= right:
-	mid = (left + right) // 2  # Находим середину
-	if sorted_numbers[mid] == target:
-		print(mid)             # Нашли элемент
-		elif sorted_numbers[mid] < target:
-			left = mid + 1        # Ищем в правой половине
-		else:
-			right = mid - 1       # Ищем в левой половине
-
-    print(-1)  # Не нашли
-
-# Использование:
-print(binary_search(sorted_numbers, 7))  # Вывод: 3 (индекс числа 7)
-"
+# Пример использования
+print(\"Исходный массив:\", my_array)
+print(\"Без повторений:\", remove_duplicates_preserve_order(my_array))"
 fit_content = true
 
 [node name="TaskPanel" type="VBoxContainer" parent="VBoxContainer/Content" unique_id=1609031820]
@@ -149,17 +140,24 @@ theme_override_constants/separation = 13
 
 [node name="TaskText" type="RichTextLabel" parent="VBoxContainer/Content/TaskPanel" unique_id=32940295]
 layout_mode = 2
-text = "Допиши функцию bubble_sort, которая принимает массив arr в качестве аргумента"
+text = "Допиши функцию count_orders: по списку кодов напитков верни словарь «код → сколько раз встретился»."
 
 [node name="AnswerEdit" type="TextEdit" parent="VBoxContainer/Content/TaskPanel" unique_id=1744044863]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
 theme_override_colors/background_color = Color(0.098, 0.118, 0.149, 1)
-text = "# допиши функцию def find_book_index, которая принимает массив bookshelf в качестве аргумента и target_book в качестве цели
+text = "# ЗАДАНИЕ: Ошибка удаления дубликатов.
+# arr: список с дубликатами.
+# Верни множество но при этом сохранив порядок списка.
 
-def find_book_index(bookshelf, target_book):
-	# здесь должен быть твой код"
+def remove_duplicates_preserve_order(arr):
+    seen = set()
+    # ===== МЕСТО ДЛЯ КОДА =======
+
+    # ============================
+    return seen"
+middle_mouse_paste_enabled = false
 wrap_mode = 1
 
 [node name="TaskButtons" type="HBoxContainer" parent="VBoxContainer/Content/TaskPanel" unique_id=1118478210]
