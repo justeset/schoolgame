@@ -95,23 +95,25 @@ def check_code(data: CodeRequest):
         }
 
     requested_task_id = (data.task_id or "").strip()
+    detected_task_id = _detect_task_id(namespace)
     resolved_task_id = ""
 
-    if requested_task_id in TESTS:
+    # Если по коду задача определяется однозначно, доверяем коду больше, чем входному task_id.
+    # Это защищает от случаев, когда клиент отправил неверный task_id.
+    if detected_task_id is not None:
+        resolved_task_id = detected_task_id
+    elif requested_task_id in TESTS:
         resolved_task_id = requested_task_id
     else:
-        detected_task_id = _detect_task_id(namespace)
-        if detected_task_id is None:
-            return {
-                "success": False,
-                "feedback": {
-                    "type": "error",
-                    "title": "Неизвестное задание",
-                    "explanation": f"Не удалось определить задание по task_id={requested_task_id!r} и коду.",
-                    "hint": "Передай корректный task_id или объяви одну из функций: bubble_sort, remove_duplicates_preserve_order, find_book_index, count_orders.",
-                }
+        return {
+            "success": False,
+            "feedback": {
+                "type": "error",
+                "title": "Неизвестное задание",
+                "explanation": f"Не удалось определить задание по task_id={requested_task_id!r} и коду.",
+                "hint": "Передай корректный task_id или объяви одну из функций: bubble_sort, remove_duplicates_preserve_order, find_book_index, count_orders.",
             }
-        resolved_task_id = detected_task_id
+        }
 
     func_name = FUNCTION_NAMES[resolved_task_id]
     if func_name not in namespace:
@@ -174,6 +176,7 @@ def check_code(data: CodeRequest):
 
     return {
         "success": True,
+        "requested_task_id": requested_task_id,
         "resolved_task_id": resolved_task_id,
         "passed_tests": passed,
         "total_tests": len(tests),
