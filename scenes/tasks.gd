@@ -6,7 +6,7 @@ var custom_font = preload("res://fonts/kom-post.ttf")
 
 var tasks_data = [
 	{ "id": "bubble_sort",  "text": "Проверить таблицу лидеров" },
-	{ "id": "hash-tables",  "text": "Починить каталог вендинга (частоты заказов)" },
+	{ "id": "hash-tables",  "text": "Проверить вендиговый аппарат" },
 	{ "id": "binary-search", "text": "Проверить стеллаж с книгами" }
 ]
 
