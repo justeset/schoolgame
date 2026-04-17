@@ -1,0 +1,285 @@
+[gd_scene format=3 uid="uid://bjtx08fylmjfh"]
+
+[ext_resource type="Script" uid="uid://bcsl6j0pwsql1" path="res://scenes/error_review.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://cmsjtk2svi1tq" path="res://fonts/NotoSans-Regular.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_card"]
+bg_color = Color(0.098, 0.118, 0.149, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.898, 0.753, 0.9)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button"]
+bg_color = Color(0, 0.898, 0.753, 0.15)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.898, 0.753, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ErrorReview" type="CanvasLayer" unique_id=850780394]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=717416847]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.78)
+
+[node name="Card" type="Panel" parent="." unique_id=1402231603]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = 48.0
+offset_right = -90.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_card")
+
+[node name="VBox" type="VBoxContainer" parent="Card" unique_id=1811432250]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 24.0
+offset_right = -28.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Card/VBox" unique_id=579085780]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Card/VBox/Header" unique_id=1232721274]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 36
+text = "Разбор ошибок"
+
+[node name="CloseButton" type="Button" parent="Card/VBox/Header" unique_id=538288033]
+custom_minimum_size = Vector2(170, 44)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "На уровень"
+
+[node name="ProgressLabel" type="Label" parent="Card/VBox" unique_id=884750162]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+
+[node name="ListBlock" type="VBoxContainer" parent="Card/VBox" unique_id=395612085]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Rows" type="VBoxContainer" parent="Card/VBox/ListBlock" unique_id=850848665]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="StartQuizButton" type="Button" parent="Card/VBox/ListBlock" unique_id=1849560569]
+custom_minimum_size = Vector2(240, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Пройти мини-тест"
+
+[node name="DrillBlock" type="VBoxContainer" parent="Card/VBox" unique_id=1071668993]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="ErrorName" type="Label" parent="Card/VBox/DrillBlock" unique_id=2139513953]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.35, 0.35, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+text = "Ошибка"
+
+[node name="DrillColumns" type="HSplitContainer" parent="Card/VBox/DrillBlock" unique_id=1472364081]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FixColumn" type="VBoxContainer" parent="Card/VBox/DrillBlock/DrillColumns" unique_id=862893249]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="FixLabel" type="Label" parent="Card/VBox/DrillBlock/DrillColumns/FixColumn" unique_id=1049261511]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Как исправить ошибку"
+
+[node name="FixText" type="RichTextLabel" parent="Card/VBox/DrillBlock/DrillColumns/FixColumn" unique_id=568576293]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.9, 0.95, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_font")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+
+[node name="CodeColumn" type="VBoxContainer" parent="Card/VBox/DrillBlock/DrillColumns" unique_id=1411522882]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="CodeLabel" type="Label" parent="Card/VBox/DrillBlock/DrillColumns/CodeColumn" unique_id=1936191510]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Это твой код, попробуй исправить его"
+
+[node name="PlayerCodeInput" type="TextEdit" parent="Card/VBox/DrillBlock/DrillColumns/CodeColumn" unique_id=378561339]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_colors/background_color = Color(0.06, 0.08, 0.11, 1)
+theme_override_fonts/font = ExtResource("2_font")
+placeholder_text = "# Сюда будет подставляться код игрока с ошибкой (из бэка)"
+
+[node name="Feedback" type="Label" parent="Card/VBox/DrillBlock" unique_id=815828435]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+
+[node name="DrillButtons" type="HBoxContainer" parent="Card/VBox/DrillBlock" unique_id=1222364281]
+layout_mode = 2
+alignment = 1
+
+[node name="BackToListButton" type="Button" parent="Card/VBox/DrillBlock/DrillButtons" unique_id=343997353]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "К списку ошибок"
+
+[node name="QuizBlock" type="VBoxContainer" parent="Card/VBox" unique_id=505018828]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Question" type="Label" parent="Card/VBox/QuizBlock" unique_id=277781147]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+text = "Вопрос"
+autowrap_mode = 3
+
+[node name="Options" type="VBoxContainer" parent="Card/VBox/QuizBlock" unique_id=1511312220]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="OptionA" type="Button" parent="Card/VBox/QuizBlock/Options" unique_id=1852468646]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "A"
+
+[node name="OptionB" type="Button" parent="Card/VBox/QuizBlock/Options" unique_id=2128754865]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "B"
+
+[node name="OptionC" type="Button" parent="Card/VBox/QuizBlock/Options" unique_id=1554148350]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "C"
+
+[node name="Feedback" type="Label" parent="Card/VBox/QuizBlock" unique_id=498763836]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+autowrap_mode = 3
+
+[node name="NextQuestionButton" type="Button" parent="Card/VBox/QuizBlock" unique_id=1927964683]
+custom_minimum_size = Vector2(240, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Следующий вопрос"
+
+[node name="DoneBlock" type="VBoxContainer" parent="Card/VBox" unique_id=199959713]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="DoneText" type="Label" parent="Card/VBox/DoneBlock" unique_id=418125415]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.898, 0.753, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+text = "Разбор завершен"
+horizontal_alignment = 1
+
+[node name="DoneHint" type="Label" parent="Card/VBox/DoneBlock" unique_id=1635200693]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Можно вернуться в игру и применить исправления."
+horizontal_alignment = 1
+
+[node name="DoneBackButton" type="Button" parent="Card/VBox/DoneBlock" unique_id=1405304609]
+custom_minimum_size = Vector2(260, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBox_button")
+text = "Вернуться на уровень"
+
+[connection signal="pressed" from="Card/VBox/Header/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="Card/VBox/ListBlock/StartQuizButton" to="." method="_on_start_quiz_button_pressed"]
+[connection signal="pressed" from="Card/VBox/QuizBlock/Options/OptionA" to="." method="_on_option_a_pressed"]
+[connection signal="pressed" from="Card/VBox/QuizBlock/Options/OptionB" to="." method="_on_option_b_pressed"]
+[connection signal="pressed" from="Card/VBox/QuizBlock/Options/OptionC" to="." method="_on_option_c_pressed"]
+[connection signal="pressed" from="Card/VBox/QuizBlock/NextQuestionButton" to="." method="_on_next_question_button_pressed"]
+[connection signal="pressed" from="Card/VBox/DoneBlock/DoneBackButton" to="." method="_on_close_button_pressed"]

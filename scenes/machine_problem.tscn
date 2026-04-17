@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dvh5mvsm04ekf"]
 
-[ext_resource type="Script" path="res://scenes/machine_problem.gd" id="1_n5ajs"]
+[ext_resource type="Script" uid="uid://cc0ndi8f2p3si" path="res://scenes/machine_problem.gd" id="1_n5ajs"]
 [ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="2_4li85"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xplo"]
@@ -16,6 +16,18 @@ corner_radius_bottom_right = 22
 corner_radius_bottom_left = 22
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axn0n"]
+bg_color = Color(0, 0.89, 0.71, 0.18)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.89, 0.71, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5ajs"]
 bg_color = Color(0, 0.89, 0.71, 0.18)
 border_width_left = 2
 border_width_top = 2
@@ -96,7 +108,7 @@ size_flags_horizontal = 3
 
 [node name="SolveButton" type="Button" parent="CanvasLayer/Panel" unique_id=1569520458]
 layout_mode = 0
-offset_left = 924.0
+offset_left = 986.0
 offset_top = 544.0
 offset_right = 1119.0
 offset_bottom = 609.0
@@ -104,4 +116,33 @@ theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxFlat_axn0n")
 text = "Погнали!"
 
+[node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=1778211312]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = 263.0
+offset_right = 139.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85821766, 0.85821784, 0.8582178, 1)
+text = "Нажми пробел, чтобы пропустить"
+horizontal_alignment = 1
+
+[node name="BackBottom" type="Button" parent="CanvasLayer/Panel" unique_id=1926307090]
+layout_mode = 0
+offset_left = 844.0
+offset_top = 544.0
+offset_right = 977.0
+offset_bottom = 609.0
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_n5ajs")
+text = "Назад"
+
 [connection signal="pressed" from="CanvasLayer/Panel/SolveButton" to="CanvasLayer" method="_on_solve_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/BackBottom" to="CanvasLayer" method="_on_back_bottom_pressed"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1ry114cga268"]
 
 [ext_resource type="Script" uid="uid://cp30sqt4m4434" path="res://scenes/leaders_problem.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://b4wjhc8d0tlnt" path="res://пикчи2/иконка2.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_main"]
 bg_color = Color(0.085, 0.105, 0.158, 0.98)
@@ -16,6 +16,18 @@ corner_radius_bottom_right = 22
 corner_radius_bottom_left = 22
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_button"]
+bg_color = Color(0, 0.89, 0.71, 0.18)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.89, 0.71, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m826p"]
 bg_color = Color(0, 0.89, 0.71, 0.18)
 border_width_left = 2
 border_width_top = 2
@@ -96,7 +108,7 @@ size_flags_horizontal = 3
 
 [node name="SolveButton" type="Button" parent="CanvasLayer/Panel" unique_id=927815330]
 layout_mode = 0
-offset_left = 924.0
+offset_left = 986.0
 offset_top = 544.0
 offset_right = 1119.0
 offset_bottom = 609.0
@@ -104,4 +116,33 @@ theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBox_button")
 text = "Погнали!"
 
+[node name="BackBottom" type="Button" parent="CanvasLayer/Panel" unique_id=829530707]
+layout_mode = 0
+offset_left = 843.0
+offset_top = 544.0
+offset_right = 976.0
+offset_bottom = 609.0
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_m826p")
+text = "Назад"
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=394758392]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = 263.0
+offset_right = 139.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85821766, 0.85821784, 0.8582178, 1)
+text = "Нажми пробел, чтобы пропустить"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="CanvasLayer/Panel/SolveButton" to="CanvasLayer" method="_on_solve_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/BackBottom" to="CanvasLayer" method="_on_back_bottom_pressed"]

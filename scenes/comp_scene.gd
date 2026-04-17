@@ -1,8 +1,11 @@
 extends Node2D
 
 @onready var error_window = $ErrorWindow
+@onready var ok_bottom_button: Button = $Panel/OKBottom
+@onready var back_bottom_button: Button = $Panel/BackBottom
 
 func _ready():
+	set_process_unhandled_input(true)
 	# Настройка кнопок
 	#$ErrorWindow/VBoxContainer/OK_Button.pressed.connect(_on_close)
 	#$ErrorWindow/VBoxContainer/Header/CloseButton.pressed.connect(_on_close)
@@ -10,10 +13,23 @@ func _ready():
 	# Прячем изначально
 	error_window.modulate.a = 0.0
 	error_window.pivot_offset = error_window.size / 2
+	ok_bottom_button.visible = false
+	ok_bottom_button.disabled = true
+	back_bottom_button.visible = false
+	back_bottom_button.disabled = true
 	
 	# Таймер появления
 	await get_tree().create_timer(2.0).timeout
 	show_error()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("ui_cancel"):
+		return
+	if not back_bottom_button.visible or back_bottom_button.disabled:
+		return
+	get_viewport().set_input_as_handled()
+	_on_back_bottom_pressed()
 
 func show_error():
 	var start_pos = error_window.position
@@ -34,6 +50,11 @@ func show_error():
 	shake_tween.tween_property(error_window, "position", center + Vector2(8, -5), 0.04)
 	shake_tween.tween_property(error_window, "position", center + Vector2(-8, 5), 0.04)
 	shake_tween.tween_property(error_window, "position", center, 0.04)
+	await shake_tween.finished
+	ok_bottom_button.visible = true
+	ok_bottom_button.disabled = false
+	back_bottom_button.visible = true
+	back_bottom_button.disabled = false
 
 func _on_close():
 	error_window.hide()
@@ -44,4 +65,8 @@ func _on_ok_button_pressed() -> void:
 
 
 func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://levels/level_1.tscn")
+
+
+func _on_back_bottom_pressed() -> void:
 	get_tree().change_scene_to_file("res://levels/level_1.tscn")

@@ -17,12 +17,19 @@ var _pending: String = ""
 
 
 func _ready() -> void:
+	set_process_unhandled_input(true)
 	_http = HTTPRequest.new()
 	add_child(_http)
 	_http.request_completed.connect(_on_request_completed)
 	_password_edit.secret = true
 	_confirm_dialog.confirmed.connect(_on_delete_confirmed)
 	_fill_from_session()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_on_back_button_pressed()
 
 
 func _fill_from_session() -> void:

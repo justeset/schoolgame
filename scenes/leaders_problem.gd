@@ -15,6 +15,7 @@ const CHAT_MESSAGES: Array[Dictionary] = [
 
 @onready var messages_container: VBoxContainer = $Panel/MainVBox/ChatMargin/ChatScroll/Messages
 @onready var solve_button: Button = $Panel/SolveButton
+@onready var back_bottom_button: Button = $Panel/BackBottom
 
 var _chat_running: bool = false
 var _skip_requested: bool = false
@@ -27,10 +28,17 @@ func _ready() -> void:
 
 	solve_button.visible = false
 	solve_button.disabled = true
+	back_bottom_button.visible = false
+	back_bottom_button.disabled = true
 	_play_chat()
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if back_bottom_button.visible and not back_bottom_button.disabled:
+			get_viewport().set_input_as_handled()
+			_on_back_bottom_pressed()
+		return
 	if not _chat_running:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -83,6 +91,8 @@ func _play_chat() -> void:
 	_chat_running = false
 	solve_button.visible = true
 	solve_button.disabled = false
+	back_bottom_button.visible = true
+	back_bottom_button.disabled = false
 
 
 func _add_remaining_bubbles_instant(from_index: int) -> void:
@@ -169,3 +179,8 @@ func _on_solve_button_pressed() -> void:
 	# Снимаем паузу перед переходом (на всякий случай)
 	get_tree().paused = false
 	get_tree().change_scene_to_file.bind("res://scenes/leaders_challenge.tscn").call_deferred()
+
+
+func _on_back_bottom_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://levels/level_1.tscn")

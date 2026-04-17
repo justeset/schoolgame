@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4vo7cd3x7j1b"]
 
 [ext_resource type="Script" uid="uid://sfck4gcooqty" path="res://scenes/bookcase_problem.gd" id="1_hbfxw"]
-[ext_resource type="Texture2D" uid="uid://b4wjhc8d0tlnt" path="res://пикчи2/иконка2.png" id="2_w7jcm"]
+[ext_resource type="Texture2D" uid="uid://1rb253gtg71o" path="res://пикчи2/иконка2.png" id="2_w7jcm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xplo"]
 bg_color = Color(0.085, 0.105, 0.158, 0.98)
@@ -94,9 +94,27 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=249241117]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = 263.0
+offset_right = 139.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85821766, 0.85821784, 0.8582178, 1)
+text = "Нажми пробел, чтобы пропустить"
+horizontal_alignment = 1
+
 [node name="SolveButton" type="Button" parent="CanvasLayer/Panel" unique_id=1569520458]
 layout_mode = 0
-offset_left = 924.0
+offset_left = 986.0
 offset_top = 544.0
 offset_right = 1119.0
 offset_bottom = 609.0
@@ -104,4 +122,15 @@ theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxFlat_axn0n")
 text = "Погнали!"
 
+[node name="BackBottom" type="Button" parent="CanvasLayer/Panel" unique_id=1570215607]
+layout_mode = 0
+offset_left = 841.0
+offset_top = 544.0
+offset_right = 974.0
+offset_bottom = 609.0
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_axn0n")
+text = "Назад"
+
 [connection signal="pressed" from="CanvasLayer/Panel/SolveButton" to="CanvasLayer" method="_on_solve_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/BackBottom" to="CanvasLayer" method="_on_back_bottom_pressed"]

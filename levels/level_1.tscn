@@ -23,6 +23,7 @@
 [ext_resource type="FontFile" uid="uid://dikie42ma48xp" path="res://fonts/kom-post.ttf" id="19_jkxa6"]
 [ext_resource type="StyleBox" uid="uid://d2343pj1gb2i3" path="res://default_button.tres" id="20_w75he"]
 [ext_resource type="Script" uid="uid://sqoeemngcikh" path="res://levels/level_1.gd" id="21_lvl1rt"]
+[ext_resource type="FontFile" uid="uid://cmsjtk2svi1tq" path="res://fonts/NotoSans-Regular.ttf" id="24_ryfpa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hph3"]
 texture = ExtResource("2_gwceb")
@@ -1164,18 +1165,84 @@ texture = ExtResource("16_bgw3c")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=472829921]
 
-[node name="Button" type="Button" parent="CanvasLayer" unique_id=1899523276]
-offset_left = 26.0
-offset_top = 20.0
-offset_right = 115.0
-offset_bottom = 73.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+[node name="MenuToggleButton" type="Button" parent="CanvasLayer" unique_id=1899523276]
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 73.0
+offset_bottom = 72.0
 theme_override_fonts/font = ExtResource("19_jkxa6")
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = ExtResource("20_w75he")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_udfhf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
-theme_override_styles/hover = ExtResource("20_w75he")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfhf")
+text = "☰"
+
+[node name="SidePanel" type="Panel" parent="CanvasLayer" unique_id=801001245]
+anchors_preset = -1
+anchor_right = 0.1
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = -20.200005
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("20_w75he")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel" unique_id=801001246]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 86.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="TopicsButton" type="Button" parent="CanvasLayer/SidePanel/VBoxContainer" unique_id=801001247]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_ryfpa")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfhf")
+text = "Темы"
+
+[node name="CommonErrorsButton" type="Button" parent="CanvasLayer/SidePanel/VBoxContainer" unique_id=801001248]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_ryfpa")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfhf")
+text = "Разбор
+ошибок"
+
+[node name="TasksButton" type="Button" parent="CanvasLayer/SidePanel/VBoxContainer" unique_id=462479694]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_ryfpa")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfhf")
+text = "Мои
+задания"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/SidePanel/VBoxContainer" unique_id=801001249]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_ryfpa")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_udfhf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfhf")
 text = "Меню"
 
-[connection signal="pressed" from="CanvasLayer/Button" to="TourmentRes" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuToggleButton" to="." method="_on_menu_toggle_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SidePanel/VBoxContainer/TopicsButton" to="." method="_on_topics_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SidePanel/VBoxContainer/CommonErrorsButton" to="." method="_on_common_errors_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SidePanel/VBoxContainer/TasksButton" to="." method="_on_tasks_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SidePanel/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

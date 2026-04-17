@@ -13,6 +13,7 @@ var tasks_data = [
 var completed_tasks: Dictionary = {}
 
 func _ready() -> void:
+	set_process_unhandled_input(true)
 	load_progress()
 	var sync := TaskProgressSyncService.get_singleton()
 	if sync:
@@ -23,6 +24,12 @@ func _ready() -> void:
 	else:
 		create_task_list()
 
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_on_button_pressed()
+
 func create_task_list() -> void:
 	for child in tasks_container.get_children():
 		child.queue_free()
@@ -31,44 +38,7 @@ func create_task_list() -> void:
 		var row = HBoxContainer.new()
 		row.custom_minimum_size = Vector2(0, 85)
 		row.alignment = BoxContainer.ALIGNMENT_BEGIN
-		row.add_theme_constant_override("separation", 18)
-
-		var check_bg = CenterContainer.new()
-		check_bg.custom_minimum_size = Vector2(42, 42)
-		check_bg.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-
-		var square = Panel.new()
-		square.custom_minimum_size = Vector2(42, 42)
-		square.size = Vector2(42, 42)
-
-		var style = StyleBoxFlat.new()
-		style.bg_color = Color.html("#f3f3f3")
-		style.border_width_left = 2
-		style.border_width_top = 2
-		style.border_width_right = 2
-		style.border_width_bottom = 2
-		style.border_color = Color.BLACK
-		style.corner_radius_top_left = 4
-		style.corner_radius_top_right = 4
-		style.corner_radius_bottom_left = 4
-		style.corner_radius_bottom_right = 4
-
-		square.add_theme_stylebox_override("panel", style)
-
-		var mark = Label.new()
-		mark.text = "✓" if completed_tasks.get(task.id, false) else ""
-		mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		mark.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		mark.anchor_right = 1.0
-		mark.anchor_bottom = 1.0
-		mark.offset_right = 0
-		mark.offset_bottom = 0
-		mark.add_theme_font_override("font", custom_font)
-		mark.add_theme_font_size_override("font_size", 28)
-		mark.add_theme_color_override("font_color", Color.BLACK)
-
-		square.add_child(mark)
-		check_bg.add_child(square)
+		row.add_theme_constant_override("separation", 10)
 
 		var label = Label.new()
 		label.text = task.text
@@ -81,8 +51,18 @@ func create_task_list() -> void:
 		if completed_tasks.get(task.id, false):
 			label.add_theme_color_override("font_color", Color(0.1, 0.1, 0.1))
 
-		row.add_child(check_bg)
 		row.add_child(label)
+
+		var mark = Label.new()
+		mark.text = "✓" if completed_tasks.get(task.id, false) else ""
+		mark.custom_minimum_size = Vector2(28, 0)
+		mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		mark.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		mark.add_theme_font_override("font", custom_font)
+		mark.add_theme_font_size_override("font_size", 32)
+		mark.add_theme_color_override("font_color", Color.BLACK)
+		row.add_child(mark)
+
 		tasks_container.add_child(row)
 
 func mark_task_completed(task_id: String) -> void:

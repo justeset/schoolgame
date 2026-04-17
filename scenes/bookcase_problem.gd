@@ -15,20 +15,45 @@ const CHAT_MESSAGES: Array[Dictionary] = [
 
 @onready var messages_container: VBoxContainer = $Panel/MainVBox/ChatMargin/ChatScroll/Messages
 @onready var solve_button: Button = $Panel/SolveButton
+@onready var back_bottom_button: Button = $Panel/BackBottom
+
+var _chat_running: bool = false
+var _skip_requested: bool = false
+
 
 func _ready() -> void:
+	set_process_unhandled_input(true)
 	# Важно: снимаем паузу при входе в сцену
 	get_tree().paused = false
 	
 	solve_button.visible = false
 	solve_button.disabled = true
+	back_bottom_button.visible = false
+	back_bottom_button.disabled = true
 	_play_chat()
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if back_bottom_button.visible and not back_bottom_button.disabled:
+			get_viewport().set_input_as_handled()
+			_on_back_bottom_pressed()
+		return
+	if not _chat_running:
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_SPACE or event.physical_keycode == KEY_SPACE:
+			_skip_requested = true
+			get_viewport().set_input_as_handled()
+
+
 func _play_chat() -> void:
+	_chat_running = true
+	_skip_requested = false
 	_clear_container(messages_container)
 
-	for data in CHAT_MESSAGES:
+	for i in range(CHAT_MESSAGES.size()):
+		var data: Dictionary = CHAT_MESSAGES[i]
 		var bubble := _make_bubble(data)
 		messages_container.add_child(bubble)
 
@@ -41,12 +66,43 @@ func _play_chat() -> void:
 		var tween := create_tween()
 		tween.tween_property(bubble, "modulate:a", 1.0, 0.3)
 		tween.play()
-		await tween.finished
+		while tween.is_running():
+			if _skip_requested:
+				tween.kill()
+				bubble.modulate.a = 1.0
+				break
+			await get_tree().process_frame
 
-		await get_tree().create_timer(delay_per_message_sec).timeout
+		if _skip_requested:
+			await _add_remaining_bubbles_instant(i + 1)
+			break
 
+		var wait_deadline_usec: int = Time.get_ticks_usec() + int(delay_per_message_sec * 1_000_000.0)
+		while Time.get_ticks_usec() < wait_deadline_usec:
+			if _skip_requested:
+				break
+			await get_tree().process_frame
+
+		if _skip_requested:
+			await _add_remaining_bubbles_instant(i + 1)
+			break
+
+	_chat_running = false
 	solve_button.visible = true
 	solve_button.disabled = false
+	back_bottom_button.visible = true
+	back_bottom_button.disabled = false
+
+
+func _add_remaining_bubbles_instant(from_index: int) -> void:
+	for j in range(from_index, CHAT_MESSAGES.size()):
+		var bubble := _make_bubble(CHAT_MESSAGES[j])
+		bubble.modulate.a = 1.0
+		messages_container.add_child(bubble)
+	await get_tree().process_frame
+	var scroll = $Panel/MainVBox/ChatMargin/ChatScroll as ScrollContainer
+	if scroll:
+		scroll.scroll_vertical = scroll.get_v_scroll_bar().max_value
 
 
 func _make_bubble(data: Dictionary) -> Control:
@@ -118,3 +174,8 @@ func _on_solve_button_pressed() -> void:
 	# Снимаем паузу перед переходом (на всякий случай)
 	get_tree().paused = false
 	get_tree().change_scene_to_file.bind("res://scenes/bookcase_challenge.tscn").call_deferred()
+
+
+func _on_back_bottom_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://levels/level_1.tscn")

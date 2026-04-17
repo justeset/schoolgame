@@ -16,6 +16,7 @@ var _pending: String = ""
 
 
 func _ready() -> void:
+	set_process_unhandled_input(true)
 	_http = HTTPRequest.new()
 	add_child(_http)
 	_http.request_completed.connect(_on_request_completed)
@@ -25,6 +26,12 @@ func _ready() -> void:
 		_tab.set_tab_title(0, "Вход")
 		_tab.set_tab_title(1, "Регистрация")
 	_refresh_status()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_on_back_button_pressed()
 
 
 func _refresh_status() -> void:

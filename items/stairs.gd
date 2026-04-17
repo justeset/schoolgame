@@ -19,6 +19,8 @@ const ARROW_BLUE := Color(0.55, 0.82, 1.0, 0.5)
 ## Размер рамки (должен совпадать с custom_minimum_size панели).
 const CHOICE_FRAME_SIZE := Vector2(52, 78)
 
+@onready var sprite: Sprite2D = $"БезНазвания14920260330112224_png"
+
 var _player_in: CharacterBody2D = null
 var _busy: bool = false
 var _e_prev: bool = false
@@ -59,11 +61,38 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		_close_stairs_dialog(_floor2_choice_layer)
+		return
+	if not (event is InputEventKey) or not event.pressed or event.echo:
+		return
+	var key_event := event as InputEventKey
+	var keycode := key_event.keycode
+	var physical_keycode := key_event.physical_keycode
+	var up_pressed := (
+		key_event.is_action_pressed("ui_up")
+		or keycode == KEY_UP
+		or physical_keycode == KEY_UP
+		or keycode == KEY_W
+		or physical_keycode == KEY_W
+	)
+	var down_pressed := (
+		key_event.is_action_pressed("ui_down")
+		or keycode == KEY_DOWN
+		or physical_keycode == KEY_DOWN
+		or keycode == KEY_S
+		or physical_keycode == KEY_S
+	)
+	if up_pressed:
+		get_viewport().set_input_as_handled()
+		_on_floor2_chose_up(_floor2_choice_layer)
+	elif down_pressed:
+		get_viewport().set_input_as_handled()
+		_on_floor2_chose_down(_floor2_choice_layer)
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
+	if body is CharacterBody2D and body.is_in_group("player"):
 		_player_in = body as CharacterBody2D
+		sprite.modulate = Color(1.3, 1.3, 1.3)
 
 
 func _on_body_exited(body: Node2D) -> void:
@@ -72,6 +101,7 @@ func _on_body_exited(body: Node2D) -> void:
 	if _floor2_choice_layer != null and is_instance_valid(_floor2_choice_layer):
 		_close_stairs_dialog(_floor2_choice_layer)
 	_player_in = null
+	sprite.modulate = Color(1.0, 1.0, 1.0)
 
 
 func _try_use_stairs() -> void:
