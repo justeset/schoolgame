@@ -1,6 +1,5 @@
-Скорость (после git pull на VPS)
-========================
-1) Обновить nginx:
+Скорость 
+1) Обновить nginx
    sudo cp ~/schoolgame/deploy/nginx-site.conf /etc/nginx/sites-available/pokemon-game.byred.fun
    sudo nginx -t && sudo systemctl reload nginx
 
@@ -11,3 +10,5 @@
 3) Пересобери Web в Godot и залей builds/web (пресет уже с for_mobile=true при необходимости).
 
 4) Максимум нагрузки: включи Cloudflare (оранжевое облако) + Cache Rules для *.wasm *.js *.pck — см. обсуждение в чате.
+
+Предупреждение nginx "protocol options redefined for 0.0.0.0:443" при нескольких vhost на одном IP — часто только warn; если всё работает, можно не трогать.
