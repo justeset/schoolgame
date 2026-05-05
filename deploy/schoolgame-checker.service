@@ -1,0 +1,13 @@
+[Unit]
+Description=Schoolgame code checker (FastAPI / uvicorn)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/schoolgame/checker
+ExecStart=/root/schoolgame/checker/venv/bin/uvicorn server:app --host 127.0.0.1 --port 8081
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

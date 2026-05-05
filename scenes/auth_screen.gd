@@ -1,7 +1,7 @@
 extends Control
 
 ## Базовый URL Go API.
-const API_BASE := "https://auth-aviz.onrender.com"
+const API_BASE := "https://pokemon-game.byred.fun"
 
 @onready var _tab: TabContainer = $CenterContainer/MainPanel/Margin/VBox/TabContainer
 @onready var _login_email: LineEdit = $CenterContainer/MainPanel/Margin/VBox/TabContainer/Login/LoginFields/EmailEdit

@@ -24,7 +24,7 @@ services:
 
   checker:
     build:
-      context: ./checker
+      context: ../checker
       dockerfile: Dockerfile
     ports:
       - "8081:8081"

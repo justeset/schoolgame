@@ -1,6 +1,6 @@
 extends Control
 
-const API_BASE := "https://schoolgame-64wq.onrender.com"
+const API_BASE := "https://pokemon-game.byred.fun"
 
 @onready var _name_edit: LineEdit = $CenterContainer/MainPanel/Margin/VBox/NameEdit
 @onready var _email_edit: LineEdit = $CenterContainer/MainPanel/Margin/VBox/EmailEdit

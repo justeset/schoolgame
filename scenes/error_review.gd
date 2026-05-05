@@ -4,8 +4,8 @@ const STATE_LIST := "list"
 const STATE_DRILL := "drill"
 const STATE_QUIZ := "quiz"
 const STATE_DONE := "done"
-const _DEFAULT_CHECKER_API_URL := "https://schoolgame-64wq.onrender.com"
-const _DEFAULT_APP_API_URL := "https://auth-aviz.onrender.com"
+const _DEFAULT_CHECKER_API_URL := "https://pokemon-game.byred.fun"
+const _DEFAULT_APP_API_URL := "https://pokemon-game.byred.fun"
 
 @onready var title_label: Label = $Card/VBox/Header/Title
 @onready var list_block: VBoxContainer = $Card/VBox/ListBlock

@@ -5,7 +5,7 @@ extends Node
 ## Доступ из других скриптов: TaskProgressSyncService.get_singleton() — см. [autoload] TaskProgressSync.
 ## База задач (API URL): переменная окружения SCHOOLGAME_API_BASE; по умолчанию прод-бэкенд.
 
-const _DEFAULT_API_BASE := "https://schoolgame-64wq.onrender.com"
+const _DEFAULT_API_BASE := "https://pokemon-game.byred.fun"
 
 var _api_base: String = _DEFAULT_API_BASE
 

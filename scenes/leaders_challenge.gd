@@ -1,8 +1,8 @@
 extends Panel
 
-const _DEFAULT_CHECKER_API_URL := "https://schoolgame-64wq.onrender.com"
+const _DEFAULT_CHECKER_API_URL := "https://pokemon-game.byred.fun"
 const _DEFAULT_AI_HINT_API_URL := "https://ai-hints-reguest.onrender.com"
-const _DEFAULT_APP_API_URL := "https://auth-aviz.onrender.com"
+const _DEFAULT_APP_API_URL := "https://pokemon-game.byred.fun"
 const GROQ_API_URL := "https://api.groq.com/openai/v1/chat/completions"
 const GROQ_MODEL := "llama-3.1-8b-instant"
 
